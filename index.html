@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AVIDAA GLOBAL -- Who Rules The World?</title>
+<style>
+:root{
+  --bg:#07090f;--bg2:#0d1117;--bg3:#161b22;--bg4:#1c2333;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --text:#e6edf3;--muted:#8b949e;--muted2:#6e7681;
+  --gold:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--blue:#3b82f6;
+  --pink:#ec4899;--gray:#6b7280;--green:#10b981;--orange:#f97316;
+  --teal:#2dd4bf;--cyan:#22d3ee;
+  --doc:#22c55e;--rep:#f59e0b;--unp:#ef4444;
+  --rl:10px;--font:'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:13px;overflow:hidden}
+
+/* SCANLINE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,100,.012) 2px,rgba(0,255,100,.012) 4px);pointer-events:none;z-index:9999}
+
+/* LAYOUT */
+#app{display:flex;flex-direction:column;height:100vh}
+
+/* HEADER */
+#hdr{background:var(--bg2);border-bottom:1px solid var(--border2);padding:0 1rem;height:44px;display:flex;align-items:center;gap:1rem;flex-shrink:0;position:relative;z-index:100}
+#hdr-logo{font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--gold);white-space:nowrap}
+#hdr-logo span{color:var(--muted)}
+#hdr-sub{font-size:10px;color:var(--muted);letter-spacing:.08em}
+#hdr-right{margin-left:auto;display:flex;align-items:center;gap:.75rem}
+#hdr-disclaimer{font-size:9px;color:var(--muted2);border:1px solid var(--border);padding:3px 8px;border-radius:4px;letter-spacing:.05em}
+
+/* NAV */
+#nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:2px;padding:0 .5rem;height:36px;flex-shrink:0;overflow-x:auto}
+#nav::-webkit-scrollbar{height:2px}
+#nav::-webkit-scrollbar-thumb{background:var(--border2)}
+.nav-btn{background:none;border:none;color:var(--muted);font-family:var(--font);font-size:10px;letter-spacing:.08em;padding:4px 10px;cursor:pointer;border-radius:4px;white-space:nowrap;transition:all .15s}
+.nav-btn:hover{color:var(--text);background:var(--bg3)}
+.nav-btn.active{color:var(--gold);background:rgba(245,158,11,.1);border-bottom:2px solid var(--gold)}
+
+/* MAIN */
+#main{flex:1;overflow:hidden;position:relative}
+.page{position:absolute;inset:0;overflow-y:auto;padding:1.5rem;display:none}
+.page.active{display:block}
+.page::-webkit-scrollbar{width:4px}
+.page::-webkit-scrollbar-thumb{background:var(--border2)}
+
+/* SECTION HEADERS */
+.sec{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.sec.gold{color:var(--gold)}
+.sec.red{color:var(--red)}
+.sec.purple{color:var(--purple)}
+.sec.blue{color:var(--blue)}
+.sec.teal{color:var(--teal)}
+
+/* DISCLAIMER BAR */
+.disclaimer{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:var(--rl);padding:.75rem 1rem;margin-bottom:1.5rem;font-size:10px;color:var(--muted);line-height:1.6;letter-spacing:.03em}
+.disclaimer strong{color:var(--gold)}
+
+/* STATUS BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;letter-spacing:.06em;padding:2px 6px;border-radius:3px;font-weight:700}
+.badge.doc{background:rgba(34,197,94,.12);color:var(--doc);border:1px solid rgba(34,197,94,.2)}
+.badge.rep{background:rgba(245,158,11,.12);color:var(--rep);border:1px solid rgba(245,158,11,.2)}
+.badge.unp{background:rgba(239,68,68,.12);color:var(--unp);border:1px solid rgba(239,68,68,.2)}
+
+/* TIER CARDS */
+.tier-block{margin-bottom:2rem}
+.tier-header{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.tier-label{font-size:9px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:3px}
+.tier-title{font-size:12px;font-weight:700;letter-spacing:.08em}
+.actor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem}
+.actor-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.9rem;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.actor-card:hover{border-color:var(--border2);background:var(--bg3);transform:translateY(-1px)}
+.actor-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.ac-name{font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:3px}
+.ac-role{font-size:10px;color:var(--muted);margin-bottom:.5rem}
+.ac-metric{font-size:10px;color:var(--text);background:var(--bg3);padding:4px 8px;border-radius:4px;margin-bottom:.5rem;line-height:1.4}
+.ac-source{font-size:9px;color:var(--muted2)}
+.ac-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:.5rem}
+.ac-tag{font-size:8px;letter-spacing:.05em;padding:2px 5px;background:var(--bg4);border-radius:3px;color:var(--muted)}
+.ac-connections{font-size:9px;color:var(--muted2);margin-top:.4rem}
+
+/* PROFILE MODAL */
+#modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+#modal-overlay.open{display:flex}
+#modal{background:var(--bg2);border:1px solid var(--border2);border-radius:12px;max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:1.5rem;position:relative}
+#modal::-webkit-scrollbar{width:4px}
+#modal::-webkit-scrollbar-thumb{background:var(--border2)}
+#modal-close{position:absolute;top:1rem;right:1rem;background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer}
+#modal-close:hover{color:var(--text)}
+.modal-name{font-size:16px;font-weight:700;letter-spacing:.06em;margin-bottom:.25rem}
+.modal-role{font-size:11px;color:var(--muted);margin-bottom:1rem}
+.modal-section{margin-bottom:1rem}
+.modal-section-title{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:.4rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
+.modal-metric{font-size:11px;background:var(--bg3);padding:.6rem .8rem;border-radius:6px;line-height:1.5}
+.event-row{display:flex;gap:.75rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:10px}
+.event-date{color:var(--gold);width:40px;flex-shrink:0;font-weight:700}
+.event-text{color:var(--muted);line-height:1.4}
+.money-trail{background:var(--bg3);border-radius:6px;padding:.6rem .8rem;font-size:10px;line-height:1.6;color:var(--muted);margin-bottom:.4rem}
+.money-trail strong{color:var(--text)}
+.money-source{font-size:9px;color:var(--muted2);margin-top:.25rem}
+.connections-list{display:flex;gap:.4rem;flex-wrap:wrap}
+.conn-chip{font-size:9px;padding:2px 7px;background:var(--bg4);border:1px solid var(--border);border-radius:3px;color:var(--muted);cursor:pointer}
+.conn-chip:hover{color:var(--text);border-color:var(--border2)}
+
+/* PYRAMID PAGE */
+#pyramid-canvas{width:100%;height:420px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;margin-bottom:1rem}
+#pyramid-svg{width:100%;height:100%}
+.pyramid-node{cursor:pointer;transition:all .2s}
+.pyramid-node:hover rect{filter:brightness(1.3)}
+.pyramid-node text{pointer-events:none;font-family:var(--font);font-size:9px;font-weight:700;letter-spacing:.05em}
+.pyramid-edge{stroke:rgba(255,255,255,.1);stroke-width:1;fill:none}
+#pyramid-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.leg-item{display:flex;align-items:center;gap:.4rem;font-size:9px;color:var(--muted)}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* TIMELINE PAGE */
+.tl-item{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.tl-date{color:var(--gold);font-weight:700;font-size:10px;width:60px;flex-shrink:0;padding-top:2px}
+.tl-body{}
+.tl-title{font-size:11px;font-weight:700;margin-bottom:3px}
+.tl-desc{font-size:10px;color:var(--muted);line-height:1.5}
+.tl-src{font-size:9px;color:var(--muted2);margin-top:.25rem}
+
+/* MONEY PAGE */
+.trail-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:.75rem}
+.trail-title{font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:.6rem;color:var(--gold)}
+.trail-flow{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem}
+.trail-actor{background:var(--bg3);border:1px solid var(--border2);padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.trail-arrow{color:var(--muted2);font-size:11px}
+.trail-label{font-size:9px;color:var(--muted);font-style:italic}
+.trail-source{font-size:9px;color:var(--muted2);border-top:1px solid var(--border);padding-top:.4rem;margin-top:.4rem}
+
+/* MEDIA PAGE */
+.media-owner{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:.75rem}
+.media-owner-name{font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:.5rem}
+.media-outlet{display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border);font-size:10px}
+.media-outlet:last-child{border-bottom:none}
+.media-outlet-name{font-weight:700;width:160px}
+.media-outlet-type{font-size:9px;color:var(--muted);background:var(--bg3);padding:2px 6px;border-radius:3px}
+.media-outlet-note{font-size:9px;color:var(--muted2);margin-left:auto}
+
+/* SOURCES PAGE */
+.src-row{display:flex;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:10px;align-items:flex-start}
+.src-actor{color:var(--gold);width:140px;flex-shrink:0;font-weight:700;padding-top:1px}
+.src-doc{flex:1;line-height:1.4}
+.src-link{color:var(--blue);text-decoration:none;font-size:9px;display:block;margin-top:2px}
+.src-link:hover{text-decoration:underline}
+.src-date{color:var(--muted2);font-size:9px;width:70px;flex-shrink:0;padding-top:1px}
+
+/* HOME PAGE */
+.home-hero{text-align:center;padding:2rem 0 1.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.home-title{font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
+.home-sub{font-size:11px;color:var(--muted);letter-spacing:.08em;margin-bottom:1rem}
+.home-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;max-width:700px;margin:0 auto}
+.home-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.75rem;text-align:center}
+.home-stat-n{font-size:18px;font-weight:700;color:var(--gold)}
+.home-stat-l{font-size:9px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.how-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.9rem}
+.how-icon{font-size:18px;margin-bottom:.4rem}
+.how-title{font-size:10px;font-weight:700;letter-spacing:.06em;margin-bottom:.25rem}
+.how-desc{font-size:9px;color:var(--muted);line-height:1.5}
+
+/* CRYPTO PAGE */
+.crypto-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:.75rem}
+.crypto-name{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:.25rem}
+.crypto-role{font-size:10px;color:var(--muted);margin-bottom:.75rem}
+.crypto-facts{display:grid;gap:.4rem}
+.crypto-fact{display:flex;gap:.75rem;font-size:10px;padding:.3rem 0;border-bottom:1px solid var(--border)}
+.crypto-fact:last-child{border-bottom:none}
+.cf-label{color:var(--muted2);width:120px;flex-shrink:0}
+.cf-val{color:var(--text);flex:1}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .actor-grid{grid-template-columns:1fr}
+  .home-stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<div id="hdr">
+  <div id="hdr-logo">AVIDAA <span>*</span> GLOBAL</div>
+  <div id="hdr-sub">WHO RULES THE WORLD?</div>
+  <div id="hdr-right">
+    <div id="hdr-disclaimer">EDUCATIONAL &middot; PUBLIC RECORD ONLY &middot; NO ORIGINAL CLAIMS</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <button class="nav-btn active" onclick="go('home',this)">&#x2302; HOME</button>
+  <button class="nav-btn" onclick="go('pyramid',this)">&#x25B2; PYRAMID</button>
+  <button class="nav-btn" onclick="go('profiles',this)">&#x25C8; PROFILES</button>
+  <button class="nav-btn" onclick="go('timeline',this)">&#x25F7; TIMELINE</button>
+  <button class="nav-btn" onclick="go('money',this)">$ MONEY TRAILS</button>
+  <button class="nav-btn" onclick="go('media',this)">&#x25C9; MEDIA</button>
+  <button class="nav-btn" onclick="go('crypto',this)">&#x20BF; CRYPTO</button>
+  <button class="nav-btn" onclick="go('sources',this)">* SOURCES</button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="home-title">WHO RULES THE WORLD?</div>
+    <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
+    <div class="home-stats">
+      <div class="home-stat"><div class="home-stat-n">60+</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat"><div class="home-stat-n">7</div><div class="home-stat-l">POWER TIERS</div></div>
+      <div class="home-stat"><div class="home-stat-n">$40T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
+      <div class="home-stat"><div class="home-stat-n">100%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
+    </div>
+  </div>
+  <div class="disclaimer">
+    <strong>DISCLAIMER</strong> -- This page presents information sourced exclusively from public records, declassified documents, court filings, SEC/Companies House filings, congressional testimony, and verified journalism. No original claims are made. AVIDAA is an independent knowledge platform with no political affiliation, no funding from any government or private entity, and no agenda beyond education. Documented facts (<span class="badge doc">&#x2713; DOCUMENTED</span>) and unproven allegations (<span class="badge unp">&#x2717; UNPROVEN</span>) are always explicitly separated.
+  </div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-icon">&#x25B2;</div><div class="how-title">THE PYRAMID</div><div class="how-desc">Interactive hierarchy from apex institutions down to crypto shadow networks. Click any node to open the full profile.</div></div>
+    <div class="how-card"><div class="how-icon">&#x25C8;</div><div class="how-title">PROFILES</div><div class="how-desc">Deep-dive cards on every actor -- verified metrics, documented events, connections, and money trails.</div></div>
+    <div class="how-card"><div class="how-icon">$</div><div class="how-title">FOLLOW THE MONEY</div><div class="how-desc">Documented financial flows from source to destination. Every trail cites the primary record.</div></div>
+    <div class="how-card"><div class="how-icon">&#x25C9;</div><div class="how-title">MEDIA OWNERSHIP</div><div class="how-desc">Who owns the information? Full ownership chains for major Western news and media outlets.</div></div>
+  </div>
+  <div class="disclaimer" style="margin-top:0">
+    <strong>STATUS KEY</strong> -- <span class="badge doc">&#x2713; DOCUMENTED</span> = court filing, SEC, FOIA, or official record &nbsp;&middot;&nbsp; <span class="badge rep">&#x26A0; REPORTED</span> = named journalist, verified outlet, dated &nbsp;&middot;&nbsp; <span class="badge unp">&#x2717; UNPROVEN</span> = allegation with no documentary evidence &middot; All unproven claims are included for completeness and clearly labeled -- not endorsed.
+  </div>
+</div>
+
+<!-- PYRAMID -->
+<div class="page" id="page-pyramid">
+  <div class="sec gold">&#x25B2; POWER HIERARCHY -- APEX TO BASE</div>
+  <div class="disclaimer">Click any node to open the full profile. Connections show documented relationships only.</div>
+  <div id="pyramid-legend"></div>
+  <div id="pyramid-canvas"><svg id="pyramid-svg" viewBox="0 0 900 560" preserveAspectRatio="xMidYMid meet"></svg></div>
+  <div id="pyramid-info" style="font-size:10px;color:var(--muted);text-align:center;margin-top:.5rem"><- Select a node to view profile</div>
+</div>
+
+<!-- PROFILES -->
+<div class="page" id="page-profiles">
+  <div class="sec gold">&#x25C8; ACTOR PROFILES -- ALL TIERS</div>
+  <div class="disclaimer">All data sourced from primary documents. Click any card to expand full profile with events and connections.</div>
+  <div id="profiles-container"></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="page" id="page-timeline">
+  <div class="sec gold">&#x25F7; KEY EVENTS -- CHRONOLOGICAL</div>
+  <div class="disclaimer">Documented events only. Sources cited inline.</div>
+  <div id="timeline-container"></div>
+</div>
+
+<!-- MONEY TRAILS -->
+<div class="page" id="page-money">
+  <div class="sec gold">$ FOLLOW THE MONEY -- DOCUMENTED TRAILS</div>
+  <div class="disclaimer">Financial flows sourced from court documents, SEC filings, and verified journalism.</div>
+  <div id="money-container"></div>
+</div>
+
+<!-- MEDIA -->
+<div class="page" id="page-media">
+  <div class="sec gold">&#x25C9; MEDIA OWNERSHIP CHAINS</div>
+  <div class="disclaimer">Ownership verified via SEC filings, Companies House, and verified journalism. As of 2025-2026.</div>
+  <div id="media-container"></div>
+</div>
+
+<!-- CRYPTO -->
+<div class="page" id="page-crypto">
+  <div class="sec gold">&#x20BF; CRYPTO / FINANCIAL SHADOW</div>
+  <div class="disclaimer">Documented legal proceedings, regulatory actions, and verified reporting only.</div>
+  <div id="crypto-container"></div>
+</div>
+
+<!-- SOURCES -->
+<div class="page" id="page-sources">
+  <div class="sec gold">* PRIMARY SOURCES</div>
+  <div class="disclaimer">All primary sources used across this page. Sorted by actor.</div>
+  <div id="sources-container"></div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- MODAL -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <button id="modal-close" onclick="closeModal()">&#x2715; CLOSE</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SFX STUB
+// ============================================================
+const SFX={click:()=>{}};
+
+// ============================================================
+// DATA
+// ============================================================
+const TIER_META={
+  0:{label:'TIER 0',title:'APEX COORDINATION',color:'#f59e0b'},
+  1:{label:'TIER 1',title:'DYNASTIC WEALTH',color:'#ef4444'},
+  '1b':{label:'TIER 1B',title:'SOVEREIGN NON-STATE',color:'#dc2626'},
+  2:{label:'TIER 2',title:'INSTITUTIONAL POWER',color:'#8b5cf6'},
+  '2b':{label:'TIER 2B',title:'POLITICAL OPERATORS',color:'#7c3aed'},
+  3:{label:'TIER 3',title:'TECH / AI ELITE',color:'#3b82f6'},
+  '3b':{label:'TIER 3B',title:'BIG PHARMA',color:'#06b6d4'},
+  4:{label:'TIER 4',title:'EPSTEIN NETWORK',color:'#ec4899'},
+  '4b':{label:'TIER 4B',title:'ROYAL FAMILIES',color:'#be185d'},
+  5:{label:'TIER 5',title:'WAR ECONOMY',color:'#6b7280'},
+  6:{label:'TIER 6',title:'POLITICAL POWER',color:'#10b981'},
+  7:{label:'TIER 7',title:'CRYPTO SHADOW',color:'#f97316'},
+};
+
+const ACTORS=[
+  // TIER 0
+  {id:'bis',tier:0,name:'Bank for International Settlements',role:'Central bank for central banks',metric:'63 member central banks &middot; Basel HQ &middot; Founded 17 May 1930',source:'bis.org/about/member_cb.htm',date:'2025',status:'doc',
+   connections:['fed','rothschild','rockefeller','warburg'],tags:['banking','apex','international'],
+   events:[
+     {date:'1930',event:'Founded under the Hague Agreement to administer German WWI reparations (Young Plan)'},
+     {date:'2001',event:'Mandatory buyback of all private shares at Jan 2001 Extraordinary GM -- BIS now owned exclusively by central banks'},
+     {date:'2003',event:'Hague Arbitral Tribunal ordered additional CHF 9,052.90/share to former private holders'},
+   ],
+   money:[{from:'Central Banks',arrow:'fund',to:'BIS',label:'Member contributions',source:'BIS Annual Report'}],
+   detail:'The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records.'
+  },
+  {id:'bilderberg',tier:0,name:'Bilderberg Group',role:'Annual private conference of Western elites',metric:'~130 attendees per year &middot; Founded 1954 &middot; Chatham House Rule',source:'bilderbergmeetings.org',date:'2025',status:'doc',
+   connections:['cfr','trilateral','wef','rockefeller','kissinger'],tags:['politics','apex','secretive'],
+   events:[
+     {date:'1954-05-29',event:'First conference at Hotel de Bilderberg, Oosterbeek, Netherlands'},
+     {date:'1976',event:'Founder Prince Bernhard resigned as chair amid Lockheed bribery scandal'},
+     {date:'2025-06-12',event:'71st meeting held in Stockholm, Sweden'},
+   ],
+   money:[],
+   detail:'Operates under Chatham House Rule. Issues no resolutions, votes, or communiqu&eacute;s. Steering Committee has two members per ~18 nations. Documented overlap with CFR, Trilateral Commission, and WEF membership.'
+  },
+  {id:'cfr',tier:0,name:'Council on Foreign Relations',role:'US foreign policy think tank and membership org',metric:'~5,000 members &middot; Founded 1921 &middot; Publisher of Foreign Affairs',source:'cfr.org',date:'2025',status:'doc',
+   connections:['bilderberg','trilateral','rockefeller','kissinger','gates','bezos'],tags:['policy','apex','usa'],
+   events:[
+     {date:'1921-07-29',event:'CFR incorporated; first honorary president Elihu Root'},
+     {date:'1922',event:'Foreign Affairs journal first published'},
+     {date:'1973',event:'David Rockefeller founds Trilateral Commission after Bilderberg declined to admit Japanese members'},
+   ],
+   money:[],
+   detail:'Documented revolving-door overlap with successive US administrations across both parties. The Rockefeller family has been deeply involved since founding.'
+  },
+  {id:'trilateral',tier:0,name:'Trilateral Commission',role:'Policy coordination body -- North America, Europe, Asia-Pacific',metric:'~400 members &middot; Founded July 1973 &middot; Archives: Rockefeller Archive Center',source:'Rockefeller Archive Center',date:'2025',status:'doc',
+   connections:['cfr','bilderberg','rockefeller','kissinger','wef'],tags:['policy','apex','international'],
+   events:[
+     {date:'1973-07',event:'Founded by David Rockefeller and Zbigniew Brzezinski after Bilderberg declined Japanese members'},
+     {date:'1977',event:'Carter, Mondale, Vance, Brzezinski -- all Trilateral members -- take key US government posts'},
+     {date:'2009',event:'Japan group expanded to Asia-Pacific to include China and India'},
+   ],
+   money:[],
+   detail:'Members must resign upon taking government office. Documented agenda overlap with G7/G8 summits. Original records held at Rockefeller Archive Center.'
+  },
+  {id:'wef',tier:0,name:'World Economic Forum (Davos)',role:'Global elite forum &middot; Young Global Leaders pipeline',metric:'Annual Davos meeting &middot; YGL program launched 2004 &middot; 1,400+ alumni',source:'weforum.org',date:'2025',status:'doc',
+   connections:['bilderberg','cfr','gates','musk','zuckerberg','altman','schwab'],tags:['policy','apex','international'],
+   events:[
+     {date:'1971',event:'Founded by Klaus Schwab as European Management Forum'},
+     {date:'1987',event:'Renamed World Economic Forum'},
+     {date:'2004',event:'Forum of Young Global Leaders launched (precursor Global Leaders for Tomorrow from 1992)'},
+     {date:'2020-07',event:'The Great Reset published -- documented Schwab/WEF publication'},
+     {date:'2025',event:'Klaus Schwab retired from leadership roles'},
+   ],
+   money:[],
+   detail:'Schwab stated in 2017 at Harvard Kennedy School: "we penetrate the cabinets." Documented YGL graduates include Merkel, Blair, Sarkozy, Macron, Ardern, Freeland, Newsom. Putin-as-YGL claim is FALSE -- Schwab was mistaken.'
+  },
+
+  // TIER 1
+  {id:'rothschild',tier:1,name:'Rothschild Family',role:'Dynastic banking empire',metric:'RIT Capital Partners ~&pound;4B AUM &middot; Rothschild & Co (Paris-listed)',source:'ritcap.com Annual Report 2024',date:'2024',status:'doc',
+   connections:['bis','cfr','fed'],tags:['banking','dynasty','finance'],
+   events:[
+     {date:'1760s',event:'Mayer Amschel Rothschild establishes banking house in Frankfurt'},
+     {date:'1971',event:'RIT Capital Partners founded (Rothschild Investment Trust) -- FTSE 250'},
+     {date:'2024',event:'RIT Annual Report discloses direct investment in SpaceX'},
+   ],
+   money:[],
+   detail:'Documented vehicles: RIT Capital Partners plc (FTSE 250), Rothschild & Co (Paris-listed merchant bank), N M Rothschild & Sons. Dame Hannah Rothschild serves on the RIT board. No mythology -- all documented via public filings.'
+  },
+  {id:'rockefeller',tier:1,name:'Rockefeller Family',role:'Dynastic wealth &middot; CFR founders &middot; Federal Reserve architects',metric:'Rockefeller Foundation &middot; Chase Manhattan (merged JPMorgan 2000)',source:'Rockefeller Archive Center',date:'2025',status:'doc',
+   connections:['cfr','trilateral','bis','fed','warburg'],tags:['banking','dynasty','oil'],
+   events:[
+     {date:'1870',event:'Standard Oil Company founded by John D. Rockefeller'},
+     {date:'1911',event:'Standard Oil broken up by US Supreme Court antitrust ruling'},
+     {date:'1913',event:'David Rockefeller Sr. grandfather among key figures in Federal Reserve Act lobbying'},
+     {date:'1921',event:'CFR co-founded with Rockefeller family involvement'},
+     {date:'1973',event:'David Rockefeller founds Trilateral Commission'},
+   ],
+   money:[],
+   detail:'The Rockefeller family has been the single most documented force behind the CFR and Trilateral Commission. Chase Manhattan Bank merged with JPMorgan in 2000.'
+  },
+  {id:'warburg',tier:1,name:'Warburg Family',role:'Federal Reserve architects &middot; Kuhn Loeb & Co',metric:'Paul Warburg: first Federal Reserve Board member 1914',source:'Federal Reserve History / federalreservehistory.org',date:'1914',status:'doc',
+   connections:['fed','rockefeller','morgan','rothschild'],tags:['banking','dynasty','fed'],
+   events:[
+     {date:'1910-11',event:'Paul Warburg among six men at secret Jekyll Island meeting that drafted the Aldrich Plan (basis of Federal Reserve Act)'},
+     {date:'1913-12-23',event:'Federal Reserve Act signed into law'},
+     {date:'1914',event:'Paul Warburg appointed to the first Federal Reserve Board'},
+   ],
+   money:[],
+   detail:'The Jekyll Island meeting is fully documented by Federal Reserve History and confirmed by participants in the 1930s. Warburg was a partner at Kuhn, Loeb & Co.'
+  },
+  {id:'morgan',tier:1,name:'Morgan Family / JPMorgan',role:'US banking dynasty &middot; Federal Reserve co-architects',metric:'JPMorgan Chase: largest US bank by assets (~$3.9T)',source:'JPMorgan Chase Annual Report 2024',date:'2024',status:'doc',
+   connections:['fed','warburg','rockefeller','bis'],tags:['banking','dynasty','finance'],
+   events:[
+     {date:'1895',event:'J.P. Morgan rescues US gold reserve with $65M bond issue'},
+     {date:'1910-11',event:'Henry Davison (JPMorgan) at Jekyll Island drafting Federal Reserve Act'},
+     {date:'1913',event:'Federal Reserve Act signed -- Morgan network central to design'},
+     {date:'2000',event:'Chase Manhattan merges with JPMorgan Chase'},
+   ],
+   money:[],
+   detail:'Henry Davison of J.P. Morgan was one of six men at the secret Jekyll Island meeting. JPMorgan Chase is today the largest US bank by assets.'
+  },
+
+  // TIER 1B
+  {id:'vatican',tier:'1b',name:'Vatican / Holy See',role:'Sovereign state &middot; IOR Bank &middot; Global diplomatic network',metric:'IOR: &euro;5.7B client assets &middot; Net profit &euro;32.8M (2024 Annual Report)',source:'IOR Annual Report 2024 (published June 2025)',date:'2024',status:'doc',
+   connections:['p2','calvi'],tags:['religion','sovereign','finance'],
+   events:[
+     {date:'1929-02-11',event:'Lateran Treaty -- Vatican becomes sovereign state'},
+     {date:'1942',event:'IOR (Vatican Bank) founded by Pope Pius XII'},
+     {date:'1982-06-18',event:'Roberto Calvi ("God\'s Banker") found hanging beneath Blackfriars Bridge, London'},
+     {date:'1981',event:'P2 Masonic lodge exposed -- Vatican/IOR links documented in Italian parliamentary investigation'},
+     {date:'2002',event:'Italian forensic review rules Calvi death a homicide (not suicide)'},
+   ],
+   money:[{from:'IOR',arrow:'channeled',to:'Banco Ambrosiano',label:'~$1.3B (1982)',source:'Italian Parliamentary Investigation / World Finance'}],
+   detail:'Holy See: UN Permanent Observer State since 1964. IOR serves 12,000+ clients in 110+ countries. The Calvi case linked IOR to the P2 Masonic lodge and organized crime -- documented in Italian court proceedings.'
+  },
+
+  // TIER 2
+  {id:'fed',tier:2,name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241',date:'2025',status:'doc',
+   connections:['bis','blackrock','vanguard','jpmorgan','warburg','rockefeller'],tags:['banking','finance','usa'],
+   events:[
+     {date:'1913-12-23',event:'Federal Reserve Act signed by President Wilson'},
+     {date:'1914',event:'Federal Reserve begins operations with Paul Warburg on first board'},
+     {date:'1982',event:'Lewis v. United States (9th Cir.) -- called Reserve Banks "privately owned" only for FTCA purposes'},
+     {date:'2015',event:'FAST Act caps member bank dividend at 6% statutory rate'},
+   ],
+   money:[],
+   detail:'CORRECTIVE: The "privately owned" claim is refuted by law. The Board of Governors is a federal agency. Members receive a fixed 6% dividend (statutory, not market-rate) and have no control over monetary policy. All profits beyond a surplus cap go to the US Treasury.'
+  },
+  {id:'blackrock',tier:2,name:'BlackRock',role:'World\'s largest asset manager',metric:'$14.0T AUM (Dec 2025) &middot; CEO Larry Fink &middot; Aladdin risk system',source:'SEC Form ARS FY2025',date:'2025-12-31',status:'doc',
+   connections:['vanguard','statestreet','fed','gates','bezos'],tags:['finance','investment','institutional'],
+   events:[
+     {date:'1988',event:'BlackRock founded by Larry Fink and 7 partners'},
+     {date:'2009',event:'Acquired Barclays Global Investors -- becomes world\'s largest asset manager'},
+     {date:'2017',event:'Fichtner et al. study: Big Three are largest shareholder in 88% of S&P 500'},
+     {date:'2024-10',event:'Acquired Global Infrastructure Partners'},
+     {date:'2025-07',event:'Acquired HPS Investment Partners'},
+   ],
+   money:[],
+   detail:'Aladdin risk-management system used by central banks, sovereign wealth funds, and pension funds worldwide. ACADEMIC NOTE: Fichtner/Heemskerk (2017) -- Big Three cast ~25% of S&P 500 votes. They are fiduciaries, not beneficial owners.'
+  },
+  {id:'vanguard',tier:2,name:'Vanguard',role:'Second-largest asset manager &middot; Unique mutual ownership',metric:'$11.6T AUM (Sep 2025) &middot; Owned by its own funds/shareholders',source:'Vanguard/AdvRatings 2025',date:'2025-09-30',status:'doc',
+   connections:['blackrock','statestreet'],tags:['finance','investment','institutional'],
+   events:[
+     {date:'1975',event:'Founded by John Bogle -- first index mutual fund'},
+     {date:'1976',event:'Vanguard 500 Index Fund launched -- pioneer of passive investing'},
+     {date:'2025',event:'AUM reaches $11.6T -- second only to BlackRock'},
+   ],
+   money:[],
+   detail:'Vanguard has no public stock -- owned by its own member funds, which are owned by fund shareholders. This mutual structure is unique among major asset managers.'
+  },
+  {id:'statestreet',tier:2,name:'State Street',role:'Third of the Big Three asset managers',metric:'~$4.3T AUM (Q1 2024)',source:'State Street Q1 2024 earnings',date:'2024',status:'doc',
+   connections:['blackrock','vanguard'],tags:['finance','investment','institutional'],
+   events:[
+     {date:'1792',event:'State Street Bank & Trust founded in Boston'},
+     {date:'2017',event:'Fichtner et al. identify Big Three as dominant institutional shareholders in S&P 500'},
+   ],
+   money:[],
+   detail:'Big Three combined: largest shareholder in 88% of S&P 500 (Fichtner 2017). Bebchuk & Hirst (2019): collectively cast ~25% of S&P 500 votes. Harvard\'s John Coates (2023): "The Problem of Twelve."'
+  },
+
+  // TIER 2B
+  {id:'soros',tier:'2b',name:'George Soros',role:'Investor &middot; Open Society Foundations &middot; Political donor',metric:'$32B+ donated since 1984 &middot; $128.5M to Democrats in 2022 midterms',source:'OpenSecrets/FEC &middot; OSF factsheet 2023',date:'2022',status:'doc',
+   connections:['opensociety','wef','clinton'],tags:['finance','philanthropy','politics'],
+   events:[
+     {date:'1992-09-16',event:'Black Wednesday -- Soros profits ~$1B shorting British pound; Bank of England forced out of ERM'},
+     {date:'2002',event:'Convicted of insider trading in France (Soci&eacute;t&eacute; G&eacute;n&eacute;rale shares, ~$2.28M gain)'},
+     {date:'2011',event:'European Court of Human Rights upholds 2002 French conviction'},
+     {date:'2017',event:'Transfers $18B to Open Society Foundations'},
+     {date:'2022',event:'Largest individual donor in US midterms -- $128,485,971 to Democrats (FEC)'},
+   ],
+   money:[{from:'Soros',arrow:'donated',to:'Open Society Foundations',label:'$32B+ (1984-2023)',source:'OSF factsheet 2023'},{from:'Soros',arrow:'donated',to:'Democracy PAC II',label:'$128.5M (2022 midterms)',source:'OpenSecrets/FEC'}],
+   detail:'ANTIFA CORRECTIVE: No documented evidence Soros funds "Antifa" -- PolitiFact, ADL, FactCheck.org found no traceable funding. OSF funding of progressive NGOs is documented; direct Antifa funding is NOT.'
+  },
+  {id:'koch',tier:'2b',name:'Koch Network',role:'Conservative political donor network',metric:'$889M budget for 2016 election cycle',source:'Reuters Jan 2015',date:'2016',status:'doc',
+   connections:['cfr','bilderberg'],tags:['politics','philanthropy','usa'],
+   events:[
+     {date:'2004',event:'Americans for Prosperity (AFP) founded by Koch brothers'},
+     {date:'2015-01',event:'Koch network announces $889M budget for 2016 cycle'},
+     {date:'2019',event:'Charles Koch becomes sole leader after David Koch\'s death'},
+   ],
+   money:[],
+   detail:'Koch network funds Americans for Prosperity, Cato Institute, Mercatus Center, and numerous state-level policy organizations. Documented via FEC filings and IRS 990 forms.'
+  },
+  {id:'kissinger',tier:'2b',name:'Kissinger Associates',role:'International consulting firm &middot; Former Secretary of State',metric:'Founded 1982 &middot; Clients include major multinationals',source:'Kissinger Associates disclosures',date:'2023',status:'doc',
+   connections:['cfr','bilderberg','trilateral','rockefeller'],tags:['politics','consulting','international'],
+   events:[
+     {date:'1969',event:'Henry Kissinger becomes National Security Advisor to Nixon'},
+     {date:'1973',event:'Nobel Peace Prize for Vietnam ceasefire'},
+     {date:'1982',event:'Kissinger Associates founded after leaving government'},
+     {date:'2023-11-29',event:'Henry Kissinger dies age 100'},
+   ],
+   money:[],
+   detail:'Kissinger Associates clients have included major banks, oil companies, and industrial conglomerates. Kissinger was a Bilderberg steering committee member and CFR member.'
+  },
+
+  // TIER 3 -- TECH/AI ELITE
+  {id:'gates',tier:3,name:'Bill Gates',role:'Microsoft co-founder &middot; Gates Foundation &middot; Largest US farmland owner',metric:'275,000 acres US farmland &middot; $4B to WHO (2010-2023) &middot; Net worth ~$108B',source:'Land Report 2025 &middot; PubMed PMC12581034',date:'2025',status:'doc',
+   connections:['wef','epstein','gavi','who','microsoft'],tags:['tech','philanthropy','health'],
+   events:[
+     {date:'1975',event:'Microsoft founded with Paul Allen'},
+     {date:'1998',event:'DOJ files antitrust suit -- US v. Microsoft'},
+     {date:'2001',event:'D.C. Circuit rules Microsoft violated Sherman Act'},
+     {date:'2000',event:'Bill & Melinda Gates Foundation established'},
+     {date:'2011',event:'First documented meeting with Jeffrey Epstein (post-conviction) -- NYT Oct 2019'},
+     {date:'2019',event:'Gates acknowledges Epstein meetings were "a mistake in judgement"'},
+     {date:'2024',event:'Gates Foundation: second-largest WHO funder at $4B (2010-2023)'},
+   ],
+   money:[{from:'Gates Foundation',arrow:'donated',to:'WHO',label:'$4.0B (2010-2023)',source:'PubMed PMC12581034'},{from:'Gates Foundation',arrow:'donated',to:'GAVI',label:'$7.7B+ (1999-2024)',source:'CIDRAP'}],
+   detail:'EPSTEIN CORRECTIVE: Documented meetings from 2011 onward (post-conviction). Viral "17 island visits" claim is FALSE -- flight logs show one flight to Palm Beach. No documented criminal association.'
+  },
+  {id:'musk',tier:3,name:'Elon Musk',role:'Tesla &middot; SpaceX &middot; X &middot; xAI &middot; DOGE',metric:'$38B+ in US government contracts/subsidies &middot; Net worth ~$300B+',source:'Washington Post analysis Feb 2025',date:'2025-02-18',status:'doc',
+   connections:['wef','thiel','altman','trump','spacex'],tags:['tech','ai','politics'],
+   events:[
+     {date:'2002',event:'SpaceX founded'},
+     {date:'2003',event:'Tesla Motors co-founded'},
+     {date:'2022-10',event:'Acquires Twitter for $44B; renames to X'},
+     {date:'2023',event:'xAI founded'},
+     {date:'2024',event:'Donates $288M to Trump/Republican campaigns -- FEC'},
+     {date:'2025',event:'Leads DOGE (Department of Government Efficiency) advisory role'},
+   ],
+   money:[{from:'US Government',arrow:'contracts/subsidies',to:'SpaceX/Tesla',label:'$38B+ (2003-2025)',source:'Washington Post / USAspending.gov'}],
+   detail:'SpaceX President Gwynne Shotwell: "We bid it. We were the lowest price -- best bidder." Musk holds no security clearance per public record as of 2025.'
+  },
+  {id:'bezos',tier:3,name:'Jeff Bezos',role:'Amazon &middot; Blue Origin &middot; Washington Post',metric:'Amazon AWS: CIA C2S contract 2013 ~$600M &middot; Net worth ~$200B+',source:'FedScoop / Washington Post',date:'2025',status:'doc',
+   connections:['wef','cfr','blackrock','amazon','cia'],tags:['tech','media','finance'],
+   events:[
+     {date:'1994',event:'Amazon founded'},
+     {date:'2013',event:'AWS wins ~$600M CIA C2S cloud contract'},
+     {date:'2013',event:'Bezos acquires Washington Post for $250M personally'},
+     {date:'2021-07',event:'Steps down as Amazon CEO; remains executive chairman'},
+   ],
+   money:[{from:'CIA',arrow:'contract',to:'Amazon AWS',label:'~$600M C2S (2013)',source:'FedScoop'}],
+   detail:'The JEDI Pentagon contract ($10B) was awarded to Microsoft in 2019 and later cancelled. C2S (Commercial Cloud Services) is the confirmed CIA contract.'
+  },
+  {id:'zuckerberg',tier:3,name:'Mark Zuckerberg',role:'Meta (Facebook, Instagram, WhatsApp)',metric:'FTC $5B penalty 2019 &middot; Meta net worth ~$200B+',source:'FTC.gov 2019-07-24',date:'2019',status:'doc',
+   connections:['wef','altman','thiel','meta'],tags:['tech','media','ai'],
+   events:[
+     {date:'2004',event:'Facebook founded at Harvard'},
+     {date:'2018',event:'Congressional testimony on Cambridge Analytica data scandal'},
+     {date:'2019-07-24',event:'FTC imposes record $5B penalty for privacy violations'},
+     {date:'2021',event:'Facebook rebrands to Meta Platforms'},
+     {date:'2023',event:'Threads launched to compete with Twitter/X'},
+   ],
+   money:[{from:'FTC',arrow:'penalty',to:'US Treasury via Meta',label:'$5B (2019)',source:'FTC.gov'}],
+   detail:'Cambridge Analytica data affected 87M+ Facebook users. FTC $5B penalty remains the largest privacy fine in US history.'
+  },
+  {id:'altman',tier:3,name:'Sam Altman',role:'OpenAI CEO &middot; Y Combinator alumnus',metric:'Microsoft investment: ~$13B &middot; OpenAI valued $300B+ (2025)',source:'Microsoft/OpenAI disclosures',date:'2025',status:'doc',
+   connections:['wef','musk','thiel','gates','microsoft','openai'],tags:['tech','ai','investment'],
+   events:[
+     {date:'2015',event:'OpenAI co-founded with Musk (who later departed board)'},
+     {date:'2019',event:'Microsoft invests $1B in OpenAI'},
+     {date:'2023-01',event:'Microsoft commits ~$10B additional investment'},
+     {date:'2023-11',event:'OpenAI board briefly fires then reinstates Altman'},
+     {date:'2025-10',event:'OpenAI recapitalization -- Microsoft stake valued at ~$135B (~27%)'},
+   ],
+   money:[{from:'Microsoft',arrow:'invested',to:'OpenAI',label:'~$13B (2019-2023)',source:'Microsoft/OpenAI filings'}],
+   detail:'Sam Altman met multiple government officials and foreign heads of state in 2024 in his capacity as OpenAI CEO, documented via White House readouts and foreign ministry releases.'
+  },
+  {id:'thiel',tier:3,name:'Peter Thiel',role:'Palantir &middot; Founders Fund &middot; Political donor',metric:'Palantir: $2.7B+ gov contracts &middot; CIA seed ~$2M (2003)',source:'Palantir S-1 2020 &middot; USAspending.gov',date:'2025',status:'doc',
+   connections:['musk','altman','palantir','trump','cia'],tags:['tech','ai','politics','surveillance'],
+   events:[
+     {date:'1998',event:'PayPal co-founded'},
+     {date:'2003',event:'Palantir founded with ~$2M CIA seed via In-Q-Tel (disclosed in S-1)'},
+     {date:'2016',event:'Donates $1.25M+ to Trump campaign'},
+     {date:'2020',event:'Palantir IPO -- S-1 discloses CIA/NSA/FBI/DHS/DoD as clients'},
+     {date:'2021',event:'Donates $15M to J.D. Vance Senate campaign'},
+     {date:'2025',event:'DHS 5-year Palantir BPA worth up to $1B &middot; ICE ImmigrationOS $30M contract'},
+   ],
+   money:[{from:'CIA (via In-Q-Tel)',arrow:'seed investment',to:'Palantir',label:'~$2M (2003)',source:'Palantir S-1 2020'}],
+   detail:'Palantir confirmed clients: CIA, NSA, FBI, DHS, DoD, ICE, multiple allied intelligence agencies. Over $2.7B in documented federal contracts since 2009.'
+  },
+  {id:'page_brin',tier:3,name:'Larry Page & Sergey Brin',role:'Google/Alphabet founders',metric:'Alphabet market cap ~$2T &middot; Google: ~92% global search share',source:'Alphabet 10-K 2024',date:'2024',status:'doc',
+   connections:['wef','cia','inqtel','alphabet'],tags:['tech','ai','data'],
+   events:[
+     {date:'1998',event:'Google founded in a Menlo Park garage'},
+     {date:'2004',event:'Google IPO'},
+     {date:'2015',event:'Alphabet created as parent company'},
+     {date:'2019',event:'Page and Brin step down from day-to-day roles; Sundar Pichai becomes CEO'},
+   ],
+   money:[],
+   detail:'In-Q-Tel (CIA venture arm) was an early Google investor via the DARPA-funded research that led to Google. The relationship is documented in academic and journalistic accounts.'
+  },
+
+  // TIER 3B -- BIG PHARMA
+  {id:'sackler',tier:'3b',name:'Sackler Family / Purdue Pharma',role:'OxyContin &middot; Opioid crisis architects',metric:'$7.4B+ settlement 2025 &middot; $5.5B Purdue sentence Apr 2026',source:'CNBC Apr 2026 &middot; DOJ',date:'2026-04-29',status:'doc',
+   connections:['pharma','doj'],tags:['pharma','crime','settlement'],
+   events:[
+     {date:'1996',event:'OxyContin launched by Purdue Pharma'},
+     {date:'2007',event:'Purdue Pharma pleads guilty to misleading marketing; $634M fine'},
+     {date:'2020',event:'Purdue pleads guilty to federal charges; DOJ global resolution $8B+'},
+     {date:'2025',event:'$7.4B settlement with states and Sacklers -- largest-ever with individuals responsible for opioid crisis'},
+     {date:'2026-04-29',event:'Purdue Pharma sentenced to $5.5B fine (CNBC)'},
+   ],
+   money:[{from:'Purdue Pharma',arrow:'settled',to:'US Government/States',label:'$7.4B+ (2025)',source:'CNBC/DOJ'}],
+   detail:'Documented death toll: 500,000+ opioid overdose deaths in the US (1999-2019, CDC). Sackler family members received immunity from civil suits in the 2025 settlement.'
+  },
+  {id:'johnson',tier:'3b',name:'Johnson & Johnson',role:'Pharmaceutical/Consumer goods giant',metric:'Part of ~$60B nationwide opioid settlement &middot; Listed NYSE: JNJ',source:'Reuters/AP',date:'2025',status:'doc',
+   connections:['pharma','sackler'],tags:['pharma','settlement'],
+   events:[
+     {date:'2021',event:'J&J agrees to pay $5B+ as part of national opioid settlement framework'},
+     {date:'2023',event:'Spins off consumer health division as Kenvue'},
+   ],
+   money:[],
+   detail:'J&J was among manufacturers and distributors contributing to the ~$60 billion nationwide opioid settlement framework.'
+  },
+
+  // TIER 4 -- EPSTEIN
+  {id:'epstein',tier:4,name:'Jeffrey Epstein',role:'Financier &middot; Sex trafficker &middot; Intelligence-adjacent (unproven)',metric:'2008 NPA &middot; 2019 SDNY indictment &middot; Died 10 Aug 2019 in custody',source:'DOJ / SDNY / Florida State Court',date:'2019',status:'doc',
+   connections:['maxwell','wexner','gates','trump','clinton','andrew','mit','harvard'],tags:['crime','trafficking','network'],
+   events:[
+     {date:'2008',event:'Florida non-prosecution agreement under US Attorney Alexander Acosta -- DOJ OPR later found "poor judgment"'},
+     {date:'2019-07-06',event:'Arrested by SDNY on sex trafficking charges'},
+     {date:'2019-08-10',event:'Found dead in MCC New York -- ruled suicide; death disputed'},
+   ],
+   money:[{from:'Wexner',arrow:'power of attorney / funds',to:'Epstein',label:'$46M+ misappropriated (1991-)',source:'CNBC Aug 2019'}],
+   detail:'INTELLIGENCE CLAIMS (&#x2717; UNPROVEN): The Mossad/CIA claim rests on Ari Ben-Menashe (rated "not credible" by US Congress) and one unverified anonymous Acosta quote. Naftali Bennett called Epstein-Mossad links "categorically false" (2021). No declassified document establishes any agency relationship.'
+  },
+  {id:'maxwell',tier:4,name:'Ghislaine Maxwell',role:'Epstein co-conspirator &middot; Convicted sex trafficker',metric:'Convicted Dec 2021 &middot; 20 years sentenced Jun 2022 &middot; $750K fine',source:'DOJ SDNY press release 2022-06-28',date:'2022-06-28',status:'doc',
+   connections:['epstein','wexner','andrew'],tags:['crime','trafficking','conviction'],
+   events:[
+     {date:'2021-12-29',event:'Convicted on five federal counts including sex trafficking of minors'},
+     {date:'2022-06-28',event:'Sentenced to 20 years (240 months) + $750K fine by Judge Alison Nathan'},
+     {date:'2024',event:'Conviction upheld by Second Circuit Court of Appeals'},
+     {date:'2025-10',event:'Supreme Court declines to hear appeal'},
+   ],
+   money:[],
+   detail:'Trial documented trafficking crimes 1994-2004. No intelligence connection was established in court proceedings. Sentence is the longest ever given in a federal sex-trafficking case of this type.'
+  },
+  {id:'wexner',tier:4,name:'Les Wexner',role:'L Brands / Victoria\'s Secret founder &middot; Epstein financier',metric:'Granted Epstein POA July 1991 &middot; $46M+ misappropriated',source:'CNBC Aug 2019',date:'2019',status:'doc',
+   connections:['epstein','lbrands'],tags:['finance','business','epstein'],
+   events:[
+     {date:'1963',event:'The Limited (L Brands) founded'},
+     {date:'1991-07',event:'Grants Epstein broad power of attorney'},
+     {date:'2019-08',event:'Publicly states Epstein "misappropriated vast sums of money from me" -- more than $46M'},
+   ],
+   money:[],
+   detail:'Wexner was never charged. He resigned from the board of Ohio State University amid scrutiny. Donated his NYC mansion to Epstein, who later sold it for $51M.'
+  },
+  {id:'andrew',tier:4,name:'Prince Andrew',role:'Duke of York &middot; Virginia Giuffre civil case',metric:'Civil settlement Feb 2022 &middot; No criminal charges filed',source:'CNN / AP Feb 2022',date:'2022-02-15',status:'doc',
+   connections:['epstein','maxwell','windsor'],tags:['royals','epstein','settlement'],
+   events:[
+     {date:'2019-11',event:'BBC Newsnight interview -- Andrew denies knowing Giuffre'},
+     {date:'2020',event:'Virginia Giuffre files civil suit alleging sexual abuse facilitated by Epstein'},
+     {date:'2022-02-15',event:'Settlement reached -- no admission of liability &middot; amount undisclosed &middot; donation to charity'},
+   ],
+   money:[],
+   detail:'No criminal charges were ever filed against Prince Andrew. The settlement amount was never officially disclosed -- media estimates (~$10-16M) are unconfirmed.'
+  },
+
+  // TIER 4B -- ROYALS
+  {id:'windsor',tier:'4b',name:'House of Windsor',role:'British Royal Family &middot; Crown Estate',metric:'Crown Estate: &pound;15.5B value &middot; Sovereign Grant: &pound;86.3M (2024-25)',source:'Crown Estate Annual Report 2024-25',date:'2025',status:'doc',
+   connections:['andrew','epstein','saud'],tags:['royals','finance','commonwealth'],
+   events:[
+     {date:'1952',event:'Queen Elizabeth II ascends throne'},
+     {date:'2022',event:'Prince Andrew reaches civil settlement with Virginia Giuffre'},
+     {date:'2022-09',event:'King Charles III ascends throne after Queen Elizabeth II\'s death'},
+     {date:'2024-25',event:'Crown Estate revenue profit: &pound;1.1B (boosted by offshore wind leasing)'},
+   ],
+   money:[],
+   detail:'Duchy of Lancaster worth &pound;679M (King\'s Privy Purse income &pound;24.4M). Duchy of Cornwall worth &pound;1.1B (Prince William\'s income &pound;22.9M). Crown Estate revenues flow to the UK Treasury (keeps Sovereign Grant % back).'
+  },
+  {id:'saud',tier:'4b',name:'Saudi Royal Family',role:'House of Saud &middot; Aramco &middot; Global lobbying',metric:'Aramco: ~$2T market cap &middot; Saudi FARA lobbying: $39M (2018)',source:'SEC/Aramco &middot; FARA database',date:'2025',status:'doc',
+   connections:['aramco','bilderberg','trump','clinton'],tags:['royals','oil','politics'],
+   events:[
+     {date:'1938',event:'Oil discovered in Saudi Arabia'},
+     {date:'2001',event:'9/11 -- 15 of 19 hijackers were Saudi nationals'},
+     {date:'2016-07-15',event:'"28 pages" declassified -- documents contacts between hijackers and Saudi-connected individuals'},
+     {date:'2018-10',event:'Jamal Khashoggi murdered in Saudi consulate Istanbul -- UN special rapporteur: Saudi state responsible'},
+     {date:'2019',event:'Saudi Aramco IPO -- Saudi government retains ~98% stake'},
+   ],
+   money:[{from:'Saudi lobbying',arrow:'FARA registered',to:'US political access',label:'~$39M (2018)',source:'FARA database / AP'}],
+   detail:'The declassified "28 pages" (2016) document contacts, NOT proof of Saudi government direction. The 9/11 Commission (2004) found "no evidence that the Saudi government as an institution... funded al-Qaeda." The documents raise questions; they do not answer them conclusively.'
+  },
+
+  // TIER 5 -- WAR ECONOMY
+  {id:'lockheed',tier:5,name:'Lockheed Martin',role:'Largest US defense contractor',metric:'$313B in Pentagon contracts (2020-2024)',source:'Brown University Costs of War / Quincy Institute',date:'2024',status:'doc',
+   connections:['pentagon','boeing','raytheon','northrop'],tags:['defense','military','contracts'],
+   events:[
+     {date:'1995',event:'Lockheed merges with Martin Marietta'},
+     {date:'2001',event:'Wins F-35 Joint Strike Fighter contract -- largest weapons program in US history'},
+     {date:'2020-2024',event:'$313B in Pentagon contracts (five-year aggregate)'},
+   ],
+   money:[{from:'Pentagon/DoD',arrow:'contracts',to:'Lockheed Martin',label:'$313B (2020-2024)',source:'Brown Costs of War'}],
+   detail:'F-35 program total estimated cost: $1.7T+ over its lifetime (GAO).'
+  },
+  {id:'halliburton',tier:5,name:'Halliburton / KBR',role:'Dick Cheney &middot; Iraq war no-bid contracts',metric:'$31B+ LOGCAP contracts &middot; Sole-source "Restore Iraqi Oil" 2003',source:'GAO / Senate Democratic Policy Committee',date:'2011',status:'doc',
+   connections:['pentagon','cheney','dod'],tags:['defense','oil','contracts'],
+   events:[
+     {date:'1995',event:'Dick Cheney becomes CEO of Halliburton'},
+     {date:'2000',event:'Cheney leaves Halliburton to become VP candidate (receives $33.7M exit package)'},
+     {date:'2003-03',event:'KBR (Halliburton subsidiary) receives sole-source "Restore Iraqi Oil" contract (ceiling $7B)'},
+     {date:'2003-2011',event:'KBR receives $31B+ under LOGCAP contract for Iraq/Afghanistan logistics'},
+   ],
+   money:[{from:'Pentagon',arrow:'no-bid contract',to:'KBR/Halliburton',label:'$31B+ LOGCAP &middot; $7B RIO (2003-2011)',source:'GAO / Senate DPC'}],
+   detail:'GAO found no-bid awards were legal. Senate Democratic Policy Committee flagged $1.4B+ in "questioned and unsupported costs." Cheney held Halliburton stock options while VP -- disclosed on annual financial forms.'
+  },
+
+  // TIER 6 -- POLITICAL
+  {id:'trump',tier:6,name:'Donald Trump',role:'45th & 47th US President',metric:'4 corporate bankruptcies &middot; Deutsche Bank $2B+ loans',source:'Court filings / NYT / WSJ',date:'2025',status:'doc',
+   connections:['epstein','deutschebank','kushner','musk'],tags:['politics','usa','president'],
+   events:[
+     {date:'1991',event:'Trump Taj Mahal bankruptcy (first of four corporate bankruptcies)'},
+     {date:'1998',event:'Deutsche Bank begins major lending to Trump (~$2B+ total) when other major banks refused'},
+     {date:'2002',event:'Last documented social association with Epstein (before their falling out)'},
+     {date:'2024',event:'Elected 47th President &middot; Musk donates $288M to campaign'},
+   ],
+   money:[{from:'Deutsche Bank',arrow:'loans',to:'Trump Organization',label:'$2B+ (1998-2019)',source:'NYT / Congressional testimony'}],
+   detail:'Trump stated in 2002 he had a falling out with Epstein. Pre-2002 social association is documented in contemporaneous press and court filings.'
+  },
+  {id:'clinton',tier:6,name:'Clinton Foundation',role:'Bill & Hillary Clinton &middot; Global philanthropy &middot; Political network',metric:'Goldman Sachs speeches: $675K &middot; Foreign gov donations documented',source:'FEC / Congressional oversight / CNN',date:'2016',status:'doc',
+   connections:['soros','saud','cfr','gates','epstein'],tags:['politics','usa','philanthropy'],
+   events:[
+     {date:'2001',event:'Clinton Foundation established'},
+     {date:'2013',event:'Hillary Clinton receives $675,000 for three Goldman Sachs speeches'},
+     {date:'2015',event:'CNN reports $26M in undisclosed speaking fees &middot; Saudi Arabia/Qatar donations during State Dept tenure'},
+     {date:'2016',event:'MOU with State Dept requiring donor disclosure during Hillary\'s tenure -- later found non-compliant'},
+   ],
+   money:[{from:'Goldman Sachs',arrow:'speaking fees',to:'Hillary Clinton',label:'$675,000 (3 speeches)',source:'NPR/WikiLeaks'},{from:'Saudi Arabia',arrow:'donations',to:'Clinton Foundation',label:'$10-25M (documented)',source:'PolitiFact'}],
+   detail:'The donations themselves are not illegal. The conflict-of-interest issue arose from simultaneous State Department tenure and Foundation fundraising.'
+  },
+  {id:'schwab',tier:6,name:'Klaus Schwab',role:'WEF founder &middot; Great Reset author',metric:'The Great Reset published July 2020 &middot; WEF founded 1971',source:'WEF.org / Schwab publications',date:'2025',status:'doc',
+   connections:['wef','bilderberg','cfr','trilateral','gates','merkel'],tags:['politics','international','policy'],
+   events:[
+     {date:'1971',event:'European Management Forum (later WEF) founded'},
+     {date:'2020-07',event:'COVID-19: The Great Reset co-authored and published'},
+     {date:'2017-09-20',event:'States at Harvard Kennedy School: "we penetrate the cabinets" (documented)'},
+     {date:'2025',event:'Retires from WEF leadership roles'},
+   ],
+   money:[],
+   detail:'"The Great Reset" is a documented WEF publication (ISBN 978-2-940631-11-7), not a secret plan. The concept of "stakeholder capitalism" predates COVID.'
+  },
+
+  // TIER 3 ADDITIONAL PHILANTHROPISTS
+  {id:'buffett',tier:3,name:'Warren Buffett',role:'Berkshire Hathaway &middot; The Giving Pledge &middot; Major donor',metric:'$50B+ donated to Gates Foundation &middot; Net worth ~$130B',source:'Berkshire Hathaway annual letters / Gates Foundation',date:'2025',status:'doc',
+   connections:['gates','berkshire','givewell'],tags:['finance','philanthropy','investment'],
+   events:[
+     {date:'2006',event:'Pledges 85% of Berkshire Hathaway shares to five foundations -- primarily Gates Foundation ($30B+ at time)'},
+     {date:'2010',event:'Co-founds The Giving Pledge with Bill and Melinda Gates'},
+     {date:'2024',event:'Total Berkshire donations to Gates Foundation exceed $50B'},
+   ],
+   money:[{from:'Buffett/Berkshire',arrow:'donated',to:'Gates Foundation',label:'$50B+ (2006-2024)',source:'Berkshire annual letters'}],
+   detail:'The Giving Pledge (2010) has been signed by 240+ billionaires pledging majority of wealth to philanthropy. Buffett has consistently donated annual tranches of Berkshire Class B shares.'
+  },
+  {id:'ellison_l',tier:3,name:'Larry Ellison',role:'Oracle founder &middot; Largest individual landowner Hawaii',metric:'Oracle market cap ~$470B &middot; Net worth ~$180B &middot; Owns ~98% of Lanai island',source:'Oracle 10-K 2024 / Hawaii land records',date:'2024',status:'doc',
+   connections:['oracle','cbs','skydance'],tags:['tech','finance','media'],
+   events:[
+     {date:'1977',event:'Oracle founded'},
+     {date:'2012',event:'Ellison acquires 98% of Lanai island (Hawaii) for ~$300M'},
+     {date:'2024',event:'Son David Ellison\'s Skydance acquires Paramount/CBS'},
+   ],
+   money:[],
+   detail:'Larry Ellison has donated to cancer research and medical education. Oracle holds significant US government contracts including with the DoD and intelligence community.'
+  },
+  {id:'bloomberg',tier:3,name:'Michael Bloomberg',role:'Bloomberg LP &middot; Former NYC Mayor &middot; Major donor',metric:'$14B+ donated (lifetime) &middot; Bloomberg Philanthropies',source:'Bloomberg Philanthropies disclosures',date:'2025',status:'doc',
+   connections:['cfr','wef','gates'],tags:['media','politics','philanthropy'],
+   events:[
+     {date:'1981',event:'Bloomberg LP founded after leaving Salomon Brothers'},
+     {date:'2001-2013',event:'Mayor of New York City (3 terms)'},
+     {date:'2019',event:'Briefly enters 2020 Democratic presidential race'},
+     {date:'2024',event:'Bloomberg Philanthropies reports $14B+ in lifetime giving'},
+   ],
+   money:[{from:'Bloomberg Philanthropies',arrow:'donated',to:'Climate/Public Health/Education',label:'$14B+ lifetime',source:'Bloomberg Philanthropies'}],
+   detail:'Bloomberg is a CFR member. Bloomberg LP provides financial data terminals to virtually all major financial institutions globally. Bloomberg News is a major wire service.'
+  },
+  {id:'chan_zuckerberg',tier:3,name:'Chan Zuckerberg Initiative',role:'Priscilla Chan & Mark Zuckerberg philanthropy',metric:'$3B+ pledged to cure diseases by 2100 &middot; Biohub network',source:'CZI disclosures / SEC',date:'2025',status:'doc',
+   connections:['zuckerberg','gates','wellcome'],tags:['philanthropy','health','education'],
+   events:[
+     {date:'2015',event:'CZI announced -- pledged 99% of Facebook shares over lifetime (~$45B at time)'},
+     {date:'2016',event:'$600M to create Chan Zuckerberg Biohub'},
+     {date:'2023',event:'CZI announces "science philanthropy" focus -- $3B commitment to disease research'},
+   ],
+   money:[{from:'Zuckerberg',arrow:'pledged',to:'CZI',label:'99% of Meta shares over lifetime',source:'CZI announcement 2015'}],
+   detail:'CZI is structured as a limited liability company (LLC), not a traditional 501(c)(3) -- giving Zuckerberg more control and flexibility than a conventional charitable foundation.'
+  },
+  {id:'walton',tier:3,name:'Walton Family',role:'Walmart founders &middot; Largest US private fortune',metric:'~$247B+ combined family net worth &middot; Walton Family Foundation',source:'Forbes 2024 / Walton Family Foundation',date:'2024',status:'doc',
+   connections:['walmart','wff','education'],tags:['retail','philanthropy','dynasty'],
+   events:[
+     {date:'1945',event:'Sam Walton opens first store in Newport, Arkansas'},
+     {date:'1962',event:'First Walmart opened in Rogers, Arkansas'},
+     {date:'1992',event:'Sam Walton dies -- family inherits controlling stake'},
+     {date:'2024',event:'Walton family retains ~46% of Walmart stock'},
+   ],
+   money:[{from:'Walton Family Foundation',arrow:'donated',to:'Education reform/charter schools',label:'$1.8B+ (2020-2024)',source:'WFF annual reports'}],
+   detail:'Walton Family Foundation is the largest private funder of US charter school expansion. The family collectively represents the world\'s wealthiest family unit.'
+  },
+  {id:'bezos_earth',tier:3,name:'Bezos Earth Fund',role:'Jeff Bezos climate philanthropy',metric:'$10B committed to fight climate change (2020)',source:'Bezos Earth Fund announcement',date:'2020',status:'doc',
+   connections:['bezos','climate','wwf'],tags:['philanthropy','climate','environment'],
+   events:[
+     {date:'2020-02',event:'Bezos announces $10B Bezos Earth Fund'},
+     {date:'2021',event:'First grants disbursed -- $791M to 16 organizations'},
+     {date:'2023',event:'Bezos Day One Fund: $2B+ to homelessness/education causes'},
+   ],
+   money:[{from:'Bezos',arrow:'donated',to:'Bezos Earth Fund',label:'$10B (2020 commitment)',source:'Bezos Earth Fund'}],
+   detail:'Bezos Earth Fund has disbursed grants to WWF, Natural Resources Defense Council, Environmental Defense Fund, and many others.'
+  },
+  {id:'wellcome',tier:3,name:'Wellcome Trust',role:'World\'s largest health research foundation &middot; UK',metric:'~&pound;37B endowment (2024) &middot; Annual grants ~&pound;1.4B',source:'Wellcome Trust Annual Report 2024',date:'2024',status:'doc',
+   connections:['who','gates','gavi','imperial'],tags:['philanthropy','health','research'],
+   events:[
+     {date:'1936',event:'Sir Henry Wellcome dies; Wellcome Trust established from pharmaceutical fortune'},
+     {date:'2000',event:'Wellcome Trust funds ~30% of Human Genome Project'},
+     {date:'2020',event:'Wellcome Trust commits &pound;150M+ to COVID-19 vaccine development'},
+     {date:'2024',event:'Endowment: ~&pound;37B -- second only to Gates Foundation among health charities'},
+   ],
+   money:[{from:'Wellcome Trust',arrow:'grants',to:'Global health research',label:'~&pound;1.4B/year',source:'Wellcome Annual Report 2024'}],
+   detail:'Wellcome Trust was built on the fortune of Burroughs Wellcome pharmaceutical company. It funds scientific research globally and co-funds major initiatives with Gates Foundation and WHO.'
+  },
+  {id:'turner',tier:3,name:'Ted Turner',role:'CNN founder &middot; UN Foundation &middot; $1B pledge',metric:'$1B pledged to UN (1997) &middot; Turner Foundation',source:'UN Foundation / Atlanta Journal-Constitution',date:'2025',status:'doc',
+   connections:['cnn','un','cfr'],tags:['media','philanthropy','environment'],
+   events:[
+     {date:'1980',event:'CNN founded -- first 24-hour news network'},
+     {date:'1997',event:'Turner pledges $1B to United Nations causes over 10 years'},
+     {date:'2001',event:'AOL Time Warner merger -- Turner loses operational control of CNN'},
+   ],
+   money:[{from:'Turner',arrow:'donated',to:'UN Foundation',label:'$1B (1997 pledge)',source:'UN Foundation'}],
+   detail:'Turner\'s UN Foundation pledge was the largest single philanthropic gift to an international organization at the time. He has also donated large land tracts for conservation (~2M acres).'
+  },
+  {id:'macken',tier:3,name:'MacKenzie Scott',role:'Amazon co-founder &middot; Largest rapid donor in history',metric:'$17.3B donated (2020-2022) &middot; No foundation structure',source:'GivingCompass / recipient disclosures',date:'2022',status:'doc',
+   connections:['bezos','amazon','giving_pledge'],tags:['philanthropy','amazon','social'],
+   events:[
+     {date:'2019',event:'Divorces Jeff Bezos; receives ~$38B in Amazon shares'},
+     {date:'2020',event:'Signs Giving Pledge; pledges majority of wealth to charity'},
+     {date:'2020-2022',event:'Donates $17.3B+ to 1,600+ organizations -- fastest large-scale giving in history'},
+   ],
+   money:[{from:'MacKenzie Scott',arrow:'donated',to:'1,600+ nonprofits',label:'$17.3B (2020-2022)',source:'GivingCompass aggregated disclosures'}],
+   detail:'Scott\'s giving is notable for its speed, lack of strings attached, and focus on smaller/overlooked organizations. She does not maintain a named foundation.'
+  },
+];
+
+// ============================================================
+// TIMELINE DATA
+// ============================================================
+const TIMELINE=[
+  {date:'1910-11',title:'Jekyll Island Secret Meeting',desc:'Six men secretly draft the Aldrich Plan -- basis of the Federal Reserve Act. Attendees: Aldrich, Warburg, Davison (Morgan), Vanderlip, Andrew, Shelton.',src:'Federal Reserve History / federalreservehistory.org',badge:'doc'},
+  {date:'1913-12-23',title:'Federal Reserve Act Signed',desc:'President Wilson signs the Federal Reserve Act creating the US central bank. Paul Warburg appointed to first Board.',src:'12 U.S.C. &sect;241',badge:'doc'},
+  {date:'1921-07-29',title:'Council on Foreign Relations Founded',desc:'CFR incorporated; first honorary president Elihu Root. Rockefeller family involvement from the start.',src:'CFR.org',badge:'doc'},
+  {date:'1929-02-11',title:'Lateran Treaty -- Vatican Sovereignty',desc:'Holy See becomes a sovereign state under the Lateran Treaty with Italy.',src:'Lateran Treaty 1929',badge:'doc'},
+  {date:'1930-05-17',title:'BIS Founded',desc:'Bank for International Settlements founded under the Hague Agreement to administer German war reparations.',src:'BIS Annual Report',badge:'doc'},
+  {date:'1954-05-29',title:'First Bilderberg Meeting',desc:'50 Western European delegates + 11 Americans meet at Hotel de Bilderberg, Oosterbeek, Netherlands.',src:'Bilderberg Group records',badge:'doc'},
+  {date:'1971',title:'WEF Founded',desc:'Klaus Schwab founds European Management Forum (later World Economic Forum) in Geneva.',src:'WEF.org',badge:'doc'},
+  {date:'1973-07',title:'Trilateral Commission Founded',desc:'David Rockefeller and Zbigniew Brzezinski found the Trilateral Commission after Bilderberg declined Japanese members.',src:'Rockefeller Archive Center',badge:'doc'},
+  {date:'1982-06-18',title:'Roberto Calvi Found Dead',desc:'"God\'s Banker" found hanging beneath Blackfriars Bridge. 2002 forensic review rules homicide. Linked to Vatican IOR and P2 Lodge.',src:'Italian Parliamentary Investigation / World Finance',badge:'doc'},
+  {date:'1991',title:'Epstein Gets Power of Attorney',desc:'Les Wexner grants Jeffrey Epstein broad power of attorney in July 1991. Epstein later misappropriates $46M+.',src:'CNBC Aug 2019',badge:'doc'},
+  {date:'1992-09-16',title:'Black Wednesday',desc:'George Soros shorts British pound; Bank of England forced out of ERM. Soros profits ~$1B.',src:'Bank of England / FT',badge:'doc'},
+  {date:'1996',title:'OxyContin Launched',desc:'Purdue Pharma launches OxyContin. Beginning of documented opioid crisis.',src:'DOJ',badge:'doc'},
+  {date:'2001',title:'BIS Buys Back Private Shares',desc:'BIS Extraordinary General Meeting -- mandatory buyback of all private shares. BIS now exclusively owned by central banks.',src:'BIS EGM Jan 2001',badge:'doc'},
+  {date:'2001-09-11',title:'9/11 Attacks',desc:'15 of 19 hijackers were Saudi nationals. "28 pages" of Joint Inquiry later document contacts with Saudi-connected individuals.',src:'9/11 Commission Report / declassified 28 pages 2016',badge:'doc'},
+  {date:'2002',title:'Soros Convicted -- Insider Trading',desc:'French court convicts George Soros of insider trading in Soci&eacute;t&eacute; G&eacute;n&eacute;rale shares (~$2.28M gain). Upheld by ECHR 2011.',src:'Courthouse News',badge:'doc'},
+  {date:'2006',title:'Buffett Pledges to Gates Foundation',desc:'Warren Buffett pledges 85% of Berkshire Hathaway shares -- primarily to Gates Foundation (~$30B at time).',src:'Berkshire Hathaway annual letter 2006',badge:'doc'},
+  {date:'2008',title:'Epstein Florida NPA',desc:'Jeffrey Epstein receives sweetheart non-prosecution agreement under US Attorney Alexander Acosta. DOJ OPR later finds "poor judgment."',src:'DOJ OPR report',badge:'doc'},
+  {date:'2010',title:'Giving Pledge Founded',desc:'Bill Gates and Warren Buffett co-found The Giving Pledge. 240+ billionaires have since signed.',src:'Giving Pledge / Gates Foundation',badge:'doc'},
+  {date:'2013',title:'Bezos Buys Washington Post',desc:'Jeff Bezos acquires Washington Post for $250M personally. Same year, AWS wins ~$600M CIA C2S cloud contract.',src:'WashPost / FedScoop',badge:'doc'},
+  {date:'2017',title:'Big Three Study Published',desc:'Fichtner, Heemskerk & Garcia-Bernardo (Business and Politics): Big Three are largest shareholder in 88% of S&P 500.',src:'Business and Politics, Cambridge, 2017',badge:'doc'},
+  {date:'2019-07-06',title:'Epstein Arrested -- SDNY',desc:'Jeffrey Epstein arrested by SDNY on sex trafficking charges involving minors.',src:'DOJ SDNY',badge:'doc'},
+  {date:'2019-08-10',title:'Epstein Dies in Custody',desc:'Found dead at MCC New York. Ruled suicide by medical examiner. Death disputed by multiple parties.',src:'DOJ / NYC ME',badge:'rep'},
+  {date:'2019-07-24',title:'Meta FTC $5B Penalty',desc:'FTC imposes record $5B penalty on Facebook/Meta for Cambridge Analytica privacy violations.',src:'FTC.gov',badge:'doc'},
+  {date:'2020-07',title:'The Great Reset Published',desc:'Klaus Schwab and Thierry Malleret publish "COVID-19: The Great Reset" -- documented WEF publication.',src:'WEF / ISBN 978-2-940631-11-7',badge:'doc'},
+  {date:'2021-02-23',title:'Tether NYAG Settlement',desc:'Tether and Bitfinex pay $18.5M to settle NY Attorney General probe. NYAG: "claim of full dollar backing was a lie."',src:'CNBC',badge:'doc'},
+  {date:'2021-12-29',title:'Ghislaine Maxwell Convicted',desc:'Maxwell convicted on five federal counts including sex trafficking of minors. Sentenced Jun 2022 to 20 years.',src:'DOJ SDNY',badge:'doc'},
+  {date:'2022-02-15',title:'Prince Andrew Settles Giuffre Case',desc:'Civil settlement reached. No admission of liability. Amount never officially disclosed.',src:'CNN / AP',badge:'doc'},
+  {date:'2023-11',title:'SBF Convicted',desc:'Sam Bankman-Fried convicted on seven counts of fraud and conspiracy. FTX political donations totaled $40M+.',src:'DOJ SDNY',badge:'doc'},
+  {date:'2024-03-28',title:'SBF Sentenced',desc:'Sam Bankman-Fried sentenced to 25 years and ordered to forfeit $11B by Judge Lewis Kaplan.',src:'NBC New York',badge:'doc'},
+  {date:'2025',title:'Purdue/Sackler $7.4B Settlement',desc:'Largest-ever settlement with individuals responsible for opioid crisis. 500,000+ deaths documented (1999-2019).',src:'CNBC / DOJ',badge:'doc'},
+  {date:'2026-04-29',title:'Purdue Pharma Sentenced',desc:'Purdue Pharma sentenced to $5.5B fine -- final chapter of opioid prosecution.',src:'CNBC',badge:'doc'},
+];
+
+// ============================================================
+// MONEY TRAILS
+// ============================================================
+const TRAILS=[
+  {title:'Wexner -> Epstein -> Acosta',flow:[{a:'Wexner',l:'POA 1991 / $46M+',a2:'Epstein',l2:'NPA 2008',a3:'Acosta'}],source:'CNBC Aug 2019 &middot; DOJ OPR report'},
+  {title:'CIA -> In-Q-Tel -> Palantir',flow:[{a:'CIA',l:'~$2M seed (2003)',a2:'In-Q-Tel',l2:'equity stake',a3:'Palantir'}],source:'Palantir S-1 2020'},
+  {title:'US DoD -> Lockheed Martin',flow:[{a:'Pentagon/DoD',l:'$313B (2020-2024)',a2:'Lockheed Martin',l2:'F-35 program',a3:'Shareholders'}],source:'Brown Costs of War'},
+  {title:'Cheney -> Halliburton -> Iraq',flow:[{a:'Cheney (VP)',l:'no-bid contract 2003',a2:'KBR/Halliburton',l2:'$31B+ LOGCAP',a3:'US Taxpayer'}],source:'GAO / Senate DPC'},
+  {title:'Gates Foundation -> WHO',flow:[{a:'Gates Foundation',l:'$4B (2010-2023)',a2:'WHO',l2:'2nd largest funder',a3:'Global health programs'}],source:'PubMed PMC12581034'},
+  {title:'Soros -> Democracy PAC',flow:[{a:'Soros',l:'$128.5M (2022)',a2:'Democracy PAC II',l2:'Democratic campaigns',a3:'Electoral outcomes'}],source:'OpenSecrets/FEC 2022'},
+  {title:'Microsoft -> OpenAI',flow:[{a:'Microsoft',l:'~$13B (2019-2023)',a2:'OpenAI',l2:'~27% stake',a3:'AI infrastructure'}],source:'Microsoft/OpenAI filings'},
+  {title:'Saudi -> US Lobbying',flow:[{a:'Saudi Government',l:'$39M FARA (2018)',a2:'Lobbying firms',l2:'Political access',a3:'US policymakers'}],source:'FARA database / AP'},
+  {title:'Buffett -> Gates Foundation',flow:[{a:'Berkshire Hathaway',l:'$50B+ (2006-2024)',a2:'Gates Foundation',l2:'Annual tranches',a3:'Global health/education'}],source:'Berkshire annual letters'},
+  {title:'Tether NYAG Settlement',flow:[{a:'Tether/Bitfinex',l:'$18.5M (2021)',a2:'NY Attorney General',l2:'Misrepresentation of reserves',a3:'Users/Market'}],source:'CNBC / NYAG press release'},
+];
+
+// ============================================================
+// MEDIA DATA
+// ============================================================
+const MEDIA=[
+  {owner:'Ochs-Sulzberger Family',note:'Family control since 1896 &middot; A.G. Sulzberger chair/publisher',outlets:[
+    {name:'New York Times',type:'Newspaper/Digital',note:'Largest news-site viewership (FAIR 2025)'},
+    {name:'The Athletic',type:'Sports journalism',note:'Acquired 2022 $550M'},
+  ]},
+  {owner:'Murdoch Family',note:'Rupert Murdoch founder &middot; Lachlan Murdoch CEO',outlets:[
+    {name:'Fox News',type:'Cable news',note:'Fox Corporation'},
+    {name:'Wall Street Journal',type:'Financial newspaper',note:'News Corp'},
+    {name:'New York Post',type:'Tabloid',note:'News Corp'},
+    {name:'The Times (UK)',type:'Newspaper',note:'News Corp UK'},
+    {name:'The Sun (UK)',type:'Tabloid',note:'News Corp UK'},
+    {name:'Sky News (AU)',type:'Cable news',note:'News Corp Australia'},
+  ]},
+  {owner:'Warner Bros. Discovery',note:'John Malone significant shareholder &middot; David Zaslav CEO',outlets:[
+    {name:'CNN',type:'Cable news',note:'CNN International'},
+    {name:'HBO / Max',type:'Streaming/Cable',note:''},
+    {name:'Discovery Channel',type:'Cable',note:''},
+  ]},
+  {owner:'Comcast / Roberts Family',note:'Brian Roberts CEO &middot; Roberts family controls via Class B shares',outlets:[
+    {name:'MSNBC',type:'Cable news',note:'NBCUniversal'},
+    {name:'NBC News',type:'Broadcast news',note:'NBCUniversal'},
+    {name:'CNBC',type:'Financial cable',note:'NBCUniversal'},
+    {name:'Sky News (UK)',type:'Cable news',note:'NBCUniversal/Sky'},
+  ]},
+  {owner:'Ellison Family (Skydance)',note:'David Ellison CEO Skydance &middot; Acquired Paramount Aug 2025',outlets:[
+    {name:'CBS News',type:'Broadcast news',note:'Paramount/CBS'},
+    {name:'Paramount Network',type:'Cable',note:''},
+    {name:'MTV / Comedy Central',type:'Entertainment cable',note:''},
+  ]},
+  {owner:'Jeff Bezos (Personal)',note:'Acquired 2013 for $250M &middot; Not part of Amazon',outlets:[
+    {name:'Washington Post',type:'Newspaper/Digital',note:'Personal ownership, not Amazon'},
+  ]},
+  {owner:'Thomson Reuters',note:'Thomson family: Woodbridge Corp controls ~30% &middot; TSX/NYSE listed',outlets:[
+    {name:'Reuters News Agency',type:'Wire service',note:'Global wire service'},
+    {name:'Reuters.com',type:'Digital news',note:''},
+  ]},
+  {owner:'Associated Press (AP)',note:'Non-profit cooperative &middot; Owned by member news outlets',outlets:[
+    {name:'AP Wire',type:'Wire service',note:'Non-profit cooperative -- owned by members'},
+  ]},
+  {owner:'BBC',note:'UK public broadcaster &middot; Funded by licence fee &middot; Royal Charter',outlets:[
+    {name:'BBC News',type:'Public broadcaster',note:'UK licence fee funded'},
+    {name:'BBC World Service',type:'International broadcast',note:'UK Government grant-in-aid'},
+  ]},
+  {owner:'Bloomberg LP',note:'Michael Bloomberg ~88% owner &middot; Financial data + journalism',outlets:[
+    {name:'Bloomberg News',type:'Financial wire/digital',note:''},
+    {name:'Bloomberg TV',type:'Financial cable',note:''},
+    {name:'Bloomberg Businessweek',type:'Magazine',note:''},
+  ]},
+];
+
+// ============================================================
+// CRYPTO DATA
+// ============================================================
+const CRYPTOS=[
+  {name:'Tether (USDT)',role:'Largest stablecoin by market cap &middot; Persistent audit controversy',facts:[
+    {label:'NYAG Settlement',val:'$18.5M -- Tether/Bitfinex agreed to pay NYAG (Feb 23, 2021)'},
+    {label:'NYAG Finding',val:'"Claim of full dollar backing was a lie" -- periods in 2017 with no banking access'},
+    {label:'DOJ Investigation',val:'DOJ investigated Tether execs for bank fraud (Fortune Jul 2021)'},
+    {label:'Market Cap',val:'~$140B+ USDT in circulation (2025)'},
+    {label:'Full Audit',val:'NO full independent audit ever published'},
+    {label:'Status',val:'REPORTED -- ongoing regulatory scrutiny'},
+  ]},
+  {name:'FTX / Sam Bankman-Fried',role:'Collapsed crypto exchange &middot; Largest crypto fraud in history',facts:[
+    {label:'Arrested',val:'December 2022'},
+    {label:'Convicted',val:'November 2023 -- 7 counts fraud and conspiracy'},
+    {label:'Sentenced',val:'25 years + $11B forfeiture -- Judge Lewis Kaplan, Mar 28, 2024'},
+    {label:'Political Donations',val:'$40M+ in documented 2022-cycle donations &middot; illegal straw donations to both parties'},
+    {label:'Base',val:'Bahamas -- regulatory arbitrage'},
+    {label:'Customer funds',val:'~$8B+ in customer funds misused'},
+    {label:'Source',val:'DOJ SDNY &middot; NBC New York &middot; FEC'},
+  ]},
+  {name:'Binance / CZ (Changpeng Zhao)',role:'World\'s largest crypto exchange &middot; DOJ guilty plea 2023',facts:[
+    {label:'DOJ Plea',val:'Binance pleads guilty Nov 2023 to money laundering violations &middot; $4.3B settlement'},
+    {label:'CZ Plea',val:'Changpeng Zhao pleads guilty to BSA violations &middot; $50M fine'},
+    {label:'CZ Sentence',val:'4 months prison (Apr 2024)'},
+    {label:'Sanctions violations',val:'Processed $898M+ in transactions with sanctioned entities (OFAC/DOJ)'},
+    {label:'Source',val:'DOJ Nov 2023 &middot; Reuters'},
+  ]},
+];
+
+// ============================================================
+// SOURCES DATA
+// ============================================================
+const SOURCES=[
+  {actor:'BIS',doc:'BIS Member Central Banks list',url:'https://www.bis.org/about/member_cb.htm',date:'2025'},
+  {actor:'BIS',doc:'BIS Extraordinary GM Jan 2001 -- private share buyback',url:'https://www.bis.org',date:'2001'},
+  {actor:'Bilderberg',doc:'Official Bilderberg meeting records',url:'https://www.bilderbergmeetings.org',date:'2025'},
+  {actor:'Federal Reserve',doc:'Federal Reserve Act / 12 U.S.C. &sect;241',url:'https://www.federalreservehistory.org',date:'1913'},
+  {actor:'BlackRock',doc:'SEC Form ARS FY2025 -- $14.0T AUM',url:'https://www.sec.gov/Archives/edgar/data/2012383',date:'2025-12-31'},
+  {actor:'Vanguard',doc:'Vanguard ownership structure',url:'https://corporate.vanguard.com',date:'2025'},
+  {actor:'Big Three',doc:'Fichtner, Heemskerk, Garcia-Bernardo -- Business and Politics 2017',url:'https://www.cambridge.org/core/journals/business-and-politics',date:'2017'},
+  {actor:'George Soros',doc:'FEC data -- 2022 midterm donations',url:'https://www.opensecrets.org',date:'2022'},
+  {actor:'George Soros',doc:'Soros insider trading conviction (France)',url:'https://www.courthousenews.com',date:'2002'},
+  {actor:'Bill Gates',doc:'Land Report -- 275,000 acres farmland',url:'https://landreport.com',date:'2025'},
+  {actor:'Bill Gates',doc:'Gates Foundation -> WHO: $4B (PubMed PMC12581034)',url:'https://pmc.ncbi.nlm.nih.gov/articles/PMC12581034/',date:'2024'},
+  {actor:'Elon Musk',doc:'Washington Post analysis -- $38B+ government contracts',url:'https://www.washingtonpost.com',date:'2025-02-18'},
+  {actor:'Peter Thiel',doc:'Palantir S-1 2020 -- CIA seed $2M via In-Q-Tel',url:'https://www.sec.gov',date:'2020'},
+  {actor:'Meta/Zuckerberg',doc:'FTC $5B penalty press release',url:'https://www.ftc.gov/business-guidance/blog/2019/07/ftcs-5-billion-facebook-settlement',date:'2019-07-24'},
+  {actor:'Purdue/Sackler',doc:'Purdue Pharma $5.5B sentence -- CNBC',url:'https://www.cnbc.com',date:'2026-04-29'},
+  {actor:'Jeffrey Epstein',doc:'SDNY indictment 2019',url:'https://www.justice.gov',date:'2019-07-06'},
+  {actor:'Jeffrey Epstein',doc:'DOJ OPR report -- Acosta "poor judgment"',url:'https://www.justice.gov/opr/page/file/1336471/dl',date:'2020'},
+  {actor:'Ghislaine Maxwell',doc:'DOJ SDNY -- Maxwell sentenced 20 years',url:'https://www.justice.gov/usao-sdny/pr/ghislaine-maxwell-sentenced-20-years',date:'2022-06-28'},
+  {actor:'Les Wexner',doc:'CNBC -- Epstein misappropriated $46M+',url:'https://www.cnbc.com/2019/08/07/jeffrey-epstein-misappropriated-vast-sums-les-wexner-says.html',date:'2019'},
+  {actor:'Prince Andrew',doc:'CNN -- civil settlement Feb 2022',url:'https://www.cnn.com/2022/02/15/us/prince-andrew-virginia-giuffre',date:'2022-02-15'},
+  {actor:'House of Windsor',doc:'Crown Estate Annual Report 2024-25',url:'https://www.thecrownestate.co.uk',date:'2025'},
+  {actor:'Saudi Royal Family',doc:'"28 pages" declassified -- FBI/DNI',url:'https://www.dni.gov',date:'2016-07-15'},
+  {actor:'Lockheed Martin',doc:'Brown University Costs of War -- $313B contracts',url:'https://watson.brown.edu/costsofwar',date:'2024'},
+  {actor:'Halliburton/KBR',doc:'GAO / Senate Democratic Policy Committee -- LOGCAP',url:'https://www.gao.gov',date:'2011'},
+  {actor:'Tether',doc:'NYAG settlement -- $18.5M &middot; CNBC',url:'https://www.cnbc.com/2021/02/23/tether-bitfinex-reach-settlement-with-new-york-attorney-general.html',date:'2021-02-23'},
+  {actor:'FTX/SBF',doc:'DOJ SDNY -- SBF 25 years &middot; NBC New York',url:'https://www.nbcnewyork.com',date:'2024-03-28'},
+  {actor:'Vatican/IOR',doc:'IOR Annual Report 2024 (Mazars Italia audit)',url:'https://www.ior.va',date:'2024'},
+  {actor:'Warren Buffett',doc:'Berkshire Hathaway annual letter -- Gates Foundation donations',url:'https://www.berkshirehathaway.com',date:'2024'},
+  {actor:'MacKenzie Scott',doc:'GivingCompass aggregated recipient disclosures',url:'https://givingcompass.org',date:'2022'},
+  {actor:'Wellcome Trust',doc:'Wellcome Trust Annual Report 2024',url:'https://wellcome.org',date:'2024'},
+];
+
+// ============================================================
+// GO() ROUTER
+// ============================================================
+function go(id,btn){
+  SFX.click();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);
+  if(pg)pg.classList.add('active');
+  if(btn)btn.classList.add('active');
+  else{
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('active');
+    });
+  }
+  // lazy build
+  if(id==='pyramid')buildPyramid();
+  if(id==='profiles')buildProfiles();
+  if(id==='timeline')buildTimeline();
+  if(id==='money')buildMoney();
+  if(id==='media')buildMedia();
+  if(id==='crypto')buildCrypto();
+  if(id==='sources')buildSources();
+}
+window.go=go;
+
+// ============================================================
+// BUILD PROFILES
+// ============================================================
+function getTierMeta(tier){return TIER_META[tier]||{label:'TIER ?',title:'UNKNOWN',color:'#888'};}
+function statusBadge(s){
+  if(s==='doc')return '<span class="badge doc">&#x2713; DOCUMENTED</span>';
+  if(s==='rep')return '<span class="badge rep">&#x26A0; REPORTED</span>';
+  return '<span class="badge unp">&#x2717; UNPROVEN</span>';
+}
+
+function buildProfiles(){
+  const c=document.getElementById('profiles-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  const tiers=[0,1,'1b',2,'2b',3,'3b',4,'4b',5,6,7];
+  let html='';
+  tiers.forEach(t=>{
+    const actors=ACTORS.filter(a=>String(a.tier)===String(t));
+    if(!actors.length)return;
+    const tm=getTierMeta(t);
+    html+=`<div class="tier-block">
+      <div class="tier-header">
+        <span class="tier-label" style="background:${tm.color}20;color:${tm.color};border:1px solid ${tm.color}40">${tm.label}</span>
+        <span class="tier-title" style="color:${tm.color}">${tm.title}</span>
+      </div>
+      <div class="actor-grid">`;
+    actors.forEach(a=>{
+      const tm2=getTierMeta(a.tier);
+      html+=`<div class="actor-card" onclick="openActor('${a.id}')" style="border-top:2px solid ${tm2.color}40">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.35rem">
+          <div class="ac-name" style="color:${tm2.color}">${a.name}</div>
+          ${statusBadge(a.status)}
+        </div>
+        <div class="ac-role">${a.role}</div>
+        <div class="ac-metric">${a.metric}</div>
+        <div class="ac-source">Source: ${a.source} &middot; ${a.date}</div>
+        <div class="ac-tags">${(a.tags||[]).map(t=>`<span class="ac-tag">${t}</span>`).join('')}</div>
+      </div>`;
+    });
+    html+='</div></div>';
+  });
+  c.innerHTML=html;
+}
+
+// ============================================================
+// OPEN ACTOR MODAL
+// ============================================================
+function openActor(id){
+  const a=ACTORS.find(x=>x.id===id);
+  if(!a)return;
+  const tm=getTierMeta(a.tier);
+  let html=`
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
+      <span class="tier-label" style="background:${tm.color}20;color:${tm.color};border:1px solid ${tm.color}40">${tm.label}</span>
+      ${statusBadge(a.status)}
+    </div>
+    <div class="modal-name" style="color:${tm.color}">${a.name}</div>
+    <div class="modal-role">${a.role}</div>
+    <div class="modal-section">
+      <div class="modal-section-title">KEY METRIC</div>
+      <div class="modal-metric">${a.metric}<br><span style="font-size:9px;color:var(--muted2)">Source: ${a.source} &middot; ${a.date}</span></div>
+    </div>`;
+  if(a.detail){
+    html+=`<div class="modal-section">
+      <div class="modal-section-title">ANALYSIS</div>
+      <div class="modal-metric" style="font-size:10px">${a.detail}</div>
+    </div>`;
+  }
+  if(a.events&&a.events.length){
+    html+=`<div class="modal-section"><div class="modal-section-title">KEY EVENTS</div>`;
+    a.events.forEach(e=>{html+=`<div class="event-row"><div class="event-date">${e.date}</div><div class="event-text">${e.event}</div></div>`;});
+    html+='</div>';
+  }
+  if(a.money&&a.money.length){
+    html+=`<div class="modal-section"><div class="modal-section-title">MONEY TRAILS</div>`;
+    a.money.forEach(m=>{
+      html+=`<div class="money-trail"><strong>${m.from}</strong> -> [${m.arrow}] -> <strong>${m.to}</strong>${m.label?` -- ${m.label}`:''}<div class="money-source">Source: ${m.source}</div></div>`;
+    });
+    html+='</div>';
+  }
+  if(a.connections&&a.connections.length){
+    html+=`<div class="modal-section"><div class="modal-section-title">CONNECTIONS</div><div class="connections-list">`;
+    a.connections.forEach(cid=>{
+      const ca=ACTORS.find(x=>x.id===cid);
+      html+=`<span class="conn-chip" onclick="openActor('${cid}')">${ca?ca.name:cid}</span>`;
+    });
+    html+='</div></div>';
+  }
+  document.getElementById('modal-content').innerHTML=html;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+window.openActor=openActor;
+
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('modal-overlay')&&e.type==='click')return;
+  if(e&&e.target===document.getElementById('modal'))return;
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+window.closeModal=closeModal;
+document.getElementById('modal').addEventListener('click',e=>e.stopPropagation());
+
+// ============================================================
+// BUILD PYRAMID (SVG)
+// ============================================================
+function buildPyramid(){
+  const svg=document.getElementById('pyramid-svg');
+  if(svg.dataset.built)return;svg.dataset.built='1';
+  const W=900,H=420;
+  const tiers=[
+    {t:0,y:25,actors:['bis','bilderberg','cfr','trilateral','wef']},
+    {t:1,y:85,actors:['rothschild','rockefeller','warburg','morgan']},
+    {t:'1b',y:130,actors:['vatican']},
+    {t:2,y:170,actors:['fed','blackrock','vanguard','statestreet']},
+    {t:'2b',y:215,actors:['soros','koch','kissinger']},
+    {t:3,y:258,actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
+    {t:3,y:298,actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
+    {t:'3b',y:340,actors:['sackler','johnson','wellcome','turner']},
+    {t:4,y:385,actors:['epstein','maxwell','wexner','andrew']},
+    {t:'4b',y:428,actors:['windsor','saud']},
+  ];
+  const nodePos={};
+  let svgHtml='';
+  // lines
+  const lines=[];
+  ACTORS.forEach(a=>{
+    (a.connections||[]).forEach(cid=>{
+      lines.push({from:a.id,to:cid});
+    });
+  });
+  // compute positions first
+  tiers.forEach(row=>{
+    const count=row.actors.length;
+    row.actors.forEach((aid,i)=>{
+      const x=W*(i+1)/(count+1);
+      nodePos[aid]={x,y:row.y+12};
+    });
+  });
+  // draw edges (subset)
+  const drawnEdges=new Set();
+  lines.forEach(l=>{
+    const key=[l.from,l.to].sort().join('-');
+    if(drawnEdges.has(key))return;
+    drawnEdges.add(key);
+    const p1=nodePos[l.from],p2=nodePos[l.to];
+    if(!p1||!p2)return;
+    svgHtml+=`<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" class="pyramid-edge"/>`;
+  });
+  // draw nodes
+  tiers.forEach(row=>{
+    const tm=getTierMeta(row.t);
+    const count=row.actors.length;
+    row.actors.forEach((aid,i)=>{
+      const a=ACTORS.find(x=>x.id===aid);
+      if(!a)return;
+      const x=W*(i+1)/(count+1);
+      const y=row.y;
+      const w=Math.min(90,W/(count+1)-2);
+      const label=a.name.length>14?a.name.slice(0,13)+'...':a.name;
+      svgHtml+=`<g class="pyramid-node" data-node="${aid}" onclick="openActor('${aid}')" transform="translate(${x},${y})">
+        <rect x="${-w/2}" y="0" width="${w}" height="22" rx="4" fill="${tm.color}20" stroke="${tm.color}60" stroke-width="1"/>
+        <text x="0" y="15" text-anchor="middle" fill="${tm.color}">${label}</text>
+      </g>`;
+    });
+    // tier label on left
+    const tm2=getTierMeta(row.t);
+    svgHtml+=`<text x="8" y="${row.y+15}" font-family="'Courier New',monospace" font-size="8" fill="${tm2.color}" opacity=".7">${tm2.label}</text>`;
+  });
+  svg.innerHTML=svgHtml;
+  // legend
+  const leg=document.getElementById('pyramid-legend');
+  if(!leg.dataset.built){
+    leg.dataset.built='1';
+    leg.innerHTML=Object.entries(TIER_META).map(([k,v])=>`<div class="leg-item"><div class="leg-dot" style="background:${v.color}"></div>${v.label}: ${v.title}</div>`).join('');
+  }
+}
+
+// ============================================================
+// BUILD TIMELINE
+// ============================================================
+function buildTimeline(){
+  const c=document.getElementById('timeline-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=TIMELINE.sort((a,b)=>a.date.localeCompare(b.date)).map(t=>`
+    <div class="tl-item">
+      <div class="tl-date">${t.date}</div>
+      <div class="tl-body">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:3px">
+          <div class="tl-title">${t.title}</div>
+          ${statusBadge(t.badge)}
+        </div>
+        <div class="tl-desc">${t.desc}</div>
+        <div class="tl-src">Source: ${t.src}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// BUILD MONEY
+// ============================================================
+function buildMoney(){
+  const c=document.getElementById('money-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=TRAILS.map(t=>{
+    const f=t.flow[0];
+    return `<div class="trail-block">
+      <div class="trail-title">&#x1F4B0; ${t.title}</div>
+      <div class="trail-flow">
+        <span class="trail-actor">${f.a}</span>
+        <span class="trail-arrow">--[</span><span class="trail-label">${f.l}</span><span class="trail-arrow">]-></span>
+        <span class="trail-actor">${f.a2}</span>
+        ${f.l2?`<span class="trail-arrow">--[</span><span class="trail-label">${f.l2}</span><span class="trail-arrow">]-></span>`:''}
+        ${f.a3?`<span class="trail-actor">${f.a3}</span>`:''}
+      </div>
+      <div class="trail-source">Source: ${t.source}</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// BUILD MEDIA
+// ============================================================
+function buildMedia(){
+  const c=document.getElementById('media-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=MEDIA.map(m=>`
+    <div class="media-owner">
+      <div class="media-owner-name">&#x25A3; ${m.owner}</div>
+      <div style="font-size:9px;color:var(--muted2);margin-bottom:.5rem">${m.note}</div>
+      ${m.outlets.map(o=>`
+        <div class="media-outlet">
+          <span class="media-outlet-name">${o.name}</span>
+          <span class="media-outlet-type">${o.type}</span>
+          <span class="media-outlet-note">${o.note}</span>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+// ============================================================
+// BUILD CRYPTO
+// ============================================================
+function buildCrypto(){
+  const c=document.getElementById('crypto-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=CRYPTOS.map(cr=>`
+    <div class="crypto-card">
+      <div class="crypto-name">&#x20BF; ${cr.name}</div>
+      <div class="crypto-role">${cr.role}</div>
+      <div class="crypto-facts">${cr.facts.map(f=>`
+        <div class="crypto-fact">
+          <span class="cf-label">${f.label}</span>
+          <span class="cf-val">${f.val}</span>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// BUILD SOURCES
+// ============================================================
+function buildSources(){
+  const c=document.getElementById('sources-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=SOURCES.map(s=>`
+    <div class="src-row">
+      <span class="src-actor">${s.actor}</span>
+      <span class="src-doc">${s.doc}<a class="src-link" href="${s.url}" target="_blank" rel="noopener noreferrer">&#x2197; ${s.url.replace('https://','').split('/')[0]}</a></span>
+      <span class="src-date">${s.date}</span>
+    </div>`).join('');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded',()=>{
+  // profiles built lazily on tab click
+});
+</script>
+</body>
+</html>
