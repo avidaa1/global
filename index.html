@@ -189,6 +189,14 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 #page-pyramid .sec{margin-bottom:.4rem;padding-bottom:.3rem}
 
 #page-pyramid #pyramid-legend{margin-bottom:.5rem}
+
+.blog-entry{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:1rem;border-left:3px solid var(--gold)}
+.blog-date{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:.4rem}
+.blog-title{font-size:15px;font-weight:700;letter-spacing:.06em;margin-bottom:.6rem}
+.blog-body{font-size:12px;color:var(--muted);line-height:1.7}
+.blog-body p{margin-bottom:.6rem}
+.blog-tag{display:inline-block;font-size:10px;padding:2px 6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:3px;color:var(--gold);margin-right:.3rem;margin-bottom:.4rem}
+.blog-sources{font-size:10px;color:var(--muted2);margin-top:.6rem;border-top:1px solid var(--border);padding-top:.4rem}
 </style>
 </head>
 <body>
@@ -225,7 +233,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div class="home-title">WHO RULES THE WORLD?</div>
     <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
     <div class="home-stats">
-      <div class="home-stat"><div class="home-stat-n">60+</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat"><div class="home-stat-n">74</div><div class="home-stat-l">ACTORS PROFILED</div></div>
       <div class="home-stat"><div class="home-stat-n">7</div><div class="home-stat-l">POWER TIERS</div></div>
       <div class="home-stat"><div class="home-stat-n">$40T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
       <div class="home-stat"><div class="home-stat-n">100%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
@@ -294,6 +302,12 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
   <div class="sec gold">* PRIMARY SOURCES</div>
   <div class="disclaimer">All primary sources used across this page. Sorted by actor.</div>
   <div id="sources-container"></div>
+</div>
+
+<div class="page" id="page-blog">
+  <div class="sec gold">&#x270D; INTEL BLOG -- DATED ENTRIES</div>
+  <div class="disclaimer">Documented entries only. All claims sourced. Timestamps reflect date of publication.</div>
+  <div id="blog-container"></div>
 </div>
 
 </div><!-- /main -->
@@ -1094,6 +1108,7 @@ function go(id,btn){
   if(id==='media')buildMedia();
   if(id==='crypto')buildCrypto();
   if(id==='sources')buildSources();
+  if(id==='blog')buildBlog();
 }
 window.go=go;
 
@@ -1372,6 +1387,86 @@ function buildSources(){
       <span class="src-doc">${s.doc}<a class="src-link" href="${s.url}" target="_blank" rel="noopener noreferrer">&#x2197; ${s.url.replace('https://','').split('/')[0]}</a></span>
       <span class="src-date">${s.date}</span>
     </div>`).join('');
+}
+
+// ============================================================
+// BLOG DATA
+// ============================================================
+const BLOG_POSTS=[
+  {
+    date:'2026-05-30',
+    timestamp:'Saturday, 30 May 2026',
+    title:'AVIDAA GLOBAL Launches -- 74 Actors, Full Global Power Map',
+    tags:['launch','global','power-network','documented'],
+    body:[
+      'AVIDAA GLOBAL goes live today at avidaa1.github.io/global -- a fully sourced, timestamp-verified interactive map of who rules the world. Zero speculation. All content from court documents, FOIA releases, SEC filings, congressional records, and verified journalism.',
+      'The page maps 74 actors across 7 power tiers -- from apex coordination bodies (BIS, Bilderberg, CFR, Trilateral Commission, WEF) down to crypto shadow networks (Tether, FTX/SBF, Binance/CZ). For the first time it covers non-Western power nodes in full: Xi Jinping and the CCP/PLA apparatus, Putin and the FSB/GRU/SVR intelligence triad, North Korea\'s Lazarus Group ($6.75B in documented crypto theft), the IRGC/Khamenei/Setad empire, and Gulf sovereign wealth funds now managing a combined $4.9-6T in assets.',
+      'Key documented findings on launch: ASML holds a 100% monopoly on EUV lithography -- every advanced chip on Earth runs through one Dutch company. Starlink now constitutes 65% of all active satellites. Nine nuclear states hold ~12,241 warheads (SIPRI Jan 2025). The Adani Group was indicted by the DOJ (EDNY) on 20 November 2024 for a $250M+ bribe scheme. The NSO Group/Pegasus spyware firm was ordered to pay $168M by a US federal jury on 6 May 2025.',
+      'The pyramid view allows clicking any node to open a full sourced profile. Every claim carries a status badge: DOCUMENTED (court/SEC/FOIA), REPORTED (verified journalism), or UNPROVEN (allegation, no documentary evidence). The page includes 10 follow-the-money trails, full media ownership chains, and 30 primary source links.',
+      'AVIDAA is an independent knowledge platform. No political affiliation. No agenda. Education only.',
+    ],
+    sources:[
+      'SIPRI Yearbook 2025 (June 2025)',
+      'DOJ EDNY indictment -- Adani Group (Nov 20, 2024)',
+      'WhatsApp v. NSO jury verdict (May 6, 2025)',
+      'FBI attribution -- Bybit/Lazarus Group (Feb 2025)',
+      'Chainalysis 2025 Crypto Crime Report',
+      'Jonathan McDowell satellite tracking (Mar 2026)',
+    ]
+  },
+  {
+    date:'2026-05-30',
+    timestamp:'Saturday, 30 May 2026',
+    title:'North Korea Lazarus Group: $2.02B Stolen in 2025 -- Record Year',
+    tags:['north-korea','lazarus','crypto','hacking','documented'],
+    body:[
+      'North Korea\'s state hacking unit Lazarus Group (operating under the Reconnaissance General Bureau) stole a record $2.02 billion in cryptocurrency in 2025 -- 76% of all service compromises globally that year (Chainalysis 2025).',
+      'The single largest heist was the Bybit exchange attack on 21 February 2025 -- $1.5 billion stolen in a single operation, the largest crypto heist in history. The FBI formally attributed the attack to TraderTraitor/Lazarus Group. Cumulative DPRK crypto theft since 2016 now stands at approximately $6.75 billion.',
+      'These funds directly finance North Korea\'s nuclear and ballistic missile programs, allowing Pyongyang to circumvent international sanctions. The Ronin Network hack ($625M, March 2022) was attributed to Lazarus by OFAC on 14 April 2022. North Korea supplied Russia with artillery shells and ballistic missiles for the Ukraine war -- documented by US, UK, and South Korean intelligence.',
+      'Kim Jong-un has overseen 6 nuclear tests and SIPRI estimates ~50 assembled warheads as of January 2025.',
+    ],
+    sources:[
+      'Chainalysis 2025 Crypto Crime Report',
+      'FBI TraderTraitor attribution -- Feb 2025',
+      'OFAC Lazarus attribution -- Ronin Network Apr 14, 2022',
+      'SIPRI Yearbook 2025',
+      'US/UK/South Korea documented weapons supply attribution',
+    ]
+  },
+  {
+    date:'2026-05-30',
+    timestamp:'Saturday, 30 May 2026',
+    title:'BRICS at 9: Half the World\'s Population, 41% of Global GDP',
+    tags:['brics','geopolitics','de-dollarization','documented'],
+    body:[
+      'As of January 2025 BRICS counts 9 members: Brazil, Russia, India, China, South Africa (founding members), plus Egypt, Ethiopia, Iran, and the UAE (joined January 2024). Indonesia joined in January 2025. Argentina declined membership under President Milei. Saudi Arabia\'s formal status remained undecided through 2024.',
+      'The bloc represents approximately half of the world\'s population and around 41% of global GDP measured at purchasing power parity. Its documented de-dollarization agenda includes China\'s CIPS payment system (a documented SWIFT alternative), proposals for a BRICS settlement currency, and bilateral trade in local currencies.',
+      'The August 2023 Johannesburg summit invitation to six new members was the largest expansion since the bloc\'s formation. Russia and Iran\'s inclusion has deepened the bloc\'s adversarial relationship with Western sanctions architecture. The bloc\'s combined economic weight now makes it structurally significant even without a unified command.',
+    ],
+    sources:[
+      'BRICS Johannesburg Declaration -- Aug 2023',
+      'Member state accession announcements -- Jan 2024',
+      'Indonesia BRICS accession -- Jan 2025',
+      'IMF World Economic Outlook (PPP GDP data)',
+    ]
+  },
+];
+
+// ============================================================
+// BUILD BLOG
+// ============================================================
+function buildBlog(){
+  const c=document.getElementById('blog-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+  c.innerHTML=BLOG_POSTS.map(p=>`
+    <div class="blog-entry">
+      <div class="blog-date">&#x25C6; ${p.timestamp}</div>
+      <div class="blog-title">${p.title}</div>
+      <div class="ac-tags" style="margin-bottom:.6rem">${p.tags.map(t=>`<span class="blog-tag">${t}</span>`).join('')}</div>
+      <div class="blog-body">${p.body.map(b=>`<p>${b}</p>`).join('')}</div>
+      <div class="blog-sources"><strong>Sources:</strong> ${p.sources.join(' &middot; ')}</div>
+    </div>
+  `).join('');
 }
 
 // ============================================================
