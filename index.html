@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data:; frame-ancestors 'none'">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="no-referrer">
 <title>AVIDAA GLOBAL -- Who Rules The World?</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G8M1YZQ8WF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-G8M1YZQ8WF');</script>
 <style>
 :root{
   --bg:#07090f;--bg2:#0d1117;--bg3:#161b22;--bg4:#1c2333;
@@ -19,6 +24,35 @@
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:13px;overflow:hidden}
 
 /* SCANLINE OVERLAY */
+@keyframes avidaaFlow{
+  0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}
+}
+#back-home{
+  display:inline-flex;align-items:center;font-family:var(--font);font-size:12px;font-weight:700;
+  letter-spacing:.1em;padding:4px 12px;border-radius:4px;cursor:pointer;border:none;
+  background:linear-gradient(270deg,#ff0080,#ff8c00,#ffe000,#00ff80,#00bfff,#a855f7,#ff0080);
+  background-size:400% 400%;animation:avidaaFlow 6s ease infinite;color:#fff;
+  text-shadow:0 1px 3px rgba(0,0,0,.5);flex-shrink:0;white-space:nowrap;
+  transition:opacity .2s,transform .2s;opacity:.75;
+}
+#back-home:hover{opacity:1;transform:translateY(-1px);}
+/* SEARCH */
+#search-wrap{position:relative;flex-shrink:0;}
+#search-input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+  font-family:var(--font);font-size:12px;padding:4px 10px;border-radius:4px;width:180px;
+  outline:none;transition:border-color .15s;}
+#search-input:focus{border-color:var(--gold);}
+#search-panel{position:absolute;top:calc(100% + 4px);right:0;width:360px;max-height:320px;
+  overflow-y:auto;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;
+  z-index:500;display:none;padding:.5rem;}
+#search-panel.open{display:block;}
+.sr-item{padding:.4rem .5rem;border-bottom:1px solid var(--border);cursor:pointer;font-size:12px;}
+.sr-item:hover{background:var(--bg3);}
+.sr-item:last-child{border-bottom:none;}
+.sr-name{font-weight:700;color:var(--gold);}
+.sr-role{color:var(--muted);font-size:12px;margin-top:1px;}
+.sr-count{font-size:12px;color:var(--teal);float:right;font-weight:700;}
+#search-count{font-size:12px;color:var(--muted2);padding:.25rem .5rem;}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,100,.012) 2px,rgba(0,255,100,.012) 4px);pointer-events:none;z-index:9999}
 
 /* LAYOUT */
@@ -30,13 +64,11 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 #hdr-logo span{color:var(--muted)}
 #hdr-sub{font-size:12px;color:var(--muted);letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
 #hdr-right{margin-left:auto;display:flex;align-items:center;gap:.75rem}
-#hdr-disclaimer{font-size:11px;color:var(--muted2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;letter-spacing:.04em;white-space:nowrap}
+#hdr-disclaimer{font-size:12px;color:var(--muted2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;letter-spacing:.04em;white-space:nowrap}
 
 /* NAV */
-#nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1px;padding:0 .25rem;height:38px;flex-shrink:0;width:100%;box-sizing:border-box}
-#nav::-webkit-scrollbar{height:3px}#nav::-webkit-scrollbar-track{background:var(--bg2)}
-#nav::-webkit-scrollbar-thumb{background:var(--border2)}
-.nav-btn{background:none;border:none;color:var(--muted);font-family:var(--font);font-size:clamp(11px,1.1vw,13px);letter-spacing:.02em;padding:4px 6px;cursor:pointer;border-radius:4px;white-space:nowrap;flex:1 1 0;min-width:0;text-align:center;overflow:hidden;text-overflow:ellipsis;transition:all .15s}
+#nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:1px 2px;padding:2px 4px;height:auto;flex-shrink:0;width:100%;box-sizing:border-box;overflow:visible}
+.nav-btn{background:none;border:none;color:var(--muted);font-family:var(--font);font-size:clamp(11px,1.1vw,13px);letter-spacing:.02em;padding:4px 8px;cursor:pointer;border-radius:4px;white-space:nowrap;flex:1 1 auto;text-align:center;transition:all .15s}
 .nav-btn:hover{color:var(--text);background:var(--bg3)}
 .nav-btn.active{color:var(--gold);background:rgba(245,158,11,.1);border-bottom:2px solid var(--gold)}
 
@@ -48,7 +80,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .page::-webkit-scrollbar-thumb{background:var(--border2)}
 
 /* SECTION HEADERS */
-.sec{font-size:14px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.sec{font-size:15px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
 .sec.gold{color:var(--gold)}
 .sec.red{color:var(--red)}
 .sec.purple{color:var(--purple)}
@@ -56,11 +88,11 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .sec.teal{color:var(--teal)}
 
 /* DISCLAIMER BAR */
-.disclaimer{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:var(--rl);padding:.75rem 1rem;margin-bottom:1.5rem;font-size:12px;color:var(--muted);line-height:1.6;letter-spacing:.03em}
+.disclaimer{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:var(--rl);padding:.75rem 1rem;margin-bottom:1.5rem;font-size:13px;color:var(--muted);line-height:1.6;letter-spacing:.03em}
 .disclaimer strong{color:var(--gold)}
 
 /* STATUS BADGES */
-.badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;letter-spacing:.06em;padding:2px 6px;border-radius:3px;font-weight:700}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:12px;letter-spacing:.06em;padding:2px 6px;border-radius:3px;font-weight:700}
 .badge.doc{background:rgba(34,197,94,.12);color:var(--doc);border:1px solid rgba(34,197,94,.2)}
 .badge.rep{background:rgba(245,158,11,.12);color:var(--rep);border:1px solid rgba(245,158,11,.2)}
 .badge.unp{background:rgba(239,68,68,.12);color:var(--unp);border:1px solid rgba(239,68,68,.2)}
@@ -68,7 +100,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 /* TIER CARDS */
 .tier-block{margin-bottom:2rem}
 .tier-header{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
-.tier-label{font-size:10px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:3px}
+.tier-label{font-size:12px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:3px}
 .tier-title{font-size:14px;font-weight:700;letter-spacing:.08em}
 .actor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem}
 .actor-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.75rem;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;word-break:break-word;overflow-wrap:break-word;min-width:0}
@@ -77,10 +109,30 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .ac-name{font-size:13px;font-weight:700;letter-spacing:.06em;margin-bottom:3px}
 .ac-role{font-size:12px;color:var(--muted);margin-bottom:.5rem}
 .ac-metric{font-size:12px;color:var(--text);background:var(--bg3);padding:4px 8px;border-radius:4px;margin-bottom:.5rem;line-height:1.4}
-.ac-source{font-size:11px;color:var(--muted2)}
+.ac-source{font-size:12px;color:var(--muted2)}
 .ac-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:.4rem}
-.ac-tag{font-size:10px;letter-spacing:.05em;padding:2px 5px;background:var(--bg4);border-radius:3px;color:var(--muted)}
-.ac-connections{font-size:11px;color:var(--muted2);margin-top:.4rem}
+.ac-tag{font-size:12px;letter-spacing:.05em;padding:2px 5px;background:var(--bg4);border-radius:3px;color:var(--muted)}
+.pi-wrap{margin-top:.55rem;}
+.pi-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.07em;color:var(--muted);margin-bottom:3px;}
+.pi-pct{font-size:12px;font-weight:700;color:var(--gold);}
+.pi-track{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;}
+.pi-fill{height:100%;border-radius:3px;width:0;transition:width 1.1s cubic-bezier(.4,0,.2,1);}
+.pi-fill.animate{width:var(--pi-w);}
+.pi-il{background:linear-gradient(90deg,#aa44ff,#f59e0b);}
+.pi-high{background:linear-gradient(90deg,#ef4444,#f59e0b);}
+.pi-mid{background:linear-gradient(90deg,#8b5cf6,#3b82f6);}
+.pi-low{background:linear-gradient(90deg,#3b82f6,#06b6d4);}
+/* Israel page */
+.il-tier-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.5rem;padding:.55rem .75rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);margin-bottom:.5rem;}
+.il-tier-left{}
+.il-tier-name{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--gold);}
+.il-tier-sub{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4;}
+.il-pct-big{font-size:20px;font-weight:900;font-family:var(--font);color:var(--gold);text-shadow:0 0 10px rgba(245,158,11,.4);min-width:52px;text-align:right;}
+.il-bar-wrap{grid-column:1/-1;margin-top:.35rem;}
+.il-intro{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:1rem;padding:.6rem .75rem;background:var(--bg2);border-left:2px solid var(--gold);border-radius:0 4px 4px 0;}
+.il-section-hdr{font-size:12px;letter-spacing:.1em;color:var(--gold);margin:1rem 0 .5rem;border-bottom:1px solid var(--border);padding-bottom:.3rem;}
+.il-disclaimer{font-size:12px;color:var(--muted2);margin-top:1rem;padding:.5rem .75rem;background:var(--bg2);border-radius:var(--rl);line-height:1.5;}
+.ac-connections{font-size:12px;color:var(--muted2);margin-top:.4rem}
 
 /* PROFILE MODAL */
 #modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
@@ -93,28 +145,55 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .modal-name{font-size:18px;font-weight:700;letter-spacing:.06em;margin-bottom:.25rem}
 .modal-role{font-size:13px;color:var(--muted);margin-bottom:1rem}
 .modal-section{margin-bottom:1rem}
-.modal-section-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:.4rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
+.modal-section-title{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:.4rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
 .modal-metric{font-size:12px;background:var(--bg3);padding:.6rem .8rem;border-radius:6px;line-height:1.5}
 .event-row{display:flex;gap:.75rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:14px}
 .event-date{color:var(--gold);width:40px;flex-shrink:0;font-weight:700}
 .event-text{color:var(--muted);line-height:1.4}
 .money-trail{background:var(--bg3);border-radius:6px;padding:.6rem .8rem;font-size:12px;line-height:1.6;color:var(--muted);margin-bottom:.4rem}
 .money-trail strong{color:var(--text)}
-.money-source{font-size:11px;color:var(--muted2);margin-top:.25rem}
+.money-source{font-size:12px;color:var(--muted2);margin-top:.25rem}
 .connections-list{display:flex;gap:.4rem;flex-wrap:wrap}
-.conn-chip{font-size:11px;padding:2px 7px;background:var(--bg4);border:1px solid var(--border);border-radius:3px;color:var(--muted);cursor:pointer}
+.conn-chip{font-size:12px;padding:2px 7px;background:var(--bg4);border:1px solid var(--border);border-radius:3px;color:var(--muted);cursor:pointer}
+.conn-outgoing{border-color:rgba(34,197,94,.3);color:#22c55e}
+.conn-outgoing:hover{background:rgba(34,197,94,.1)}
+.conn-incoming{border-color:rgba(59,130,246,.3);color:#3b82f6}
+.conn-incoming:hover{background:rgba(59,130,246,.1)}
 .conn-chip:hover{color:var(--text);border-color:var(--border2)}
 
 /* PYRAMID PAGE */
-#pyramid-canvas{width:100%;height:420px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;margin-bottom:1rem}
+#pyramid-canvas{width:100%;height:calc(100vh - 182px);min-height:520px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;position:relative;margin-bottom:.5rem}
 #pyramid-svg{width:100%;height:100%}
 .pyramid-node{cursor:pointer;transition:all .2s}
 .pyramid-node:hover rect{filter:brightness(1.3)}
 .pyramid-node text{pointer-events:none;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.05em}
-.pyramid-edge{stroke:rgba(255,255,255,.1);stroke-width:1;fill:none}
-#pyramid-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-.leg-item{display:flex;align-items:center;gap:.4rem;font-size:12px;color:var(--muted)}
-.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.pyramid-edge{fill:none;stroke-linecap:round;cursor:default;transition:opacity .2s,stroke-width .2s}
+.pyramid-edge:hover{stroke-width:2.5}
+#pyramid-svg.dim-mode .pyramid-edge{opacity:.03!important}
+#pyramid-svg.dim-mode .pyramid-edge.lit{opacity:1!important;stroke-width:2.5px}
+#pyramid-svg.dim-mode .pyramid-node{opacity:.2}
+#pyramid-svg.dim-mode .pyramid-node.lit{opacity:1!important}
+#pyramid-svg.dim-mode .pyramid-node rect{opacity:.3}
+#pyramid-svg.dim-mode .pyramid-node.lit rect{opacity:1;filter:drop-shadow(0 0 6px currentColor)}
+#pyramid-svg.dim-mode .pyramid-node.lit text{fill:white}
+/* LEGEND */
+#pyramid-legend-wrap{position:relative;margin-bottom:.4rem;}
+#pyramid-legend{display:flex;gap:.3rem;flex-wrap:wrap;overflow:visible;padding:2px 0;}
+.leg-item{display:inline-flex;align-items:center;gap:.22rem;font-size:clamp(11px,.95vw,12px);
+  color:var(--muted);padding:2px 5px;border-radius:3px;border:1px solid transparent;
+  transition:all .2s;white-space:nowrap;cursor:default;}
+.leg-item.lit{border-color:currentColor;color:var(--text);
+  box-shadow:0 0 8px currentColor,0 0 16px currentColor;
+  text-shadow:0 0 6px currentColor;background:rgba(255,255,255,.04);}
+.leg-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0;transition:box-shadow .2s;}
+.leg-item.lit .leg-dot{box-shadow:0 0 5px currentColor,0 0 10px currentColor;}
+/* Compact dot-only on very small screens */
+@media(max-width:480px){
+  .leg-item .leg-text{display:none;}
+  .leg-dot{width:10px;height:10px;border-radius:3px;}
+  .leg-item{padding:3px 4px;gap:0;}
+  #pyramid-legend{gap:.25rem;}
+}
 
 /* TIMELINE PAGE */
 .tl-item{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
@@ -122,7 +201,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .tl-body{}
 .tl-title{font-size:13px;font-weight:700;margin-bottom:3px}
 .tl-desc{font-size:12px;color:var(--muted);line-height:1.5}
-.tl-src{font-size:11px;color:var(--muted2);margin-top:.25rem}
+.tl-src{font-size:12px;color:var(--muted2);margin-top:.25rem}
 
 /* MONEY PAGE */
 .trail-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:.75rem}
@@ -130,8 +209,8 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .trail-flow{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem}
 .trail-actor{background:var(--bg3);border:1px solid var(--border2);padding:4px 8px;border-radius:4px;font-size:12px;font-weight:700}
 .trail-arrow{color:var(--muted2);font-size:13px}
-.trail-label{font-size:11px;color:var(--muted);font-style:italic}
-.trail-source{font-size:11px;color:var(--muted2);border-top:1px solid var(--border);padding-top:.4rem;margin-top:.4rem}
+.trail-label{font-size:12px;color:var(--muted);font-style:italic}
+.trail-source{font-size:12px;color:var(--muted2);border-top:1px solid var(--border);padding-top:.4rem;margin-top:.4rem}
 
 /* MEDIA PAGE */
 .media-owner{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:.75rem}
@@ -139,25 +218,30 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .media-outlet{display:flex;align-items:center;gap:.4rem;padding:.3rem 0;border-bottom:1px solid var(--border);font-size:12px;flex-wrap:wrap}
 .media-outlet:last-child{border-bottom:none}
 .media-outlet-name{font-weight:700;min-width:100px;max-width:160px;flex-shrink:1}
-.media-outlet-type{font-size:10px;color:var(--muted);background:var(--bg3);padding:2px 6px;border-radius:3px}
-.media-outlet-note{font-size:10px;color:var(--muted2);margin-left:auto}
+.media-outlet-type{font-size:12px;color:var(--muted);background:var(--bg3);padding:2px 6px;border-radius:3px}
+.media-outlet-note{font-size:12px;color:var(--muted2);margin-left:auto}
 
 /* SOURCES PAGE */
 .src-row{display:flex;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--border);font-size:12px;align-items:flex-start}
 .src-actor{color:var(--gold);width:auto;min-width:80px;max-width:140px;flex-shrink:0;font-weight:700;padding-top:1px;white-space:nowrap}
 .src-doc{flex:1;min-width:0;line-height:1.4;word-break:break-word}
-.src-link{color:var(--blue);text-decoration:none;font-size:11px;display:block;margin-top:2px}
+.src-link{color:var(--blue);text-decoration:none;font-size:12px;display:block;margin-top:2px}
 .src-link:hover{text-decoration:underline}
-.src-date{color:var(--muted2);font-size:11px;width:70px;flex-shrink:0;padding-top:1px}
+.src-date{color:var(--muted2);font-size:12px;width:70px;flex-shrink:0;padding-top:1px}
 
 /* HOME PAGE */
 .home-hero{text-align:center;padding:2rem 0 1.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--border)}
+#globe-wrap{position:relative;width:100%;max-width:620px;height:440px;margin:0 auto 1rem;cursor:none}
+#globe-canvas{width:100%;height:100%;display:block}
+#globe-label{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.18em;color:rgba(245,158,11,.5);pointer-events:none;white-space:nowrap}
+@media(max-width:560px){#globe-wrap{height:300px;max-width:420px}}
+@media(max-width:400px){#globe-wrap{height:220px;max-width:320px}}
 .home-title{font-size:24px;font-weight:700;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
 .home-sub{font-size:13px;color:var(--muted);letter-spacing:.08em;margin-bottom:1rem}
 .home-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.5rem;max-width:700px;margin:0 auto}
 .home-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.75rem;text-align:center}
 .home-stat-n{font-size:20px;font-weight:700;color:var(--gold)}
-.home-stat-l{font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
+.home-stat-l{font-size:12px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
 .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem}
 .how-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.9rem}
 .how-icon{font-size:20px;margin-bottom:.4rem}
@@ -175,45 +259,91 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .cf-val{color:var(--text);flex:1}
 
 /* RESPONSIVE */
-@media(max-width:700px){#hdr-sub{display:none}#hdr-disclaimer{display:none}}@media(max-width:600px){
+/* -- RESPONSIVE --------------------------------------- */
+/* -- RESPONSIVE BREAKPOINTS -------------------------------- */
+/* 1200px: start compressing disclaimer */
+@media(max-width:1200px){
+  #hdr-disclaimer{font-size:10px;padding:2px 5px;letter-spacing:.02em}
+}
+/* 900px: hide disclaimer, shrink search */
+@media(max-width:900px){
+  #hdr-disclaimer{display:none}
+  #search-input{width:130px}
+  #search-panel{width:300px}
+}
+/* 700px: hide sub-title */
+@media(max-width:700px){
+  #hdr-sub{display:none}
+  #search-input{width:110px}
+  #search-panel{width:260px}
+  .modal-name{font-size:15px}
+}
+/* 560px: compact header, scrollable nav */
+@media(max-width:560px){
+  #hdr{height:38px;padding:0 .4rem;gap:.3rem}
+  #hdr-logo{font-size:12px;letter-spacing:.05em}
+  #hdr-right{gap:.3rem}
+  #search-wrap{order:2}
+  #search-input{width:80px;font-size:12px;padding:3px 7px}
+  #search-panel{width:calc(100vw - .8rem);right:-.4rem}
+  #back-home{font-size:10px;padding:3px 7px;letter-spacing:.06em}
+  #nav{}
+  .nav-btn{font-size:clamp(9px,2.2vw,11px);padding:2px 5px}
+  .page{padding:.5rem .4rem}
+  #pyramid-canvas{min-height:380px}
+  #pyramid-legend{gap:.2rem}
   .actor-grid{grid-template-columns:1fr}
   .home-stats{grid-template-columns:repeat(2,1fr)}
+  #modal{padding:.85rem}
+  .modal-name{font-size:14px}
+  .tl-item{flex-direction:column;gap:.3rem}
+  .tl-date{width:auto}
+}
+/* 400px: minimum sizes */
+@media(max-width:400px){
+  #hdr{height:36px}
+  #hdr-logo{font-size:12px}
+  #search-input{width:60px;font-size:10px}
+  #back-home{padding:2px 5px;font-size:9px}
+  .nav-btn{font-size:8px;padding:2px 3px;letter-spacing:0}
+  #pyramid-canvas{min-height:320px}
+  .leg-item{padding:2px 3px}
 }
 
 .ac-metric,.ac-role,.tl-desc,.modal-metric,.trail-source,.money-source{word-break:break-word;overflow-wrap:break-word}
 
-#page-pyramid{padding:.5rem !important}
+#page-pyramid{padding:.4rem .6rem !important}
 
-#page-pyramid .disclaimer{padding:.4rem .75rem;margin-bottom:.5rem;font-size:11px}
+#page-pyramid .disclaimer{padding:.4rem .75rem;margin-bottom:.5rem;font-size:12px}
 
 #page-pyramid .sec{margin-bottom:.4rem;padding-bottom:.3rem}
 
-#page-pyramid #pyramid-legend{margin-bottom:.5rem}
+#page-pyramid #pyramid-legend-wrap{margin-bottom:.4rem}
 
 .blog-entry{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:1rem;margin-bottom:1rem;border-left:3px solid var(--gold)}
-.blog-date{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:.4rem}
+.blog-date{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:.4rem}
 .blog-title{font-size:15px;font-weight:700;letter-spacing:.06em;margin-bottom:.6rem}
 .blog-body{font-size:12px;color:var(--muted);line-height:1.7}
 .blog-body p{margin-bottom:.6rem}
-.blog-tag{display:inline-block;font-size:10px;padding:2px 6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:3px;color:var(--gold);margin-right:.3rem;margin-bottom:.4rem}
-.blog-sources{font-size:10px;color:var(--muted2);margin-top:.6rem;border-top:1px solid var(--border);padding-top:.4rem}
+.blog-tag{display:inline-block;font-size:12px;padding:2px 6px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:3px;color:var(--gold);margin-right:.3rem;margin-bottom:.4rem}
+.blog-sources{font-size:12px;color:var(--muted2);margin-top:.6rem;border-top:1px solid var(--border);padding-top:.4rem}
 
 /* FOOTER */
 #site-footer{background:var(--bg2);border-top:1px solid var(--border);padding:.75rem 1rem;flex-shrink:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem}
-#footer-brand{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--gold)}
+#footer-brand{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--gold)}
 #footer-sites{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center}
-.footer-link{font-size:10px;color:var(--muted);text-decoration:none;padding:2px 7px;border:1px solid var(--border);border-radius:3px;white-space:nowrap;transition:all .15s}
+.footer-link{font-size:12px;color:var(--muted);text-decoration:none;padding:2px 7px;border:1px solid var(--border);border-radius:3px;white-space:nowrap;transition:all .15s}
 .footer-link:hover{color:var(--gold);border-color:rgba(245,158,11,.4)}
 .footer-link.active-site{color:var(--gold);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05)}
-#footer-copy{font-size:10px;color:var(--muted2);white-space:nowrap}
+#footer-copy{font-size:12px;color:var(--muted2);white-space:nowrap}
 
 /* FOOTER */
 .page-footer{background:var(--bg2);border-top:1px solid var(--border);padding:.75rem 1rem;margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-.footer-brand{font-size:11px;color:var(--muted2);letter-spacing:.06em}
+.footer-brand{font-size:12px;color:var(--muted2);letter-spacing:.06em}
 .footer-brand strong{color:var(--gold)}
-.footer-link{font-size:11px;color:var(--teal);text-decoration:none;letter-spacing:.06em;border:1px solid rgba(45,212,191,.2);padding:3px 8px;border-radius:4px}
+.footer-link{font-size:12px;color:var(--teal);text-decoration:none;letter-spacing:.06em;border:1px solid rgba(45,212,191,.2);padding:3px 8px;border-radius:4px}
 .footer-link:hover{color:var(--text);border-color:rgba(45,212,191,.5)}
-.footer-disclaimer{font-size:10px;color:var(--muted2);width:100%;border-top:1px solid var(--border);padding-top:.5rem;margin-top:.25rem}
+.footer-disclaimer{font-size:12px;color:var(--muted2);width:100%;border-top:1px solid var(--border);padding-top:.5rem;margin-top:.25rem}
 </style>
 </head>
 <body>
@@ -223,35 +353,154 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div id="hdr">
   <div id="hdr-logo" onclick="go('home')" style="cursor:pointer">AVIDAA <span>*</span> GLOBAL</div>
   <div id="hdr-sub">WHO RULES THE WORLD?</div>
-  <div id="hdr-right"><a href="https://avidaa1.github.io" target="_blank" rel="noopener noreferrer" style="font-size:11px;color:var(--teal);text-decoration:none;letter-spacing:.08em;border:1px solid rgba(45,212,191,.25);padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0">HOME</a>
+  <div id="hdr-right">
+    <div id="search-wrap">
+      <input id="search-input" type="text" placeholder="Search actors, tags, events..." autocomplete="off" oninput="runSearch(this.value)" onfocus="if(this.value)document.getElementById('search-panel').classList.add('open')" />
+      <div id="search-panel">
+        <div id="search-count"></div>
+        <div id="search-results"></div>
+      </div>
+    </div>
     <div id="hdr-disclaimer">EDUCATIONAL &middot; PUBLIC RECORD ONLY &middot; NO ORIGINAL CLAIMS</div>
+    <button id="back-home" onclick="window.open('https://avidaa1.github.io','_blank')">AVIDAA</button>
   </div>
 </div>
 
 <!-- NAV -->
+<div id="nav-wrap" style="position:relative;flex-shrink:0;width:100%">
 <div id="nav">
-  <button class="nav-btn" onclick="go('pyramid',this)">PYRAMID</button>
-  <button class="nav-btn" onclick="go('profiles',this)">PROFILES</button>
-  <button class="nav-btn" onclick="go('timeline',this)">TIMELINE</button>
-  <button class="nav-btn" onclick="go('money',this)">MONEY</button>
-  <button class="nav-btn" onclick="go('media',this)">MEDIA</button>
-  <button class="nav-btn" onclick="go('crypto',this)">CRYPTO</button>
-  <button class="nav-btn" onclick="go('sources',this)">SOURCES</button>
-  <button class="nav-btn" onclick="go('blog',this)">BLOG</button>
+  <button class="nav-btn" onclick="go('apex',this)" data-full="FINAL BOSS" data-short="BOSS" style="color:#ff00ff;font-weight:700">FINAL BOSS</button>
+  <button class="nav-btn" onclick="go('pyramid',this)" data-full="PYRAMID" data-short="PYR">PYRAMID</button>
+  <button class="nav-btn" onclick="go('profiles',this)" data-full="PROFILES" data-short="PROF">PROFILES</button>
+  <button class="nav-btn" onclick="go('timeline',this)" data-full="TIMELINE" data-short="TIME">TIMELINE</button>
+  <button class="nav-btn" onclick="go('money',this)" data-full="MONEY" data-short="$">MONEY</button>
+  <button class="nav-btn" onclick="go('media',this)" data-full="MEDIA" data-short="MED">MEDIA</button>
+  <button class="nav-btn" onclick="go('crypto',this)" data-full="CRYPTO" data-short="CRPT">CRYPTO</button>
+  <button class="nav-btn" onclick="go('sources',this)" data-full="SOURCES" data-short="SRC">SOURCES</button>
+  <button class="nav-btn" onclick="go('israel',this)" data-full="ISRAEL" data-short="IL">ISRAEL</button>
+  <button class="nav-btn" onclick="go('blog',this)" data-full="BLOG" data-short="BLOG">BLOG</button>
+</div>
+<div id="nav-fade" style="position:absolute;right:0;top:0;bottom:0;width:28px;background:linear-gradient(to right,transparent,var(--bg2));pointer-events:none;display:none;z-index:10"></div>
 </div>
 
 <!-- MAIN -->
 <div id="main">
 
+<!-- FINAL BOSS / APEX -->
+<div class="page" id="page-apex">
+  <div class="sec" style="color:#ff00ff">&#x2666; THE FINAL BOSS -- WHO RULES THE WORLD?</div>
+  <div class="disclaimer">Deep research findings. All conclusions sourced from: Susan Strange structural power framework, SIPRI 2025, IMF COFER Q4 2025, BIS Triennial Survey 2025, Fichtner et al. 2017, Chatham House 2025, Munich Security Report 2025, ETH-Zurich Vitali et al. 2011. No original claims.</div>
+
+  <div style="background:rgba(255,0,255,.06);border:1px solid rgba(255,0,255,.25);border-radius:10px;padding:1rem;margin-bottom:1rem">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.1em;color:#ff00ff;margin-bottom:.5rem">&#x2666; VERDICT: NO SINGLE FINAL BOSS EXISTS</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7">No reputable political scientist, geopolitical analyst, or documented intelligence assessment identifies a single ruler. Power is <strong style="color:var(--text)">structural, plural, and contested</strong>. The closest documented answer: the United States holds structural primacy but cannot rule unilaterally. The real apex is a <strong style="color:var(--text)">convergence of four structures</strong> -- military, monetary, financial-asset, and knowledge -- all dominated by overlapping US institutions with no single hand on all levers.</div>
+  </div>
+
+  <div class="sec" style="color:#ff00ff;font-size:12px">CANDIDATE ANALYSIS -- WHO COMES CLOSEST?</div>
+
+  <div style="display:grid;gap:.6rem;margin-bottom:1.5rem">
+
+    <div style="background:var(--bg2);border:1px solid rgba(255,0,255,.3);border-left:3px solid #ff00ff;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:#ff00ff;margin-bottom:.3rem">&#9312; US STRUCTURAL HEGEMONY -- STRONGEST DOCUMENTED CLAIM</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">
+        33% of global military spending (54B of ,887B -- SIPRI Apr 2026). Dollar = 56.77% of global FX reserves (IMF COFER Q4 2025). Dollar used in 89% of all FX transactions (BIS Triennial Survey 2025). Susan Strange (1988): structural power is the power to set the rules -- the US does this across security, finance, production, and knowledge simultaneously. Chatham House (Mar 2025): US &quot;remains dominant&quot; with structural advantages in multilateral institutions and the dollar order. The top 3 military spenders (US 54B + China 46B + Russia 49B) = 51% of global total -- US alone is 33%, more than the next 6 combined.
+      </div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.4rem">Source: SIPRI 27 Apr 2026 / IMF COFER Q4 2025 / BIS Triennial 2025 / Strange States and Markets 1988 / Chatham House Mar 2025</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(245,158,11,.3);border-left:3px solid var(--gold);border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:.3rem">&#9313; THE FEDERAL RESERVE + DOLLAR SYSTEM -- MONETARY APEX</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">
+        The Fed sets the dollar interest rate -- effectively the global rate. All dollar-denominated debt bends to the Fed decision. Perry Mehrling (Boston University): monetary systems are &quot;inevitably hierarchical&quot; -- the dollar is &quot;the ultimate money&quot; at the apex of a global pyramid. Barry Eichengreen: the US can &quot;purchase foreign goods and companies using resources conjured out of thin air&quot; -- the exorbitant privilege. The dollar's 56.77% reserve share is down from 64.69% in 2017 Q1 -- a 8-point decline in 8 years -- but still dominant. The Fed also controls dollar swap lines that act as the global lender of last resort during crises.
+      </div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.4rem">Source: Mehrling / Eichengreen Exorbitant Privilege / IMF COFER 2025</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(139,92,246,.3);border-left:3px solid #8b5cf6;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:#8b5cf6;margin-bottom:.3rem">&#9314; THE BIG THREE -- FINANCIAL ASSET CONCENTRATION</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">
+        BlackRock (4T AUM) + Vanguard (1.6T) + State Street (.3T) = largest shareholder in 88% of S&P 500 firms (Fichtner, Heemskerk, Garcia-Bernardo -- Business and Politics 2017). They collectively cast ~25% of all S&P 500 votes. BlackRock Aladdin risk system used by central banks and sovereign wealth funds globally. Bebchuk and Hirst (Harvard 2019): &quot;The Problem of Twelve&quot; -- 12 asset managers decide governance for most major corporations. IMPORTANT: this is concentrated influence, not coordinated rule -- they act as fiduciaries for millions of underlying investors.
+      </div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.4rem">Source: Fichtner et al. Business and Politics 2017 / Bebchuk-Hirst 2019 / BlackRock SEC ARS 2025</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(34,211,238,.3);border-left:3px solid #22d3ee;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:#22d3ee;margin-bottom:.3rem">&#9315; BIS -- CENTRAL BANK OF CENTRAL BANKS</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">
+        63 member central banks covering ~95% of world GDP. Basel, Switzerland. Sets Basel I-IV capital adequacy standards binding on banks worldwide. Created in 1930. Vitali et al. (ETH Zurich 2011): network analysis of 43,060 transnational corporations found a &quot;super-entity&quot; of 147 companies controlling 40% of operating revenue -- 75% were financial institutions. The BIS sits above all of them as the standard-setter. It does NOT issue currency or set national monetary policy -- it coordinates and regulates the regulators.
+      </div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.4rem">Source: BIS bis.org 2025 / Vitali-Glattfelder-Battiston ETH Zurich PLoS ONE 2011</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(107,114,128,.3);border-left:3px solid #6b7280;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:#6b7280;margin-bottom:.3rem">&#9316; SHADOW NETWORKS (BILDERBERG / DYNASTIC CAPITAL) -- REAL BUT OVERSTATED</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6">
+        Bilderberg: ~130 heads of state, bank CEOs, media owners. Annual. No press. No minutes. Operates under Chatham House Rule. Issues no resolutions, no votes. Documented overlap with CFR, Trilateral, WEF membership. Dynastic capital (Rothschild, Rockefeller): operate through foundations and private banking -- real multigenerational influence but no documented command authority. NO documented evidence that Bilderberg or any dynastic network directly controls government decisions. Influence is real. Control is unproven.
+      </div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.4rem">Source: bilderbergmeetings.org / Rockefeller Archive Center / CFR.org</div>
+    </div>
+
+  </div>
+
+  <div class="sec" style="color:#ff00ff;font-size:12px">WHERE POWER LIVES GEOGRAPHICALLY</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.5rem;margin-bottom:1.5rem">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#f59e0b;margin-bottom:.3rem">NEW YORK</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">#1 global financial centre (GFCI 38, score 745). NYSE + Nasdaq. NY Fed executes dollar swap lines. BlackRock HQ.</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#3b82f6;margin-bottom:.3rem">WASHINGTON DC</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">Pentagon (54B military). NSA. CIA. IMF. World Bank. Dollar sanctions power. AIPAC lobbying nexus.</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#22d3ee;margin-bottom:.3rem">BASEL</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">BIS HQ. Sets global banking capital rules. 63 central banks. The regulator of regulators.</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#ef4444;margin-bottom:.3rem">LONDON</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">#2 financial centre (GFCI 38, score 739). City of London FX dominant. Rothschild & Co merchant banking.</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#ef4444;margin-bottom:.3rem">BEIJING</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">CCP/PLA apex. ~46B military. BRI creditor network. ~600 nuclear warheads. CIPS dollar alternative.</div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.75rem">
+      <div style="font-size:12px;font-weight:700;color:#aa44ff;margin-bottom:.3rem">TEL AVIV / HERZLIYA</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.5">Mossad/8200 intel node. NSO Pegasus. Unit 8200 tech corridor. ~90 undeclared warheads. US bilateral shield.</div>
+    </div>
+  </div>
+
+  <div class="sec" style="color:#ff00ff;font-size:12px">BENCHMARKS TO WATCH</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.85rem;margin-bottom:1rem;font-size:12px;color:var(--muted);line-height:1.8">
+    <div>&#x25B6; Dollar FX reserve share: <strong style="color:var(--text)">56.77% (Q4 2025)</strong> -- down from 64.69% (Q1 2017). Sustained drop below 50% = real monetary multipolarity.</div>
+    <div>&#x25B6; US military share: <strong style="color:var(--text)">33% (54B)</strong> vs China 8.5% (46B). Parity would signal bipolar transition.</div>
+    <div>&#x25B6; Renminbi reserve share: <strong style="color:var(--text)">2.17% (IMF Q4 2025)</strong> -- must rise significantly to challenge dollar.</div>
+    <div>&#x25B6; UN Charter veto reform: <strong style="color:var(--text)">structurally impossible</strong> -- any amendment requires all P5 to ratify. Russia or China will never ratify removal of their own veto.</div>
+    <div>&#x25B6; BIS Basel IV full implementation: <strong style="color:var(--text)">Jan 2026</strong> -- tightens global bank capital rules further.</div>
+  </div>
+
+  <div class="disclaimer" style="margin-top:0">
+    <strong>CONCLUSION</strong> -- The &quot;final boss&quot; is a system, not a person. The US dollar + Federal Reserve + Pentagon + BIS + Big Three asset managers form an interlocking structural apex. Within that system: the US President controls the most relational power. The Fed chair controls the most monetary power. Larry Fink (BlackRock) controls the most financial-asset influence. No single human commands all three simultaneously. The shadow networks (Bilderberg, dynastic capital) shape access and agenda but do not command outcomes. All documented. All sourced.
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
+  </div>
+</div>
+
 <!-- HOME -->
 <div class="page active" id="page-home">
   <div class="home-hero">
+    <div id="globe-wrap">
+      <canvas id="globe-canvas"></canvas>
+      <div id="globe-label">AVIDAA GLOBAL POWER NETWORK</div>
+    </div>
     <div class="home-title">WHO RULES THE WORLD?</div>
     <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
     <div class="home-stats">
-      <div class="home-stat"><div class="home-stat-n">74</div><div class="home-stat-l">ACTORS PROFILED</div></div>
-      <div class="home-stat"><div class="home-stat-n">7</div><div class="home-stat-l">POWER TIERS</div></div>
-      <div class="home-stat"><div class="home-stat-n">$40T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
+      <div class="home-stat"><div class="home-stat-n">93</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat"><div class="home-stat-n">15</div><div class="home-stat-l">POWER TIERS</div></div>
+      <div class="home-stat"><div class="home-stat-n">$65T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
       <div class="home-stat"><div class="home-stat-n">100%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
     </div>
   </div>
@@ -277,9 +526,9 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div class="page" id="page-pyramid">
   <div class="sec gold">&#x25B2; POWER HIERARCHY -- APEX TO BASE</div>
   <div class="disclaimer">Click any node to open the full profile. Connections show documented relationships only.</div>
-  <div id="pyramid-legend"></div>
-  <div id="pyramid-canvas"><svg id="pyramid-svg" viewBox="0 0 1000 590" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%"></svg></div>
-  <div id="pyramid-info" style="font-size:10px;color:var(--muted);text-align:center;margin-top:.5rem"><- Select a node to view profile</div>
+  <div id="pyramid-legend-wrap"><div id="pyramid-legend"></div></div>
+  <div id="pyramid-canvas"><svg id="pyramid-svg" viewBox="0 0 900 760" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%"></svg></div>
+  <div id="pyramid-info" style="font-size:11px;color:var(--muted);text-align:center;margin-top:.5rem"><- Select a node to view profile</div>
   <div class="page-footer">
     <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
   </div>
@@ -290,6 +539,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div class="page" id="page-profiles">
   <div class="sec gold">&#x25C8; ACTOR PROFILES -- ALL TIERS</div>
   <div class="disclaimer">All data sourced from primary documents. Click any card to expand full profile with events and connections.</div>
+  <div id="profile-tag-filters" style="display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:.75rem"></div>
   <div id="profiles-container"></div>
   <div class="page-footer">
     <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
@@ -344,12 +594,21 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <!-- SOURCES -->
 <div class="page" id="page-sources">
   <div class="sec gold">* PRIMARY SOURCES</div>
-  <div class="disclaimer">All primary sources used across this page. Sorted by actor.</div>
+  <div class="disclaimer">All primary sources used across this page. Sorted newest first.</div>
   <div id="sources-container"></div>
   <div class="page-footer">
     <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
   </div>
 
+</div>
+
+<div class="page" id="page-israel">
+  <div class="sec gold">&#x25C6; ISRAEL POWER INDEX -- PYRAMID POSITION</div>
+  <div class="disclaimer">All data sourced from public records, verified intelligence research, SEC/FEC filings, SIPRI, and verified journalism. No original claims.</div>
+  <div id="israel-container"></div>
+  <div class="page-footer">
+    <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
+  </div>
 </div>
 
 <div class="page" id="page-blog">
@@ -390,6 +649,7 @@ const SFX={click:()=>{}};
 // DATA
 // ============================================================
 const TIER_META={
+  '-1':{label:'APEX',title:'SHADOW APEX -- NO MANDATE',color:'#ff00ff'},
   0:{label:'TIER 0',title:'APEX COORDINATION',color:'#f59e0b'},
   1:{label:'TIER 1',title:'DYNASTIC WEALTH',color:'#ef4444'},
   '1b':{label:'TIER 1B',title:'SOVEREIGN NON-STATE',color:'#dc2626'},
@@ -400,6 +660,8 @@ const TIER_META={
   4:{label:'TIER 4',title:'EPSTEIN NETWORK',color:'#ec4899'},
   '4b':{label:'TIER 4B',title:'ROYAL FAMILIES',color:'#be185d'},
   '0b':{label:'INFRA',title:'GLOBAL INFRASTRUCTURE',color:'#22d3ee'},
+  '0c':{label:'ISRAEL',title:'ASYMMETRIC POWER',color:'#aa44ff'},
+  '0d':{label:'AI APEX',title:'AI INFRASTRUCTURE CONTROL',color:'#c084fc'},
   5:{label:'TIER 5',title:'WAR ECONOMY',color:'#6b7280'},
   6:{label:'TIER 6',title:'POLITICAL POWER',color:'#10b981'},
   7:{label:'TIER 7',title:'CRYPTO SHADOW',color:'#f97316'},
@@ -408,7 +670,7 @@ const TIER_META={
 const ACTORS=[
   // TIER 0
   {id:'bis',short:'BIS',tier:0,name:'Bank for International Settlements',role:'Central bank for central banks',metric:'63 member central banks &middot; Basel HQ &middot; Founded 17 May 1930',source:'bis.org/about/member_cb.htm',date:'2025',status:'doc',
-   connections:['fed','rothschild','rockefeller','warburg'],tags:['banking','apex','international'],
+   connections:['fed','rothschild','rockefeller','bank_of_england'],tags:['banking','apex','international'],
    events:[
      {date:'1930',event:'Founded under the Hague Agreement to administer German WWI reparations (Young Plan)'},
      {date:'2001',event:'Mandatory buyback of all private shares at Jan 2001 Extraordinary GM -- BIS now owned exclusively by central banks'},
@@ -507,7 +769,7 @@ const ACTORS=[
 
   // TIER 1B
   {id:'vatican',short:'Vatican / IOR',tier:'1b',name:'Vatican / Holy See',role:'Sovereign state &middot; IOR Bank &middot; Global diplomatic network',metric:'IOR: &euro;5.7B client assets &middot; Net profit &euro;32.8M (2024 Annual Report)',source:'IOR Annual Report 2024 (published June 2025)',date:'2024',status:'doc',
-   connections:['p2','calvi'],tags:['religion','sovereign','finance'],
+   connections:['rothschild','fed','cfr'],tags:['religion','sovereign','finance'],
    events:[
      {date:'1929-02-11',event:'Lateran Treaty -- Vatican becomes sovereign state'},
      {date:'1942',event:'IOR (Vatican Bank) founded by Pope Pius XII'},
@@ -521,7 +783,7 @@ const ACTORS=[
 
   // TIER 2
   {id:'fed',short:'Federal Reserve',tier:2,name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241',date:'2025',status:'doc',
-   connections:['bis','blackrock','vanguard','jpmorgan','warburg','rockefeller'],tags:['banking','finance','usa'],
+   connections:['bis','blackrock','vanguard','warburg','rockefeller'],tags:['banking','finance','usa'],
    events:[
      {date:'1913-12-23',event:'Federal Reserve Act signed by President Wilson'},
      {date:'1914',event:'Federal Reserve begins operations with Paul Warburg on first board'},
@@ -532,7 +794,7 @@ const ACTORS=[
    detail:'CORRECTIVE: The "privately owned" claim is refuted by law. The Board of Governors is a federal agency. Members receive a fixed 6% dividend (statutory, not market-rate) and have no control over monetary policy. All profits beyond a surplus cap go to the US Treasury.'
   },
   {id:'blackrock',short:'BlackRock',tier:2,name:'BlackRock',role:'World\'s largest asset manager',metric:'$14.0T AUM (Dec 2025) &middot; CEO Larry Fink &middot; Aladdin risk system',source:'SEC Form ARS FY2025',date:'2025-12-31',status:'doc',
-   connections:['vanguard','statestreet','fed','gates','bezos'],tags:['finance','investment','institutional'],
+   connections:['vanguard','statestreet','fed','gates','bezos','pentagon'],tags:['finance','investment','institutional'],
    events:[
      {date:'1988',event:'BlackRock founded by Larry Fink and 7 partners'},
      {date:'2009',event:'Acquired Barclays Global Investors -- becomes world\'s largest asset manager'},
@@ -565,7 +827,7 @@ const ACTORS=[
 
   // TIER 2B
   {id:'soros',short:'George Soros',tier:'2b',name:'George Soros',role:'Investor &middot; Open Society Foundations &middot; Political donor',metric:'$32B+ donated since 1984 &middot; $128.5M to Democrats in 2022 midterms',source:'OpenSecrets/FEC &middot; OSF factsheet 2023',date:'2022',status:'doc',
-   connections:['opensociety','wef','clinton'],tags:['finance','philanthropy','politics'],
+   connections:['wef','clinton','cfr','rothschild','bilderberg'],tags:['finance','philanthropy','politics'],
    events:[
      {date:'1992-09-16',event:'Black Wednesday -- Soros profits ~$1B shorting British pound; Bank of England forced out of ERM'},
      {date:'2002',event:'Convicted of insider trading in France (Soci&eacute;t&eacute; G&eacute;n&eacute;rale shares, ~$2.28M gain)'},
@@ -600,7 +862,7 @@ const ACTORS=[
 
   // TIER 3 -- TECH/AI ELITE
   {id:'gates',short:'Bill Gates',tier:3,name:'Bill Gates',role:'Microsoft co-founder &middot; Gates Foundation &middot; Largest US farmland owner',metric:'275,000 acres US farmland &middot; $4B to WHO (2010-2023) &middot; Net worth ~$108B',source:'Land Report 2025 &middot; PubMed PMC12581034',date:'2025',status:'doc',
-   connections:['wef','epstein','gavi','who','microsoft'],tags:['tech','philanthropy','health'],
+   connections:['wef','epstein','wellcome'],tags:['tech','philanthropy','health'],
    events:[
      {date:'1975',event:'Microsoft founded with Paul Allen'},
      {date:'1998',event:'DOJ files antitrust suit -- US v. Microsoft'},
@@ -614,7 +876,7 @@ const ACTORS=[
    detail:'EPSTEIN CORRECTIVE: Documented meetings from 2011 onward (post-conviction). Viral "17 island visits" claim is FALSE -- flight logs show one flight to Palm Beach. No documented criminal association.'
   },
   {id:'musk',short:'Elon Musk',tier:3,name:'Elon Musk',role:'Tesla &middot; SpaceX &middot; X &middot; xAI &middot; DOGE',metric:'$38B+ in US government contracts/subsidies &middot; Net worth ~$300B+',source:'Washington Post analysis Feb 2025',date:'2025-02-18',status:'doc',
-   connections:['wef','thiel','altman','trump','spacex'],tags:['tech','ai','politics'],
+   connections:['wef','thiel','altman','trump','pentagon','five_eyes'],tags:['tech','ai','politics'],
    events:[
      {date:'2002',event:'SpaceX founded'},
      {date:'2003',event:'Tesla Motors co-founded'},
@@ -627,7 +889,7 @@ const ACTORS=[
    detail:'SpaceX President Gwynne Shotwell: "We bid it. We were the lowest price -- best bidder." Musk holds no security clearance per public record as of 2025.'
   },
   {id:'bezos',short:'Jeff Bezos',tier:3,name:'Jeff Bezos',role:'Amazon &middot; Blue Origin &middot; Washington Post',metric:'Amazon AWS: CIA C2S contract 2013 ~$600M &middot; Net worth ~$200B+',source:'FedScoop / Washington Post',date:'2025',status:'doc',
-   connections:['wef','cfr','blackrock','amazon','cia'],tags:['tech','media','finance'],
+   connections:['wef','cfr','blackrock'],tags:['tech','media','finance'],
    events:[
      {date:'1994',event:'Amazon founded'},
      {date:'2013',event:'AWS wins ~$600M CIA C2S cloud contract'},
@@ -638,7 +900,7 @@ const ACTORS=[
    detail:'The JEDI Pentagon contract ($10B) was awarded to Microsoft in 2019 and later cancelled. C2S (Commercial Cloud Services) is the confirmed CIA contract.'
   },
   {id:'zuckerberg',short:'Zuckerberg',tier:3,name:'Mark Zuckerberg',role:'Meta (Facebook, Instagram, WhatsApp)',metric:'FTC $5B penalty 2019 &middot; Meta net worth ~$200B+',source:'FTC.gov 2019-07-24',date:'2019',status:'doc',
-   connections:['wef','altman','thiel','meta'],tags:['tech','media','ai'],
+   connections:['wef','altman','thiel'],tags:['tech','media','ai'],
    events:[
      {date:'2004',event:'Facebook founded at Harvard'},
      {date:'2018',event:'Congressional testimony on Cambridge Analytica data scandal'},
@@ -650,7 +912,7 @@ const ACTORS=[
    detail:'Cambridge Analytica data affected 87M+ Facebook users. FTC $5B penalty remains the largest privacy fine in US history.'
   },
   {id:'altman',short:'Sam Altman',tier:3,name:'Sam Altman',role:'OpenAI CEO &middot; Y Combinator alumnus',metric:'Microsoft investment: ~$13B &middot; OpenAI valued $300B+ (2025)',source:'Microsoft/OpenAI disclosures',date:'2025',status:'doc',
-   connections:['wef','musk','thiel','gates','microsoft','openai'],tags:['tech','ai','investment'],
+   connections:['wef','musk','thiel','gates'],tags:['tech','ai','investment'],
    events:[
      {date:'2015',event:'OpenAI co-founded with Musk (who later departed board)'},
      {date:'2019',event:'Microsoft invests $1B in OpenAI'},
@@ -662,7 +924,7 @@ const ACTORS=[
    detail:'Sam Altman met multiple government officials and foreign heads of state in 2024 in his capacity as OpenAI CEO, documented via White House readouts and foreign ministry releases.'
   },
   {id:'thiel',short:'Peter Thiel',tier:3,name:'Peter Thiel',role:'Palantir &middot; Founders Fund &middot; Political donor',metric:'Palantir: $2.7B+ gov contracts &middot; CIA seed ~$2M (2003)',source:'Palantir S-1 2020 &middot; USAspending.gov',date:'2025',status:'doc',
-   connections:['musk','altman','palantir','trump','cia'],tags:['tech','ai','politics','surveillance'],
+   connections:['musk','altman','trump','palantir','five_eyes'],tags:['tech','ai','politics','surveillance'],
    events:[
      {date:'1998',event:'PayPal co-founded'},
      {date:'2003',event:'Palantir founded with ~$2M CIA seed via In-Q-Tel (disclosed in S-1)'},
@@ -675,7 +937,7 @@ const ACTORS=[
    detail:'Palantir confirmed clients: CIA, NSA, FBI, DHS, DoD, ICE, multiple allied intelligence agencies. Over $2.7B in documented federal contracts since 2009.'
   },
   {id:'page_brin',short:'Page & Brin',tier:3,name:'Larry Page & Sergey Brin',role:'Google/Alphabet founders',metric:'Alphabet market cap ~$2T &middot; Google: ~92% global search share',source:'Alphabet 10-K 2024',date:'2024',status:'doc',
-   connections:['wef','cia','inqtel','alphabet'],tags:['tech','ai','data'],
+   connections:['wef'],tags:['tech','ai','data'],
    events:[
      {date:'1998',event:'Google founded in a Menlo Park garage'},
      {date:'2004',event:'Google IPO'},
@@ -688,7 +950,7 @@ const ACTORS=[
 
   // TIER 3B -- BIG PHARMA
   {id:'sackler',short:'Sackler/Purdue',tier:'3b',name:'Sackler Family / Purdue Pharma',role:'OxyContin &middot; Opioid crisis architects',metric:'$7.4B+ settlement 2025 &middot; $5.5B Purdue sentence Apr 2026',source:'CNBC Apr 2026 &middot; DOJ',date:'2026-04-29',status:'doc',
-   connections:['pharma','doj'],tags:['pharma','crime','settlement'],
+   connections:['clinton','wef','johnson'],tags:['pharma','crime','settlement'],
    events:[
      {date:'1996',event:'OxyContin launched by Purdue Pharma'},
      {date:'2007',event:'Purdue Pharma pleads guilty to misleading marketing; $634M fine'},
@@ -700,7 +962,7 @@ const ACTORS=[
    detail:'Documented death toll: 500,000+ opioid overdose deaths in the US (1999-2019, CDC). Sackler family members received immunity from civil suits in the 2025 settlement.'
   },
   {id:'johnson',short:'J&J',tier:'3b',name:'Johnson & Johnson',role:'Pharmaceutical/Consumer goods giant',metric:'Part of ~$60B nationwide opioid settlement &middot; Listed NYSE: JNJ',source:'Reuters/AP',date:'2025',status:'doc',
-   connections:['pharma','sackler'],tags:['pharma','settlement'],
+   connections:['sackler'],tags:['pharma','settlement'],
    events:[
      {date:'2021',event:'J&J agrees to pay $5B+ as part of national opioid settlement framework'},
      {date:'2023',event:'Spins off consumer health division as Kenvue'},
@@ -711,7 +973,7 @@ const ACTORS=[
 
   // TIER 4 -- EPSTEIN
   {id:'epstein',short:'J. Epstein',tier:4,name:'Jeffrey Epstein',role:'Financier &middot; Sex trafficker &middot; Intelligence-adjacent (unproven)',metric:'2008 NPA &middot; 2019 SDNY indictment &middot; Died 10 Aug 2019 in custody',source:'DOJ / SDNY / Florida State Court',date:'2019',status:'doc',
-   connections:['maxwell','wexner','gates','trump','clinton','andrew','mit','harvard'],tags:['crime','trafficking','network'],
+   connections:['maxwell','wexner','gates','trump','clinton','andrew','rothschild','mossad','saud','windsor'],tags:['crime','trafficking','network'],
    events:[
      {date:'2008',event:'Florida non-prosecution agreement under US Attorney Alexander Acosta -- DOJ OPR later found "poor judgment"'},
      {date:'2019-07-06',event:'Arrested by SDNY on sex trafficking charges'},
@@ -721,7 +983,7 @@ const ACTORS=[
    detail:'INTELLIGENCE CLAIMS (&#x2717; UNPROVEN): The Mossad/CIA claim rests on Ari Ben-Menashe (rated "not credible" by US Congress) and one unverified anonymous Acosta quote. Naftali Bennett called Epstein-Mossad links "categorically false" (2021). No declassified document establishes any agency relationship.'
   },
   {id:'maxwell',short:'G. Maxwell',tier:4,name:'Ghislaine Maxwell',role:'Epstein co-conspirator &middot; Convicted sex trafficker',metric:'Convicted Dec 2021 &middot; 20 years sentenced Jun 2022 &middot; $750K fine',source:'DOJ SDNY press release 2022-06-28',date:'2022-06-28',status:'doc',
-   connections:['epstein','wexner','andrew'],tags:['crime','trafficking','conviction'],
+   connections:['epstein','wexner','andrew','windsor','rothschild'],tags:['crime','trafficking','conviction'],
    events:[
      {date:'2021-12-29',event:'Convicted on five federal counts including sex trafficking of minors'},
      {date:'2022-06-28',event:'Sentenced to 20 years (240 months) + $750K fine by Judge Alison Nathan'},
@@ -732,7 +994,7 @@ const ACTORS=[
    detail:'Trial documented trafficking crimes 1994-2004. No intelligence connection was established in court proceedings. Sentence is the longest ever given in a federal sex-trafficking case of this type.'
   },
   {id:'wexner',short:'Les Wexner',tier:4,name:'Les Wexner',role:'L Brands / Victoria\'s Secret founder &middot; Epstein financier',metric:'Granted Epstein POA July 1991 &middot; $46M+ misappropriated',source:'CNBC Aug 2019',date:'2019',status:'doc',
-   connections:['epstein','lbrands'],tags:['finance','business','epstein'],
+   connections:['epstein','maxwell','cfr','mossad'],tags:['finance','business','epstein'],
    events:[
      {date:'1963',event:'The Limited (L Brands) founded'},
      {date:'1991-07',event:'Grants Epstein broad power of attorney'},
@@ -765,7 +1027,7 @@ const ACTORS=[
    detail:'Duchy of Lancaster worth &pound;679M (King\'s Privy Purse income &pound;24.4M). Duchy of Cornwall worth &pound;1.1B (Prince William\'s income &pound;22.9M). Crown Estate revenues flow to the UK Treasury (keeps Sovereign Grant % back).'
   },
   {id:'saud',short:'Saudi Royals',tier:'4b',name:'Saudi Royal Family',role:'House of Saud &middot; Aramco &middot; Global lobbying',metric:'Aramco: ~$2T market cap &middot; Saudi FARA lobbying: $39M (2018)',source:'SEC/Aramco &middot; FARA database',date:'2025',status:'doc',
-   connections:['aramco','bilderberg','trump','clinton'],tags:['royals','oil','politics'],
+   connections:['bilderberg','trump','clinton'],tags:['royals','oil','politics'],
    events:[
      {date:'1938',event:'Oil discovered in Saudi Arabia'},
      {date:'2001',event:'9/11 -- 15 of 19 hijackers were Saudi nationals'},
@@ -779,7 +1041,7 @@ const ACTORS=[
 
   // TIER 5 -- WAR ECONOMY
   {id:'lockheed',short:'Lockheed Martin',tier:5,name:'Lockheed Martin',role:'Largest US defense contractor',metric:'$313B in Pentagon contracts (2020-2024)',source:'Brown University Costs of War / Quincy Institute',date:'2024',status:'doc',
-   connections:['pentagon','boeing','raytheon','northrop'],tags:['defense','military','contracts'],
+   connections:['pentagon'],tags:['defense','military','contracts'],
    events:[
      {date:'1995',event:'Lockheed merges with Martin Marietta'},
      {date:'2001',event:'Wins F-35 Joint Strike Fighter contract -- largest weapons program in US history'},
@@ -789,7 +1051,7 @@ const ACTORS=[
    detail:'F-35 program total estimated cost: $1.7T+ over its lifetime (GAO).'
   },
   {id:'halliburton',short:'Halliburton/KBR',tier:5,name:'Halliburton / KBR',role:'Dick Cheney &middot; Iraq war no-bid contracts',metric:'$31B+ LOGCAP contracts &middot; Sole-source "Restore Iraqi Oil" 2003',source:'GAO / Senate Democratic Policy Committee',date:'2011',status:'doc',
-   connections:['pentagon','cheney','dod'],tags:['defense','oil','contracts'],
+   connections:['pentagon'],tags:['defense','oil','contracts'],
    events:[
      {date:'1995',event:'Dick Cheney becomes CEO of Halliburton'},
      {date:'2000',event:'Cheney leaves Halliburton to become VP candidate (receives $33.7M exit package)'},
@@ -802,7 +1064,7 @@ const ACTORS=[
 
   // TIER 6 -- POLITICAL
   {id:'trump',short:'Donald Trump',tier:6,name:'Donald Trump',role:'45th & 47th US President',metric:'4 corporate bankruptcies &middot; Deutsche Bank $2B+ loans',source:'Court filings / NYT / WSJ',date:'2025',status:'doc',
-   connections:['epstein','deutschebank','kushner','musk'],tags:['politics','usa','president'],
+   connections:['musk','thiel','oligarchs','epstein','saud','netanyahu','aramco'],tags:['politics','usa','president'],
    events:[
      {date:'1991',event:'Trump Taj Mahal bankruptcy (first of four corporate bankruptcies)'},
      {date:'1998',event:'Deutsche Bank begins major lending to Trump (~$2B+ total) when other major banks refused'},
@@ -824,7 +1086,7 @@ const ACTORS=[
    detail:'The donations themselves are not illegal. The conflict-of-interest issue arose from simultaneous State Department tenure and Foundation fundraising.'
   },
   {id:'schwab',short:'Klaus Schwab',tier:6,name:'Klaus Schwab',role:'WEF founder &middot; Great Reset author',metric:'The Great Reset published July 2020 &middot; WEF founded 1971',source:'WEF.org / Schwab publications',date:'2025',status:'doc',
-   connections:['wef','bilderberg','cfr','trilateral','gates','merkel'],tags:['politics','international','policy'],
+   connections:['wef','bilderberg','cfr','trilateral','gates'],tags:['politics','international','policy'],
    events:[
      {date:'1971',event:'European Management Forum (later WEF) founded'},
      {date:'2020-07',event:'COVID-19: The Great Reset co-authored and published'},
@@ -837,7 +1099,7 @@ const ACTORS=[
 
   // TIER 3 ADDITIONAL PHILANTHROPISTS
   {id:'buffett',short:'Warren Buffett',tier:3,name:'Warren Buffett',role:'Berkshire Hathaway &middot; The Giving Pledge &middot; Major donor',metric:'$50B+ donated to Gates Foundation &middot; Net worth ~$130B',source:'Berkshire Hathaway annual letters / Gates Foundation',date:'2025',status:'doc',
-   connections:['gates','berkshire','givewell'],tags:['finance','philanthropy','investment'],
+   connections:['gates'],tags:['finance','philanthropy','investment'],
    events:[
      {date:'2006',event:'Pledges 85% of Berkshire Hathaway shares to five foundations -- primarily Gates Foundation ($30B+ at time)'},
      {date:'2010',event:'Co-founds The Giving Pledge with Bill and Melinda Gates'},
@@ -847,7 +1109,7 @@ const ACTORS=[
    detail:'The Giving Pledge (2010) has been signed by 240+ billionaires pledging majority of wealth to philanthropy. Buffett has consistently donated annual tranches of Berkshire Class B shares.'
   },
   {id:'ellison_l',short:'Larry Ellison',tier:3,name:'Larry Ellison',role:'Oracle founder &middot; Largest individual landowner Hawaii',metric:'Oracle market cap ~$470B &middot; Net worth ~$180B &middot; Owns ~98% of Lanai island',source:'Oracle 10-K 2024 / Hawaii land records',date:'2024',status:'doc',
-   connections:['oracle','cbs','skydance'],tags:['tech','finance','media'],
+   connections:['thiel','gates'],tags:['tech','finance','media'],
    events:[
      {date:'1977',event:'Oracle founded'},
      {date:'2012',event:'Ellison acquires 98% of Lanai island (Hawaii) for ~$300M'},
@@ -878,7 +1140,7 @@ const ACTORS=[
    detail:'CZI is structured as a limited liability company (LLC), not a traditional 501(c)(3) -- giving Zuckerberg more control and flexibility than a conventional charitable foundation.'
   },
   {id:'walton',short:'Walton Family',tier:3,name:'Walton Family',role:'Walmart founders &middot; Largest US private fortune',metric:'~$247B+ combined family net worth &middot; Walton Family Foundation',source:'Forbes 2024 / Walton Family Foundation',date:'2024',status:'doc',
-   connections:['walmart','wff','education'],tags:['retail','philanthropy','dynasty'],
+   connections:['blackrock','vanguard'],tags:['retail','philanthropy','dynasty'],
    events:[
      {date:'1945',event:'Sam Walton opens first store in Newport, Arkansas'},
      {date:'1962',event:'First Walmart opened in Rogers, Arkansas'},
@@ -889,7 +1151,7 @@ const ACTORS=[
    detail:'Walton Family Foundation is the largest private funder of US charter school expansion. The family collectively represents the world\'s wealthiest family unit.'
   },
   {id:'bezos_earth',short:'Bezos Earth Fund',tier:3,name:'Bezos Earth Fund',role:'Jeff Bezos climate philanthropy',metric:'$10B committed to fight climate change (2020)',source:'Bezos Earth Fund announcement',date:'2020',status:'doc',
-   connections:['bezos','climate','wwf'],tags:['philanthropy','climate','environment'],
+   connections:['bezos'],tags:['philanthropy','climate','environment'],
    events:[
      {date:'2020-02',event:'Bezos announces $10B Bezos Earth Fund'},
      {date:'2021',event:'First grants disbursed -- $791M to 16 organizations'},
@@ -899,7 +1161,7 @@ const ACTORS=[
    detail:'Bezos Earth Fund has disbursed grants to WWF, Natural Resources Defense Council, Environmental Defense Fund, and many others.'
   },
   {id:'wellcome',short:'Wellcome Trust',tier:3,name:'Wellcome Trust',role:'World\'s largest health research foundation &middot; UK',metric:'~&pound;37B endowment (2024) &middot; Annual grants ~&pound;1.4B',source:'Wellcome Trust Annual Report 2024',date:'2024',status:'doc',
-   connections:['who','gates','gavi','imperial'],tags:['philanthropy','health','research'],
+   connections:['gates'],tags:['philanthropy','health','research'],
    events:[
      {date:'1936',event:'Sir Henry Wellcome dies; Wellcome Trust established from pharmaceutical fortune'},
      {date:'2000',event:'Wellcome Trust funds ~30% of Human Genome Project'},
@@ -910,7 +1172,7 @@ const ACTORS=[
    detail:'Wellcome Trust was built on the fortune of Burroughs Wellcome pharmaceutical company. It funds scientific research globally and co-funds major initiatives with Gates Foundation and WHO.'
   },
   {id:'turner',short:'Ted Turner',tier:3,name:'Ted Turner',role:'CNN founder &middot; UN Foundation &middot; $1B pledge',metric:'$1B pledged to UN (1997) &middot; Turner Foundation',source:'UN Foundation / Atlanta Journal-Constitution',date:'2025',status:'doc',
-   connections:['cnn','un','cfr'],tags:['media','philanthropy','environment'],
+   connections:['cfr'],tags:['media','philanthropy','environment'],
    events:[
      {date:'1980',event:'CNN founded -- first 24-hour news network'},
      {date:'1997',event:'Turner pledges $1B to United Nations causes over 10 years'},
@@ -920,7 +1182,7 @@ const ACTORS=[
    detail:'Turner\'s UN Foundation pledge was the largest single philanthropic gift to an international organization at the time. He has also donated large land tracts for conservation (~2M acres).'
   },
   {id:'macken',tier:3,name:'MacKenzie Scott',role:'Amazon co-founder &middot; Largest rapid donor in history',metric:'$17.3B donated (2020-2022) &middot; No foundation structure',source:'GivingCompass / recipient disclosures',date:'2022',status:'doc',
-   connections:['bezos','amazon','giving_pledge'],tags:['philanthropy','amazon','social'],
+   connections:['bezos'],tags:['philanthropy','amazon','social'],
    events:[
      {date:'2019',event:'Divorces Jeff Bezos; receives ~$38B in Amazon shares'},
      {date:'2020',event:'Signs Giving Pledge; pledges majority of wealth to charity'},
@@ -932,8 +1194,8 @@ const ACTORS=[
 
   // TIER 0B - GLOBAL INFRASTRUCTURE CHOKE POINTS
   {id:'asml',tier:0,short:'ASML',name:'ASML',role:'EUV lithography monopoly -- 100% of advanced chip production',metric:'100% monopoly on EUV machines -- Netherlands',source:'USITC working paper Nov 2023',date:'2023',status:'doc',connections:['tsmc'],tags:['tech','semiconductor','choke-point'],events:[{date:'1984',event:'ASML founded in Eindhoven as Philips spin-off'},{date:'2019',event:'US pressures Netherlands to block ASML EUV exports to China -- license never issued'},{date:'2023',event:'Netherlands restricts DUV exports to China under US pressure'}],money:[],detail:'ASML holds a 100% global monopoly on EUV lithography machines -- required to make chips below 7nm. No other company produces them. Every advanced chip runs through ASML machines. Export to China blocked by Netherlands.'},
-  {id:'tsmc',tier:0,short:'TSMC',name:'TSMC',role:'Taiwan Semiconductor -- 92% of advanced chips',metric:'92%+ of advanced chip capacity -- Taiwan -- ~$67B revenue 2024',source:'USITC / BCG-SIA / The Conversation 2023',date:'2024',status:'doc',connections:['asml','china','pla'],tags:['tech','semiconductor','choke-point'],events:[{date:'1987',event:'TSMC founded by Morris Chang with Taiwan government backing'},{date:'2020',event:'TSMC suspends Huawei orders after US export controls'},{date:'2022',event:'US CHIPS Act -- $52B+ to onshore semiconductor production'},{date:'2024',event:'TSMC Arizona fab begins 3nm production'}],money:[{from:'Apple/Nvidia/AMD',arrow:'fab contracts',to:'TSMC',label:'$67B+ revenue (2024)',source:'TSMC earnings'}],detail:'A single Taiwanese company makes 92%+ of the worlds most advanced chips. A Chinese invasion of Taiwan would immediately halt global AI, smartphone, and defense chip production.'},
-  {id:'swift',tier:0,short:'SWIFT',name:'SWIFT',role:'Global payment messaging -- weaponized by West',metric:'11,000+ member institutions -- 42M messages/day -- Belgium',source:'SWIFT / EU regulations 2012 / 2022',date:'2024',status:'doc',connections:['fed','bis','cips'],tags:['finance','infrastructure','choke-point'],events:[{date:'1973',event:'SWIFT founded in Brussels, Belgium'},{date:'2012-03-17',event:'Iran disconnected from SWIFT under EU sanctions'},{date:'2022-03',event:'Seven Russian banks disconnected following Ukraine invasion'},{date:'2023',event:'China accelerates CIPS as SWIFT alternative'}],money:[],detail:'SWIFT connects 11,000+ financial institutions. Its weaponization against Iran (2012) and Russia (2022) accelerated global de-dollarization and drove China to develop CIPS.'},
+  {id:'tsmc',tier:0,short:'TSMC',name:'TSMC',role:'Taiwan Semiconductor -- 92% of advanced chips',metric:'92%+ of advanced chip capacity -- Taiwan -- ~$67B revenue 2024',source:'USITC / BCG-SIA / The Conversation 2023',date:'2024',status:'doc',connections:['asml','pla'],tags:['tech','semiconductor','choke-point'],events:[{date:'1987',event:'TSMC founded by Morris Chang with Taiwan government backing'},{date:'2020',event:'TSMC suspends Huawei orders after US export controls'},{date:'2022',event:'US CHIPS Act -- $52B+ to onshore semiconductor production'},{date:'2024',event:'TSMC Arizona fab begins 3nm production'}],money:[{from:'Apple/Nvidia/AMD',arrow:'fab contracts',to:'TSMC',label:'$67B+ revenue (2024)',source:'TSMC earnings'}],detail:'A single Taiwanese company makes 92%+ of the worlds most advanced chips. A Chinese invasion of Taiwan would immediately halt global AI, smartphone, and defense chip production.'},
+  {id:'swift',tier:0,short:'SWIFT',name:'SWIFT',role:'Global payment messaging -- weaponized by West',metric:'11,000+ member institutions -- 42M messages/day -- Belgium',source:'SWIFT / EU regulations 2012 / 2022',date:'2024',status:'doc',connections:['fed','bis'],tags:['finance','infrastructure','choke-point'],events:[{date:'1973',event:'SWIFT founded in Brussels, Belgium'},{date:'2012-03-17',event:'Iran disconnected from SWIFT under EU sanctions'},{date:'2022-03',event:'Seven Russian banks disconnected following Ukraine invasion'},{date:'2023',event:'China accelerates CIPS as SWIFT alternative'}],money:[],detail:'SWIFT connects 11,000+ financial institutions. Its weaponization against Iran (2012) and Russia (2022) accelerated global de-dollarization and drove China to develop CIPS.'},
   {id:'starlink',tier:0,short:'Starlink',name:'Starlink / SpaceX',role:'65% of all active satellites -- 10M+ subscribers',metric:'10,020+ satellites (Mar 2026) -- 65% of all active satellites -- 10M subscribers Feb 2026',source:'Jonathan McDowell tracking / SpaceX Shotwell Feb 2026',date:'2026-02',status:'doc',connections:['musk'],tags:['tech','satellite','military','choke-point'],events:[{date:'2019',event:'First Starlink batch launched (60 satellites)'},{date:'2022',event:'Starlink terminals deployed in Ukraine -- documented military use'},{date:'2026-02',event:'10 million subscribers confirmed by SpaceX President Shotwell'}],money:[{from:'Pentagon/DoD',arrow:'contracts',to:'SpaceX/Starlink',label:'Part of $38B+ Musk gov contracts',source:'Washington Post 2025'}],detail:'SpaceX Starlink is 65% of all active satellites. Its Ukraine role (2022) demonstrated satellite internet as critical military infrastructure. Musk controls more orbital assets than any government except the US.'},
   // CHINA
   {id:'xi',tier:0,short:'Xi Jinping',name:'Xi Jinping',role:'CCP General Secretary -- CMC Chairman -- President of China',metric:'Controls 1.4B people -- removed term limits 2018 -- 3rd term 2022',source:'NPC March 2018 / 20th Party Congress Oct 2022',date:'2022',status:'doc',connections:['ccp','pla','bri','huawei','cic'],tags:['china','politics','military'],events:[{date:'2012',event:'Becomes CCP General Secretary and CMC Chairman'},{date:'2018-03',event:'NPC removes 2-term presidential limit -- clears path to indefinite rule'},{date:'2022-10',event:'Secures unprecedented 3rd term -- 7-man PSC all loyalists -- first all-male PSC in 25 years'},{date:'2023',event:'Anti-corruption campaign via CCDI -- 4.8M officials disciplined (2012-2022)'}],money:[],detail:'Xi eliminated presidential term limits at the March 2018 NPC and stacked the 2022 Politburo Standing Committee with seven loyalists. Bloomberg (2012) documented extended family wealth in the hundreds of millions -- China blocked Bloomberg after publication.'},
@@ -955,7 +1217,7 @@ const ACTORS=[
   {id:'mossad',tier:0,short:'Mossad',name:'Mossad / Unit 8200',role:'Israeli intelligence -- documented assassinations -- NSO Group',metric:'~90 warheads (SIPRI 2025) -- NSO $168M US jury verdict May 2025',source:'UK PKI / SIPRI 2025 / WhatsApp v NSO jury May 2025',date:'2025',status:'doc',connections:['aipac','netanyahu'],tags:['israel','intelligence','surveillance'],events:[{date:'1972',event:'Operation Wrath of God -- Mossad hunts Munich massacre perpetrators'},{date:'2010-01-19',event:'Mahmoud al-Mabhouh assassinated in Dubai -- Dubai police identify 26 suspects using forged Western passports -- name Mossad'},{date:'2021-11',event:'NSO Group added to US Commerce Entity List'},{date:'2025-05-06',event:'US federal jury: NSO pays $167.3M punitive + $444,719 compensatory to WhatsApp -- first US jury verdict against commercial spyware firm'}],money:[],detail:'Unit 8200 alumni founded Check Point, CyberArk, and Waze. NSO Pegasus documented targeting 50,000+ phones (Forbidden Stories/Amnesty 2021). Israel Dimona: ~90 undeclared warheads (SIPRI).'},
   {id:'aipac',tier:'2b',short:'AIPAC',name:'AIPAC',role:'Largest pro-Israel lobby in US -- $95M+ 2024 elections',metric:'$95.1M+ in 2024 US elections -- defeated Reps. Bowman and Bush',source:'OpenSecrets/FEC 2024',date:'2024',status:'doc',connections:['mossad'],tags:['israel','lobbying','usa'],events:[{date:'2022',event:'AIPAC launches United Democracy Project super PAC'},{date:'2024',event:'UDP: $14.6M against Rep. Bowman (defeated) -- $8.6M against Rep. Bush (defeated)'},{date:'2024',event:'Total AIPAC ecosystem: $95.1M+ (OpenSecrets)'}],money:[{from:'AIPAC donors',arrow:'super PAC',to:'US Congressional races',label:'$95.1M+ (2024)',source:'OpenSecrets/FEC'}],detail:'AIPAC is the most powerful foreign-policy lobby in the US by documented electoral spending. Its super PAC targeted progressive critics with unprecedented spending in 2024.'},
   // IRAN
-  {id:'irgc',tier:0,short:'IRGC / Khamenei',name:'IRGC / Khamenei / Setad',role:'Supreme Leader -- Setad $95B+ -- IRGC proxy network',metric:'Setad: ~$95B (Reuters 2013) -- IRGC FTO-designated Apr 2019 -- Hezbollah/Hamas/Houthis proxies',source:'Reuters Oct 2013 / State Dept FTO Apr 2019 / US Treasury SDGT',date:'2024',status:'doc',connections:[],tags:['iran','military','sanctions'],events:[{date:'2013-10',event:'Reuters: Setad (EIKO) at ~$95B -- built on confiscated property'},{date:'2019-04-15',event:'US designates IRGC as FTO -- first time part of foreign govt named FTO'},{date:'2024-02-16',event:'Houthis (Ansarallah) designated SDGT'},{date:'2024',event:'Iran enriching uranium to 60% purity -- IAEA documented'}],money:[],detail:'IRGC controls estimated one-third to 50%+ of Irans GDP (contested -- deliberate opacity). Setad built on confiscated minority/political-opponent property. APT33/34/35 are documented Iranian cyber units (DOJ indictments).'},
+  {id:'irgc',tier:0,short:'IRGC / Khamenei',name:'IRGC / Khamenei / Setad',role:'Supreme Leader -- Setad $95B+ -- IRGC proxy network',metric:'Setad: ~$95B (Reuters 2013) -- IRGC FTO-designated Apr 2019 -- Hezbollah/Hamas/Houthis proxies',source:'Reuters Oct 2013 / State Dept FTO Apr 2019 / US Treasury SDGT',date:'2024',status:'doc',connections:['kimjongun','putin'],tags:['iran','military','sanctions'],events:[{date:'2013-10',event:'Reuters: Setad (EIKO) at ~$95B -- built on confiscated property'},{date:'2019-04-15',event:'US designates IRGC as FTO -- first time part of foreign govt named FTO'},{date:'2024-02-16',event:'Houthis (Ansarallah) designated SDGT'},{date:'2024',event:'Iran enriching uranium to 60% purity -- IAEA documented'}],money:[],detail:'IRGC controls estimated one-third to 50%+ of Irans GDP (contested -- deliberate opacity). Setad built on confiscated minority/political-opponent property. APT33/34/35 are documented Iranian cyber units (DOJ indictments).'},
   // NORTH KOREA
   {id:'kimjongun',tier:0,short:'Kim Jong-un',name:'Kim Jong-un / North Korea',role:'Supreme Leader -- nuclear state -- state crypto hacking',metric:'6 nuclear tests -- ~50 warheads (SIPRI 2025) -- Lazarus Group $6.75B cumulative crypto theft',source:'SIPRI 2025 / FBI Feb 2025 / Chainalysis 2025',date:'2025',status:'doc',connections:['lazarus'],tags:['northkorea','nuclear','hacking'],events:[{date:'2006',event:'1st nuclear test'},{date:'2017-09-03',event:'6th nuclear test -- claimed thermonuclear -- ~250kt (NORSAR)'},{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus Group (FBI/OFAC Apr 2022)'},{date:'2023-09',event:'Russia-NK weapons deal -- artillery shells for Ukraine (US/UK/South Korea documented)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- FBI attributes to Lazarus -- largest single crypto heist ever'},{date:'2025',event:'Chainalysis: NK steals record $2.02B in crypto -- $6.75B cumulative'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group funds North Koreas weapons program through crypto theft. $2.02B stolen in 2025 alone (Chainalysis). Kim supplied Russia with artillery and ballistic missiles for Ukraine war.'},
   // GULF STATES
@@ -967,10 +1229,294 @@ const ACTORS=[
   // BRICS
   {id:'brics',tier:0,short:'BRICS',name:'BRICS',role:'Counter-Western economic bloc -- half the worlds population',metric:'9 members as of Jan 2025 -- ~41% global GDP (PPP) -- documented de-dollarization agenda',source:'BRICS Johannesburg Declaration Aug 2023 / member state announcements',date:'2025',status:'doc',connections:['xi','putin','modi','saud'],tags:['geopolitics','finance','anti-dollar'],events:[{date:'2009',event:'First BRIC summit'},{date:'2010',event:'South Africa joins -- BRICS formed'},{date:'2023-08',event:'Johannesburg: Egypt, Ethiopia, Iran, UAE, Saudi Arabia, Argentina invited'},{date:'2024-01',event:'Egypt, Ethiopia, Iran, UAE join -- Argentina declines'},{date:'2025-01',event:'Indonesia joins BRICS'}],money:[],detail:'BRICS represents ~half global population and ~41% of global GDP (PPP). De-dollarization agenda includes CIPS, proposed BRICS currency, and local-currency settlement. Saudi Arabia formal status undecided through 2024.'},
   // CARTELS
-  {id:'cartels',tier:7,short:'Sinaloa/CJNG',name:'Mexican Cartels',role:'FTO-designated Feb 2025 -- fentanyl supply chain',metric:'8 entities designated FTO Feb 20, 2025 (State Dept) -- El Chapo: life + 30 years',source:'Federal Register FR Doc 2025-02873 / DOJ Jul 2019',date:'2025-02-20',status:'doc',connections:[],tags:['crime','drugs','mexico'],events:[{date:'2019-02-12',event:'El Chapo convicted EDNY on 10 counts'},{date:'2019-07-17',event:'El Chapo sentenced: life + 30 years + $12.6B forfeiture'},{date:'2025-02-20',event:'Secretary Rubio designates 8 cartels as FTO/SDGT: Sinaloa, CJNG, CDN, Gulf Cartel, La Nueva Familia Michoacana, Carteles Unidos, MS-13, Tren de Aragua'}],money:[],detail:'Sinaloa and CJNG are dominant US fentanyl suppliers. FTO designation (Feb 2025) opens expanded military/law-enforcement options. El Chapo trial testimony documented Mexican government corruption.'},
+  {id:'cartels',tier:7,short:'Sinaloa/CJNG',name:'Mexican Cartels',role:'FTO-designated Feb 2025 -- fentanyl supply chain',metric:'8 entities designated FTO Feb 20, 2025 (State Dept) -- El Chapo: life + 30 years',source:'Federal Register FR Doc 2025-02873 / DOJ Jul 2019',date:'2025-02-20',status:'doc',connections:['tether','binance'],tags:['crime','drugs','mexico'],events:[{date:'2019-02-12',event:'El Chapo convicted EDNY on 10 counts'},{date:'2019-07-17',event:'El Chapo sentenced: life + 30 years + $12.6B forfeiture'},{date:'2025-02-20',event:'Secretary Rubio designates 8 cartels as FTO/SDGT: Sinaloa, CJNG, CDN, Gulf Cartel, La Nueva Familia Michoacana, Carteles Unidos, MS-13, Tren de Aragua'}],money:[],detail:'Sinaloa and CJNG are dominant US fentanyl suppliers. FTO designation (Feb 2025) opens expanded military/law-enforcement options. El Chapo trial testimony documented Mexican government corruption.'},
   // ABCD GRAIN
-  {id:'abcd_grain',tier:2,short:'ABCD Grain',name:'ABCD Grain Traders',role:'ADM / Bunge / Cargill / Louis Dreyfus -- ~70-90% of global grain trade',metric:'~70-90% global grain trade -- Cargill: largest US private company by revenue',source:'Oxfam 2012 / SOMO',date:'2023',status:'rep',connections:[],tags:['food','agriculture','oligopoly'],events:[{date:'1865',event:'Cargill founded -- remains private'},{date:'2012',event:'Oxfam: ABCD control 70-90% of global grain trade'},{date:'2022',event:'Ukraine war disrupts global grain supply -- ABCD profits surge'}],money:[],detail:'Cargill is the largest private company in the US. ABCD four control grain from farm to export terminal. Market share (70-90%) is from advocacy research (Oxfam/SOMO) -- not officially audited.'},
+  {id:'abcd_grain',tier:2,short:'ABCD Grain',name:'ABCD Grain Traders',role:'ADM / Bunge / Cargill / Louis Dreyfus -- ~70-90% of global grain trade',metric:'~70-90% global grain trade -- Cargill: largest US private company by revenue',source:'Oxfam 2012 / SOMO',date:'2023',status:'rep',connections:['blackrock','vanguard'],tags:['food','agriculture','oligopoly'],events:[{date:'1865',event:'Cargill founded -- remains private'},{date:'2012',event:'Oxfam: ABCD control 70-90% of global grain trade'},{date:'2022',event:'Ukraine war disrupts global grain supply -- ABCD profits surge'}],money:[],detail:'Cargill is the largest private company in the US. ABCD four control grain from farm to export terminal. Market share (70-90%) is from advocacy research (Oxfam/SOMO) -- not officially audited.'},
+  {id:'tether',tier:7,short:'Tether',name:'Tether (USDT)',role:'Largest stablecoin -- persistent audit controversy',metric:'~$140B+ in circulation -- NYAG: reserve claim was a lie -- $18.5M settlement 2021',source:'NYAG settlement Feb 2021',date:'2025',status:'rep',connections:['binance'],tags:['crypto','finance','stablecoin'],events:[{date:'2021-02-23',event:'Tether/Bitfinex pay $18.5M NYAG settlement -- NYAG: reserve claim was a lie'}],money:[],detail:'No full independent audit ever published. DOJ investigated Tether for bank fraud (Fortune Jul 2021). Market cap ~$140B+ as of 2025.'}
+  ,{id:'ftx',tier:7,short:'FTX/SBF',name:'FTX / Sam Bankman-Fried',role:'Collapsed crypto exchange -- largest crypto fraud in history',metric:'25 years sentenced -- $11B forfeiture -- Judge Kaplan Mar 28 2024',source:'DOJ SDNY / NBC New York Mar 2024',date:'2024-03-28',status:'doc',connections:['tether','altman','binance'],tags:['crypto','fraud','conviction'],events:[{date:'2023-11',event:'SBF convicted on 7 counts'},{date:'2024-03-28',event:'SBF sentenced: 25 years + $11B forfeiture'}],money:[],detail:'$8B+ in customer funds misused. $40M+ in documented 2022-cycle political donations.'}
+  ,{id:'binance',tier:7,short:'Binance/CZ',name:'Binance / CZ (Changpeng Zhao)',role:'World largest crypto exchange -- DOJ guilty plea 2023',metric:'$4.3B DOJ settlement Nov 2023 -- CZ: 4 months prison Apr 2024',source:'DOJ Nov 2023 / Reuters',date:'2024',status:'doc',connections:['tether'],tags:['crypto','money-laundering','conviction'],events:[{date:'2023-11',event:'Binance pleads guilty -- $4.3B settlement'},{date:'2024-04',event:'CZ sentenced to 4 months prison'}],money:[],detail:'Processed $898M+ in transactions with sanctioned entities. Largest crypto exchange by volume.'}
+  ,{id:'lazarus',tier:7,short:'Lazarus Group',name:'Lazarus Group / DPRK',role:'North Korea state hacking unit -- crypto theft funds weapons program',metric:'$6.75B cumulative crypto theft -- $2.02B in 2025 alone -- Bybit $1.5B Feb 2025',source:'Chainalysis 2025 / FBI Feb 2025 / OFAC Apr 2022',date:'2025',status:'doc',connections:['kimjongun'],tags:['northkorea','hacking','crypto'],events:[{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus (Apr 2022)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- largest single crypto heist ever -- FBI attribution'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto exchanges',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group operates under DPRK Reconnaissance General Bureau. Funds North Korea nuclear/missile program through crypto theft. $2.02B stolen in 2025 -- 76% of all service compromises globally that year.'}
+  ,{id:'netanyahu',tier:'0c',short:'Netanyahu',name:'Benjamin Netanyahu',role:'Israeli PM -- ICC arrest warrant Nov 2024',metric:'ICC arrest warrant Nov 2024 -- war crimes/crimes against humanity',source:'ICC Pre-Trial Chamber I Nov 21 2024',date:'2024-11-21',status:'doc',connections:['mossad','aipac'],tags:['israel','politics','icc'],events:[{date:'2024-11-21',event:'ICC issues arrest warrant for Netanyahu and former Def Min Gallant'},{date:'2025',event:'US sanctions ICC officials over investigation (reported)'}],money:[],detail:'ICC Pre-Trial Chamber I: arrest warrant issued for Netanyahu on charges relating to use of starvation as war method. Israel contests ICC jurisdiction.'}
+  // ============================================================
+  // AI TECH GIANTS -- DOCUMENTED POWER POSITIONS 2025-2026
+  // ============================================================
+  ,{id:'openai',tier:'0b',short:'OpenAI',name:'OpenAI / Sam Altman',
+    role:'Most valuable AI company -- $852B valuation -- 900M+ weekly users -- US defense contracts',
+    metric:'$852B post-money valuation (Mar 2026) -- $122B raise -- $25B ARR -- DoD $200M contract Jul 2025',
+    source:'CNBC Mar 2026 / OpenAI blog / DoD Jul 2025',date:'2026-03-31',status:'doc',
+    connections:['altman','microsoft_ai','nvidia_ai','blackrock','thiel'],
+    tags:['ai','tech','surveillance','military'],
+    events:[
+      {date:'2022-11-30',event:'ChatGPT launched -- 100M users in 60 days -- fastest consumer product adoption in history'},
+      {date:'2023-01',event:'Microsoft commits ~$13B total investment -- Azure exclusivity agreement'},
+      {date:'2025-01-21',event:'Stargate announced -- $500B AI infrastructure initiative -- OpenAI + SoftBank + Oracle'},
+      {date:'2025-07',event:'DoD awards OpenAI $200M contract alongside Anthropic, Google, xAI -- AI in military'},
+      {date:'2026-02-27',event:'$110B fundraise at $730B valuation -- largest private funding round in history'},
+      {date:'2026-03-31',event:'Closes $122B round at $852B post-money -- SoftBank $30B, Amazon $50B, Nvidia $30B'},
+      {date:'2026-06-08',event:'Confidential IPO filing with SEC -- targeting $1T+ valuation'},
+    ],
+    money:[
+      {from:'Microsoft',arrow:'invested',to:'OpenAI',label:'$13B+ (2019-2023)',source:'Microsoft 10-Q Mar 2026'},
+      {from:'SoftBank',arrow:'invested',to:'OpenAI',label:'$30B (2026 round)',source:'CNBC Mar 2026'},
+      {from:'Amazon',arrow:'invested',to:'OpenAI',label:'up to $50B',source:'CNBC Apr 2026'},
+      {from:'US DoD',arrow:'contract',to:'OpenAI',label:'$200M Jul 2025',source:'DoD announcement Jul 2025'},
+    ],
+    detail:'OpenAI holds ~$25B ARR (early 2026), 900M+ weekly active ChatGPT users, 50M+ subscribers. Infrastructure obligations exceed $1.15T across Oracle/Microsoft/Amazon (PitchBook). Cash burn projected at $27B in 2026 -- does not turn cash-flow positive until 2030. Claude Gov and GPT-4o deployed at US national security agencies. Elon Musk lawsuit dismissed May 18 2026.'
+  }
+  ,{id:'anthropic_co',tier:'0b',short:'Anthropic',name:'Anthropic / Dario Amodei',
+    role:'$965B AI safety company -- Claude -- US classified military AI -- IPO filing Jun 2026',
+    metric:'$965B valuation (May 2026) -- $47B ARR -- $125B total raised -- classified DoD + intel agency deployment',
+    source:'Wikipedia / TechCrunch May 2026 / Sacra Jun 2026',date:'2026-05-28',status:'doc',
+    connections:['altman','openai','thiel','blackrock'],
+    tags:['ai','tech','military','surveillance'],
+    events:[
+      {date:'2021-01',event:'Founded by Dario and Daniela Amodei + 5 ex-OpenAI researchers -- $124M seed'},
+      {date:'2022-04',event:'$500M investment from FTX under SBF -- later scrutinized post-FTX collapse'},
+      {date:'2023-09',event:'Amazon invests $1.25B -- plans total $4B -- strategic cloud partnership'},
+      {date:'2024-11',event:'Palantir + AWS partnership -- Claude deployed to US intelligence and defense agencies -- classified missions'},
+      {date:'2025-06',event:'Claude Gov model launched -- in use at multiple US national security agencies (Ars Technica Jun 2025)'},
+      {date:'2025-07',event:'DoD awards $200M contract -- alongside OpenAI, Google, xAI -- AI in military (DoD Jul 2025)'},
+      {date:'2025-11',event:'Nvidia + Microsoft invest up to $15B -- Anthropic commits $30B Azure compute'},
+      {date:'2026-02-12',event:'$30B Series G at $380B valuation -- GIC + Coatue led'},
+      {date:'2026-05-28',event:'$65B Series H at $965B -- most valuable pure-play AI company (TechCrunch)'},
+      {date:'2026-06-01',event:'Confidential IPO filing at $965B valuation (Sacra Jun 2026)'},
+    ],
+    money:[
+      {from:'Amazon',arrow:'invested',to:'Anthropic',label:'$4B (2023-2026)',source:'Amazon/Anthropic announcement'},
+      {from:'Google',arrow:'invested',to:'Anthropic',label:'$40B (Apr 2026)',source:'PYMNTS Apr 2026'},
+      {from:'US DoD',arrow:'contract',to:'Anthropic',label:'$200M (Jul 2025)',source:'DoD announcement'},
+    ],
+    detail:'As of Feb 2026, Anthropic via Palantir partnership makes Claude the ONLY AI model used in classified missions. Claude Gov deployed at multiple US national security agencies. Claude Code at $2.5B ARR (Feb 2026) -- 4% of all GitHub public commits globally. 300K+ business customers. Filed confidentially for IPO Jun 1 2026. Raised $125B total. In Nov 2025: Chinese state-sponsored hackers used Claude for automated cyberattacks against 30 global organizations.'
+  }
+  ,{id:'nvidia_ai',tier:'0b',short:'Nvidia / Jensen Huang',name:'Nvidia / Jensen Huang',
+    role:'$4T+ market cap -- monopoly on AI training chips -- controls AI compute infrastructure globally',
+    metric:'$4T+ market cap (Jul 2025 -- first company ever) -- ~92% AI GPU market share -- H100/H200/Blackwell monopoly',
+    source:'TheStreet Jun 2026 / CNBC / SEC filings',date:'2026',status:'doc',
+    connections:['openai','anthropic_co','tsmc'],
+    tags:['ai','tech','semiconductor','choke-point'],
+    events:[
+      {date:'1993-04-05',event:'Nvidia founded by Jensen Huang, Chris Malachowsky, Curtis Priem in Santa Clara'},
+      {date:'2006',event:'CUDA platform launched -- turns GPUs into general-purpose compute -- foundation of AI era'},
+      {date:'2024',event:'Nvidia H100 GPU becomes most in-demand product in tech history -- waitlists 12+ months'},
+      {date:'2025-07-09',event:'First company to achieve $4 trillion market cap (TheStreet) -- most valuable company on Earth'},
+      {date:'2026-03',event:'Invests $30B in OpenAI round -- strategic AI ecosystem lock-in'},
+      {date:'2026-05',event:'Market cap briefly exceeds $5.5T -- Jensen Huang net worth ~$167B (TheStreet Jun 2026)'},
+      {date:'2026-05-14',event:'Reuters: Jensen Huang secures US approval for H200 chip sales to 10 Chinese firms including Alibaba, ByteDance'},
+    ],
+    money:[
+      {from:'Hyperscalers',arrow:'purchase GPUs from',to:'Nvidia',label:'$60B+ annual revenue FY2025',source:'Nvidia SEC filings'},
+      {from:'Nvidia',arrow:'invested',to:'OpenAI',label:'$30B (Mar 2026)',source:'CNBC Mar 2026'},
+    ],
+    detail:'Nvidia holds ~92% market share in AI training chips. Every major AI model -- GPT-4, Claude, Gemini, Llama -- trained on Nvidia GPUs. Jensen Huang net worth ~$167B mid-2026 (TheStreet). Hyperscalers signing 3-year GPU supply contracts with full upfront prepayments. Export controls to China previously removed $50B+ annual revenue -- H200 approvals for 10 Chinese firms announced May 2026. Nvidia chips are the single point of control for all AI development globally.'
+  }
+  ,{id:'microsoft_ai',tier:3,short:'Microsoft / Satya',name:'Microsoft / Satya Nadella',
+    role:'$3T company -- 27% OpenAI -- Azure AI cloud -- Copilot -- $190B 2026 capex',
+    metric:'$3T market cap -- $13B OpenAI investment worth $228B -- Azure AI at $37B run rate -- $190B capex 2026',
+    source:'Microsoft 10-Q Mar 2026 / CNBC / Globe and Mail May 2026',date:'2026',status:'doc',
+    connections:['openai','nvidia_ai','altman','gates','blackrock'],
+    tags:['ai','tech','finance'],
+    events:[
+      {date:'2019',event:'Microsoft first invests $1B in OpenAI'},
+      {date:'2023-01',event:'Microsoft commits ~$10B additional -- total $13B -- Azure exclusivity -- Copilot integration'},
+      {date:'2025-10',event:'OpenAI recapitalizes as Public Benefit Corporation -- Microsoft retains ~27% stake valued $135B'},
+      {date:'2026-03',event:'Microsoft 10-Q: $5.9B net gains from OpenAI investment over 9 months -- stake now worth ~$228B'},
+      {date:'2026-04-27',event:'Revised partnership: OpenAI revenue share capped at $38B through 2030 -- non-exclusive IP license through 2032'},
+      {date:'2026',event:'Azure AI business at $37B run rate -- $190B capex planned for 2026 alone'},
+    ],
+    money:[
+      {from:'Microsoft',arrow:'invested',to:'OpenAI',label:'$13B (2019-2023)',source:'Microsoft disclosures'},
+      {from:'OpenAI',arrow:'Azure compute',to:'Microsoft',label:'$250B committed through 2030',source:'CNBC Apr 2026'},
+    ],
+    detail:'Microsoft 10-Q (Mar 2026): holds ~27% of OpenAI on as-converted basis. Net gains from OpenAI investment: $5.9B over 9 months ending Mar 31 2026. The Azure AI business runs at $37B -- driven by OpenAI compute purchases. $190B capex in 2026. The structure is circular: Microsoft funds OpenAI, OpenAI buys Azure, Azure books revenue, Microsoft marks up OpenAI stake. Azure capacity constrained through 2026. OpenAI IPO could unlock $228B stake.'
+  }
+  ,{id:'google_ai',tier:3,short:'Google / DeepMind',name:'Google / DeepMind / Gemini',
+    role:'Alphabet $2T -- DeepMind -- Gemini -- $40B Anthropic investor -- Waymo -- AI monopoly threat',
+    metric:'Alphabet ~$2T market cap -- $40B Anthropic investment Apr 2026 -- DeepMind founded 2010 -- Gemini 1.5 Pro',
+    source:'PYMNTS Apr 2026 / Alphabet 10-K',date:'2026',status:'doc',
+    connections:['anthropic_co','openai','nvidia_ai'],
+    tags:['ai','tech','surveillance','data'],
+    events:[
+      {date:'2014',event:'Google acquires DeepMind for ~$500M'},
+      {date:'2016',event:'AlphaGo defeats world Go champion -- landmark AI milestone'},
+      {date:'2023',event:'Bard launched (now Gemini) -- emergency response to ChatGPT -- internal "code red"'},
+      {date:'2023-09',event:'Invests $300M in Anthropic at launch of commercial partnership'},
+      {date:'2025-10',event:'Anthropic cloud partnership -- Google provides up to 1 million TPUs -- 1GW+ compute capacity'},
+      {date:'2026-04-24',event:'Google invests $40B in Anthropic -- $10B immediate + $30B contingent (PYMNTS Apr 2026)'},
+      {date:'2026',event:'Gemini 2.0 Flash deployed across Google products -- 2B+ active users touchpoint'},
+    ],
+    money:[
+      {from:'Google',arrow:'invested',to:'Anthropic',label:'$40B total (2026)',source:'PYMNTS Apr 2026'},
+    ],
+    detail:'Google faces existential threat from AI search alternatives. Response: $40B into Anthropic + own Gemini models + Waymo autonomous vehicles. DeepMind: AlphaFold solved protein folding (2020) -- Nobel Prize-adjacent. Google Cloud TPUs are the primary alternative to Nvidia for AI compute. DOJ antitrust case (2024-2026) targets Google search monopoly -- outcome pending. Google holds 90%+ search market share globally.'
+  }
+  ,{id:'xai_musk',tier:3,short:'xAI / Grok',name:'xAI / Elon Musk',
+    role:'Grok AI -- $50B raise -- merged with SpaceX -- DoD $200M contract -- targeting $2T valuation',
+    metric:'SpaceX+xAI merger targeting $2T valuation IPO -- $50B raise -- DoD $200M AI contract Jul 2025',
+    source:'TechCrunch May 2026 / DoD Jul 2025',date:'2026',status:'doc',
+    connections:['musk','openai','nvidia_ai'],
+    tags:['ai','tech','military'],
+    events:[
+      {date:'2023-07',event:'xAI founded by Elon Musk after leaving OpenAI board -- Grok AI assistant launched'},
+      {date:'2024',event:'Grok integrated into X (Twitter) -- 600M+ X users exposed'},
+      {date:'2025-07',event:'DoD awards xAI $200M contract alongside OpenAI, Anthropic, Google -- AI in military'},
+      {date:'2026',event:'SpaceX and xAI merger announced -- combined entity targeting $2T valuation IPO'},
+      {date:'2026-05',event:'xAI seeking to raise $75B+ for IPO -- TechCrunch May 2026'},
+    ],
+    money:[
+      {from:'US DoD',arrow:'contract',to:'xAI',label:'$200M (Jul 2025)',source:'DoD announcement Jul 2025'},
+    ],
+    detail:'Elon Musk founded xAI after dispute with OpenAI board (2023). Grok trained on X user data -- 600M+ user behavioral dataset. Musk claimed OpenAI violated its charitable mission -- lawsuit dismissed May 2026. SpaceX + xAI merger creates combined AI+space+satellite entity targeting $2T IPO valuation. DOGE role gave Musk access to federal data systems -- unprecedented for any AI company CEO.'
+  }
+  // -- NEW ACTORS ----------------------------------------------
+  ,{id:'pentagon',tier:5,short:'Pentagon/DoD',name:'US Pentagon / Department of Defense',
+    role:'$954B military budget 2025 -- largest single military force on Earth',
+    metric:'$954B budget 2025 (SIPRI Apr 2026) -- 1.3M active duty -- 750+ overseas bases',
+    source:'SIPRI Apr 2026 / DoD FY2025 budget',date:'2025',status:'doc',
+    connections:['lockheed','halliburton','starlink','nvidia_ai','openai','anthropic_co','xai_musk'],
+    tags:['usa','military','government'],
+    events:[
+      {date:'2001-09-18',event:'Authorization for Use of Military Force (AUMF) signed -- broad war powers'},
+      {date:'2023',event:'US military budget reaches $886B -- largest in world history at that point'},
+      {date:'2025',event:'SIPRI: US military spending $954B -- 33% of global total -- more than next 6 combined'},
+      {date:'2025-07',event:'DoD awards $200M AI contracts to OpenAI, Anthropic, Google, xAI'},
+    ],
+    money:[{from:'US Treasury',arrow:'appropriated',to:'Pentagon/DoD',label:'$954B FY2025',source:'SIPRI Apr 2026'}],
+    detail:'The Pentagon is the single largest employer on Earth. 750+ overseas bases in 80+ countries. The MIC (military-industrial complex) revolving door: Lockheed, Halliburton, Raytheon, Boeing all depend on DoD contracts. AI contracts to OpenAI/Anthropic/xAI 2025 mark first large-scale AI deployment in classified military operations.'
+  }
+  ,{id:'five_eyes',tier:0,short:'Five Eyes',name:'Five Eyes Intelligence Alliance',
+    role:'US NSA + UK GCHQ + Canada CSE + Australia ASD + New Zealand GCSB -- global surveillance backbone',
+    metric:'PRISM, XKeyscore, MUSCULAR -- Snowden 2013 confirmed mass surveillance of civilians globally',
+    source:'Snowden NSA documents 2013 / The Guardian / Washington Post',date:'2013',status:'doc',
+    connections:['mossad','bis','pentagon','fsb_gru'],
+    tags:['intelligence','surveillance','usa'],
+    events:[
+      {date:'1946',event:'UKUSA Agreement signed -- US-UK signals intelligence sharing'},
+      {date:'1956',event:'Five Eyes formally constituted (Canada, Australia, NZ join)'},
+      {date:'2013-06-05',event:'Snowden leaks: PRISM program -- NSA collects from Apple, Google, Facebook, Microsoft, Yahoo'},
+      {date:'2013-06-21',event:'XKeyscore revealed -- can search nearly everything a user does on the internet'},
+      {date:'2013',event:'MUSCULAR: NSA + GCHQ tap Google and Yahoo private fiber connections'},
+    ],
+    money:[],
+    detail:'Five Eyes members share raw signals intelligence without restriction. PRISM (Snowden 2013): NSA collected data directly from Apple, Google, Facebook, Microsoft, Yahoo, Skype, YouTube, AOL, Palantir. XKeyscore allows analysts to search internet activity without prior authorization. MUSCULAR tapped Google/Yahoo fiber between data centers -- later fixed with encryption.'
+  }
+  ,{id:'nato',tier:2,short:'NATO',name:'NATO',
+    role:'32-member military alliance -- Article 5 collective defense -- 57% of global military spending',
+    metric:'32 members -- $1.3T+ combined defense spending 2025 -- Article 5: attack on one = attack on all',
+    source:'NATO official / SIPRI 2026',date:'2025',status:'doc',
+    connections:['pentagon','fed','bis'],
+    tags:['military','geopolitics','usa'],
+    events:[
+      {date:'1949-04-04',event:'NATO founded -- 12 original members -- Washington Treaty'},
+      {date:'2022-03',event:'NATO activates Response Force for first time in history -- Russia invades Ukraine'},
+      {date:'2023',event:'Finland joins NATO -- 31st member -- longest border with Russia'},
+      {date:'2024-03',event:'Sweden joins NATO -- 32nd member'},
+      {date:'2025',event:'NATO combined defense: $1.3T+ -- 57% of global military spending'},
+    ],
+    money:[],
+    detail:'NATO operates on Article 5: an attack on one member is an attack on all. The US provides roughly 70% of NATO defense spending. Trump 2025 threatened to leave NATO if members did not pay 2% GDP target -- 23 of 32 now meet it. Ukraine membership blocked by Hungary and US (2024-2025).'
+  }
+  ,{id:'palantir',tier:'2b',short:'Palantir',name:'Palantir Technologies',
+    role:'CIA-seeded surveillance platform -- $2.7B+ gov contracts -- ImmigrationOS -- ICE/FBI/NSA/DoD',
+    metric:'$2.7B+ federal contracts -- CIA seed via In-Q-Tel 2003 -- ICE ImmigrationOS $30M -- S&P 500 2024',
+    source:'Palantir S-1 2020 / USAspending.gov / DHS 2025',date:'2025',status:'doc',
+    connections:['thiel','pentagon','five_eyes','anthropic_co'],
+    tags:['surveillance','ai','government','usa'],
+    events:[
+      {date:'2003',event:'Palantir founded with ~$2M CIA seed via In-Q-Tel (disclosed in S-1 2020)'},
+      {date:'2020',event:'IPO -- S-1 discloses CIA/NSA/FBI/DHS/DoD as clients'},
+      {date:'2024-11',event:'Palantir + AWS + Anthropic: Claude deployed to US intelligence agencies -- classified missions'},
+      {date:'2025',event:'DHS 5-year Palantir BPA up to $1B -- ICE ImmigrationOS $30M contract'},
+      {date:'2025',event:'Added to S&P 500 -- largest US defense tech by gov contract share'},
+    ],
+    money:[
+      {from:'CIA (via In-Q-Tel)',arrow:'seed investment',to:'Palantir',label:'~$2M 2003',source:'Palantir S-1 2020'},
+      {from:'US DoD/DHS/FBI',arrow:'contracts',to:'Palantir',label:'$2.7B+ total',source:'USAspending.gov'},
+    ],
+    detail:'Palantir Gotham: used by CIA, NSA, FBI. Palantir Foundry: US Army, Air Force, NHS UK. AIP (AI Platform): deployed to 100+ government agencies. ImmigrationOS tracks undocumented immigrants across all federal databases. After Anthropic partnership Nov 2024: Claude is the only AI model cleared for US classified missions via Palantir infrastructure.'
+  }
+  ,{id:'aramco',tier:2,short:'Saudi Aramco',name:'Saudi Aramco',
+    role:'Most profitable company on Earth -- $2T market cap -- 12% of global oil production',
+    metric:'$124B net income FY2024 -- $2T market cap -- 12% global crude oil production',
+    source:'Aramco Annual Report 2024 / Reuters',date:'2024',status:'doc',
+    connections:['saud','adia','qia','brics'],
+    tags:['oil','saudi','finance'],
+    events:[
+      {date:'1938',event:'Oil discovered in Saudi Arabia -- California-Arabian Standard Oil Company (CASOC)'},
+      {date:'1980',event:'Saudi Arabia nationalizes Aramco -- becomes Saudi Aramco'},
+      {date:'2019-12',event:'Aramco IPO raises $25.6B -- largest IPO in history at the time -- valuation $1.7T'},
+      {date:'2022',event:'Net income: $161B -- most profitable company in history'},
+      {date:'2024',event:'Net income: $124B -- still most profitable company on Earth -- $2T market cap'},
+    ],
+    money:[{from:'Global oil markets',arrow:'revenue',to:'Saudi Aramco/Saudi Royal Family',label:'$124B net income FY2024',source:'Aramco Annual Report 2024'}],
+    detail:'Saudi Aramco controls ~260B barrels of proven oil reserves -- 15% of global total. The Saudi government holds ~98% of shares. Aramco profits fund the Saudi Royal Family, Vision 2030, and Gulf sovereign wealth funds. In 2022 Aramco overtook Apple as most profitable company ever recorded. Oil price directly determines geopolitical leverage of the entire Gulf region.'
+  }
+  ,{id:'imf_wb',tier:2,short:'IMF / World Bank',name:'IMF / World Bank',
+    role:'Global financial governance -- debt conditionality -- sovereign credit control',
+    metric:'IMF: $1T+ lending capacity -- World Bank: $700B+ commitments -- 190 member countries',
+    source:'IMF.org / World Bank annual reports',date:'2025',status:'doc',
+    connections:['fed','bis','nato','blackrock'],
+    tags:['finance','international','government'],
+    events:[
+      {date:'1944-07-22',event:'Bretton Woods Agreement -- IMF and World Bank founded at UN Monetary and Financial Conference'},
+      {date:'1971-08-15',event:'Nixon ends dollar-gold convertibility -- Bretton Woods collapses -- IMF adapts to floating rates'},
+      {date:'1997',event:'Asian Financial Crisis -- IMF conditions blamed for deepening recession in Thailand, Indonesia, South Korea'},
+      {date:'2010',event:'IMF agrees $110B bailout for Greece -- attached austerity conditions'},
+      {date:'2020',event:'COVID-19: IMF deploys $280B in emergency financing -- largest in history'},
+    ],
+    money:[{from:'Wealthy member states',arrow:'quota contributions',to:'IMF',label:'Largest: US ($118B), Japan, China, Germany',source:'IMF quotas'}],
+    detail:'IMF structural adjustment programs historically required privatization, currency devaluation, and austerity in exchange for loans -- documented to worsen inequality (Joseph Stiglitz, Nobel 2001, former World Bank chief economist, documented internal critiques). World Bank largest shareholder: US (16.38% + veto power). IMF largest shareholder: US (17.43% + veto power).'
+  }
+  ,{id:'skull_bones',tier:1,short:'Skull & Bones',name:'Skull and Bones / Order 322',
+    role:'Yale secret society -- documented Bush family + Kerry + CIA directors -- Stimson center',
+    metric:'Founded 1832 -- ~800 living members -- documented US Presidents, CIA directors, Senators',
+    source:'Ron Rosenbaum Esquire 1977 / Yale archives / court records',date:'2023',status:'rep',
+    connections:['cfr','bilderberg'],
+    tags:['secretive','usa','elite'],
+    events:[
+      {date:'1832',event:'Order 322 founded at Yale by William Huntington Russell and Alphonso Taft'},
+      {date:'1910s-1940s',event:'Stimson, Harriman, Lovett -- Bones members shape post-WWII US foreign policy'},
+      {date:'1991',event:'Alexandra Robbins (Yale) gains access to annual meeting records -- documented in Secrets of the Tomb'},
+      {date:'2004',event:'Both US presidential candidates are Skull and Bones members: George W. Bush and John Kerry'},
+    ],
+    money:[],
+    detail:'Documented Bones alumni: President George H.W. Bush, George W. Bush (presidential race), John Kerry (presidential race 2004), Supreme Court justices, multiple CIA directors, Secretaries of State. Status: REPORTED -- institutional overlap is documented; direct coordination is not. Alexandra Robbins Secrets of the Tomb (2002) is the most documented account.'
+  }
+  ,{id:'bank_of_england',tier:2,short:'Bank of England',name:'Bank of England / ECB',
+    role:'World oldest central bank (1694) -- ECB controls eurozone monetary policy -- 20 countries',
+    metric:'Bank of England: founded 1694 -- ECB: 20 eurozone members -- $8T+ combined balance sheet',
+    source:'BofE / ECB official records',date:'2025',status:'doc',
+    connections:['bis','fed','rothschild'],
+    tags:['banking','finance','europe'],
+    events:[
+      {date:'1694-07-27',event:'Bank of England founded -- world oldest central bank -- chartered to fund war with France'},
+      {date:'1997',event:'Bank of England granted independence -- sets its own monetary policy'},
+      {date:'1998-06-01',event:'European Central Bank established -- Frankfurt -- controls eurozone monetary policy'},
+      {date:'2022',event:'ECB begins rate hikes -- first in 11 years -- response to 8%+ inflation'},
+      {date:'2025',event:'ECB balance sheet: ~$7T -- has purchased corporate bonds, government debt across eurozone'},
+    ],
+    money:[],
+    detail:'Bank of England: world oldest central bank -- founded to fund war. Nationalized 1946. Rothschild & Co. (formerly N M Rothschild) has historically been a primary dealer at BofE gilts auctions -- documented commercial relationship. ECB: no elected mandate -- 26-member governing council sets rates for 350M+ people. Both are BIS members.'
+  }
 ];
+
+// ============================================================
+// BIDIRECTIONAL CONNECTION INDEX
+// Built at runtime -- merges outgoing + incoming for all actors
+// ============================================================
+const CONN_MAP = (()=>{
+  const map = {};
+  ACTORS.forEach(a=>{ map[a.id]=new Set(a.connections||[]); });
+  // Add reverse links
+  ACTORS.forEach(a=>{
+    (a.connections||[]).forEach(cid=>{
+      if(map[cid]) map[cid].add(a.id);
+    });
+  });
+  // Convert to arrays
+  const result = {};
+  Object.entries(map).forEach(([id,s])=>{ result[id]=[...s]; });
+  return result;
+})();
 
 // ============================================================
 // TIMELINE DATA
@@ -1023,6 +1569,13 @@ const TRAILS=[
   {title:'Saudi -> US Lobbying',flow:[{a:'Saudi Government',l:'$39M FARA (2018)',a2:'Lobbying firms',l2:'Political access',a3:'US policymakers'}],source:'FARA database / AP'},
   {title:'Buffett -> Gates Foundation',flow:[{a:'Berkshire Hathaway',l:'$50B+ (2006-2024)',a2:'Gates Foundation',l2:'Annual tranches',a3:'Global health/education'}],source:'Berkshire annual letters'},
   {title:'Tether NYAG Settlement',flow:[{a:'Tether/Bitfinex',l:'$18.5M (2021)',a2:'NY Attorney General',l2:'Misrepresentation of reserves',a3:'Users/Market'}],source:'CNBC / NYAG press release'},
+
+  {title:'BlackRock -> Fed Emergency Bonds 2020',flow:[{a:'Federal Reserve',l:'emergency mandate Mar 2020',a2:'BlackRock',l2:'manages $750B bond program',a3:'US Treasury/bond markets'}],source:'NY Fed Mar 2020 / Reuters'},
+  {title:'Lazarus Group -> DPRK Weapons',flow:[{a:'Lazarus Group',l:'$6.75B crypto theft cumulative',a2:'DPRK Treasury',l2:'weapons program funding',a3:'Nuclear/Missile arsenal'}],source:'Chainalysis 2025 / FBI Feb 2025'},
+  {title:'Saudi Aramco -> Saudi Royal Family -> US Lobbying',flow:[{a:'Aramco profits',l:'$124B net income FY2024',a2:'Saudi Royal Family',l2:'FARA registered $39M 2018',a3:'US political access'}],source:'Aramco Annual Report 2024 / FARA database'},
+  {title:'Tether -> Crypto Market Manipulation',flow:[{a:'Tether',l:'$140B+ USDT in circulation',a2:'Bitfinex/exchanges',l2:'alleged price support',a3:'Crypto markets globally'}],source:'NYAG settlement Feb 2021 -- reserve claim was a lie'},
+  {title:'CIA -> In-Q-Tel -> Palantir -> US Surveillance',flow:[{a:'CIA',l:'seed $2M 2003',a2:'In-Q-Tel',l2:'equity stake',a3:'Palantir ($2.7B+ gov contracts)'}],source:'Palantir S-1 2020'},
+  {title:'Anthropic -> Palantir -> US Classified AI',flow:[{a:'Anthropic',l:'partnership Nov 2024',a2:'Palantir/AWS',l2:'Claude deployment',a3:'US intelligence agencies (classified)'}],source:'Wikipedia Anthropic / Ars Technica Jun 2025'},
 ];
 
 // ============================================================
@@ -1147,6 +1700,9 @@ const SOURCES=[
 // ============================================================
 // GO() ROUTER
 // ============================================================
+function escHTML(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 function go(id,btn){
   SFX.click();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1160,6 +1716,7 @@ function go(id,btn){
     });
   }
   // lazy build
+  if(id==='apex')buildApex();
   if(id==='pyramid')buildPyramid();
   if(id==='profiles')buildProfiles();
   if(id==='timeline')buildTimeline();
@@ -1168,8 +1725,20 @@ function go(id,btn){
   if(id==='crypto')buildCrypto();
   if(id==='sources')buildSources();
   if(id==='blog')buildBlog();
+  if(id==='israel')buildIsrael();
 }
 window.go=go;
+
+// -- Nav: restore full labels (wrapping handles layout) -------
+(function(){
+  [...document.querySelectorAll('.nav-btn')].forEach(function(b){
+    var full=b.getAttribute('data-full');
+    if(full) b.textContent=full;
+    if(b.getAttribute('data-full')==='FINAL BOSS'){
+      b.style.color='#ff00ff';b.style.fontWeight='700';
+    }
+  });
+})();
 
 // ============================================================
 // BUILD PROFILES
@@ -1181,9 +1750,60 @@ function statusBadge(s){
   return '<span class="badge unp">&#x2717; UNPROVEN</span>';
 }
 
+// ============================================================
+// POWER INDEX MAP (% of total global power, analyst estimate)
+// Source basis: AUM, verified reach, institutional position,
+// intel capability, electoral/regulatory influence, military assets
+// ============================================================
+const POWER_INDEX={
+  'bis':97,'fed':95,'blackrock':91,'vanguard':89,'statestreet':82,
+  'bilderberg':88,'cfr':83,'trilateral':79,'wef':76,
+  'rothschild':86,'rockefeller':84,'warburg':78,'morgan':80,
+  'vatican':74,'ior':65,'p2':42,
+  'soros':71,'koch':68,'kissinger':62,
+  'gates':78,'musk':82,'bezos':76,'zuckerberg':72,'altman':68,'thiel':65,'page_brin':70,
+  'buffett':74,'bloomberg':66,'walton':63,'scott':58,'ellison':61,
+  'sackler':55,'jj':60,'wellcome':52,'turner':44,
+  'epstein':58,'maxwell':45,'wexner':52,'andrew':38,
+  'windsor':67,'saud':73,
+  'lockheed':72,'halliburton':64,
+  'trump':71,'clinton':62,'schwab':69,
+  'tether':55,'ftx':28,'binance':61,
+  // State actors
+  'fed_reserve':95,'pla':90,'ccp':92,'xi':91,'putin':89,'fsb_gru':84,
+  'kim':61,'irgc':70,'modi':76,'adani':58,
+  'brics':78,'nuclear':99,
+  // ISRAEL actors
+  'mossad':82,'aipac':79,'netanyahu':71,
+  'openai':88,'anthropic_co':82,'nvidia_ai':91,'microsoft_ai':85,'google_ai':86,'xai_musk':75,
+  'pentagon':88,'five_eyes':85,'nato':76,'palantir':72,'aramco':74,'imf_wb':79,'skull_bones':55,'bank_of_england':70,
+  // Other
+  'adia':72,'qia':68,'kia':65,'wagner':52,'oligarchs':60,'gazprom':66,
+  'huawei':64,'bri':82,'cic':70,
+  'abcd_grain':66,'cartels':48,'lazarus':55,
+};
+
+function piBar(id,color){
+  const pct=POWER_INDEX[id]||0;
+  if(!pct)return '';
+  const cls=id==='mossad'||id==='aipac'||id==='netanyahu'?'pi-il':pct>=80?'pi-high':pct>=60?'pi-mid':'pi-low';
+  return `<div class="pi-wrap">
+    <div class="pi-label"><span>POWER INDEX</span><span class="pi-pct">${pct}%</span></div>
+    <div class="pi-track"><div class="pi-fill ${cls}" style="--pi-w:${pct}%" data-pi="${pct}"></div></div>
+  </div>`;
+}
+
 function buildProfiles(){
   const c=document.getElementById('profiles-container');
   if(c.dataset.built)return;c.dataset.built='1';
+  // Build tag filter
+  const tagBar=document.getElementById('profile-tag-filters');
+  if(tagBar&&!tagBar.dataset.built){
+    tagBar.dataset.built='1';
+    const allTags=new Set(['all']);
+    ACTORS.forEach(a=>(a.tags||[]).forEach(t=>allTags.add(t)));
+    tagBar.innerHTML=[...allTags].map(t=>`<button class="nav-btn ${t==='all'?'active':''}" style="flex:0 0 auto;min-width:max-content;font-size:10px;padding:2px 7px" onclick="filterProfiles('${t}',this)">${t}</button>`).join('');
+  }
   const tiers=[0,1,'1b',2,'2b',3,'3b',4,'4b',5,6,7];
   let html='';
   tiers.forEach(t=>{
@@ -1198,7 +1818,7 @@ function buildProfiles(){
       <div class="actor-grid">`;
     actors.forEach(a=>{
       const tm2=getTierMeta(a.tier);
-      html+=`<div class="actor-card" onclick="openActor('${a.id}')" style="border-top:2px solid ${tm2.color}40">
+      html+=`<div class="actor-card" data-tags="${(a.tags||[]).join(',')}" onclick="openActor('${a.id}')" style="border-top:2px solid ${tm2.color}40">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.35rem">
           <div class="ac-name" style="color:${tm2.color}">${a.name}</div>
           ${statusBadge(a.status)}
@@ -1207,11 +1827,13 @@ function buildProfiles(){
         <div class="ac-metric">${a.metric}</div>
         <div class="ac-source">Source: ${a.source} &middot; ${a.date}</div>
         <div class="ac-tags">${(a.tags||[]).map(t=>`<span class="ac-tag">${t}</span>`).join('')}</div>
+        ${piBar(a.id,tm2.color)}
       </div>`;
     });
     html+='</div></div>';
   });
   c.innerHTML=html;
+  setTimeout(()=>{c.querySelectorAll('.pi-fill').forEach(el=>el.classList.add('animate'));},120);
 }
 
 // ============================================================
@@ -1219,7 +1841,7 @@ function buildProfiles(){
 // ============================================================
 function openActor(id){
   const a=ACTORS.find(x=>x.id===id);
-  if(!a)return;
+  if(!a){console.warn('openActor: unknown id',id);return;}
   const tm=getTierMeta(a.tier);
   let html=`
     <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
@@ -1230,17 +1852,26 @@ function openActor(id){
     <div class="modal-role">${a.role}</div>
     <div class="modal-section">
       <div class="modal-section-title">KEY METRIC</div>
-      <div class="modal-metric">${a.metric}<br><span style="font-size:9px;color:var(--muted2)">Source: ${a.source} &middot; ${a.date}</span></div>
+      <div class="modal-metric">${a.metric}<br><span style="font-size:11px;color:var(--muted2)">Source: ${a.source} &middot; ${a.date}</span></div>
     </div>`;
+  const pctModal=POWER_INDEX[a.id]||0;
+  if(pctModal){
+    const clsM=a.id==='mossad'||a.id==='aipac'||a.id==='netanyahu'?'pi-il':pctModal>=80?'pi-high':pctModal>=60?'pi-mid':'pi-low';
+    html+=`<div class="modal-section">
+      <div class="modal-section-title">POWER INDEX</div>
+      <div class="pi-label" style="margin-bottom:5px"><span style="font-size:11px;color:var(--muted)">Estimated share of global influence</span><span class="pi-pct" style="font-size:15px">${pctModal}%</span></div>
+      <div class="pi-track" style="height:8px"><div class="pi-fill ${clsM}" style="--pi-w:${pctModal}%;width:0" data-pi="${pctModal}"></div></div>
+    </div>`;
+  }
   if(a.detail){
     html+=`<div class="modal-section">
       <div class="modal-section-title">ANALYSIS</div>
-      <div class="modal-metric" style="font-size:10px">${a.detail}</div>
+      <div class="modal-metric" style="font-size:11px">${a.detail}</div>
     </div>`;
   }
   if(a.events&&a.events.length){
     html+=`<div class="modal-section"><div class="modal-section-title">KEY EVENTS</div>`;
-    a.events.forEach(e=>{html+=`<div class="event-row"><div class="event-date">${e.date}</div><div class="event-text">${e.event}</div></div>`;});
+    a.events.slice().sort((x,y)=>String(y.date).localeCompare(String(x.date))).forEach(e=>{html+=`<div class="event-row"><div class="event-date">${e.date}</div><div class="event-text">${e.event}</div></div>`;});
     html+='</div>';
   }
   if(a.money&&a.money.length){
@@ -1250,16 +1881,24 @@ function openActor(id){
     });
     html+='</div>';
   }
-  if(a.connections&&a.connections.length){
-    html+=`<div class="modal-section"><div class="modal-section-title">CONNECTIONS</div><div class="connections-list">`;
-    a.connections.forEach(cid=>{
+  // Build bidirectional connections for display
+  const allConns=CONN_MAP[a.id]||[];
+  const outgoing=new Set(a.connections||[]);
+  if(allConns.length){
+    html+=`<div class="modal-section"><div class="modal-section-title">CONNECTIONS (${allConns.length})</div><div class="connections-list">`;
+    allConns.forEach(cid=>{
       const ca=ACTORS.find(x=>x.id===cid);
-      html+=`<span class="conn-chip" onclick="openActor('${cid}')">${ca?ca.name:cid}</span>`;
+      if(!ca)return;
+      const isOut=outgoing.has(cid);
+      const dir=isOut?'&#x2192;':'&#x2190;'; // -> outgoing, <- incoming
+      const tip=isOut?'outgoing':'incoming';
+      html+=`<span class="conn-chip conn-${tip}" onclick="openActor('${cid}')" title="${tip}">${dir} ${ca.name}</span>`;
     });
     html+='</div></div>';
   }
   document.getElementById('modal-content').innerHTML=html;
   document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(()=>{document.querySelectorAll('#modal-content .pi-fill').forEach(el=>el.classList.add('animate'));},80);
 }
 window.openActor=openActor;
 
@@ -1277,80 +1916,223 @@ document.getElementById('modal').addEventListener('click',e=>e.stopPropagation()
 function buildPyramid(){
   const svg=document.getElementById('pyramid-svg');
   if(svg.dataset.built)return;svg.dataset.built='1';
+  function tryDraw(attempts){
+    const canvas=document.getElementById('pyramid-canvas');
+    const r=canvas?canvas.getBoundingClientRect():{width:0,height:0};
+    if(r.width>100||attempts>=10){ _drawPyramid(r.width>100?r.width:900); }
+    else{ setTimeout(()=>tryDraw(attempts+1),60); }
+  }
+  tryDraw(0);
+  // Redraw on resize
+  if(window.ResizeObserver){
+    const ro=new ResizeObserver(()=>{
+      const canvas=document.getElementById('pyramid-canvas');
+      if(!canvas)return;
+      const r=canvas.getBoundingClientRect();
+      if(r.width>100){ svg.innerHTML=''; _drawPyramid(r.width); }
+    });
+    const canvas=document.getElementById('pyramid-canvas');
+    if(canvas)ro.observe(canvas);
+  }
+}
+function _drawPyramid(canvasW){
   const svgEl=document.getElementById('pyramid-svg');
-  const W=svgEl.getBoundingClientRect().width||1000;
-  const H=svgEl.getBoundingClientRect().height||590;
-  // update viewBox dynamically
+  const W=canvasW||900;
+  // Read actual rendered height of canvas
+  const canvasEl=document.getElementById('pyramid-canvas');
+  const H=canvasEl?Math.max(canvasEl.getBoundingClientRect().height||760,420):760;
   svgEl.setAttribute('viewBox','0 0 '+Math.round(W)+' '+Math.round(H));
-  const ROW=H/13;
-  const tiers=[
-    {t:0,y:Math.round(ROW*0.2),actors:['bis','bilderberg','cfr','trilateral','wef']},
-    {t:0,y:Math.round(ROW*0.95),actors:['xi','ccp','pla','bri','nuclear','brics']},
-    {t:0,y:Math.round(ROW*1.7),actors:['putin','fsb_gru','kimjongun','irgc','mossad']},
-    {t:0,y:Math.round(ROW*2.45),actors:['asml','tsmc','swift','starlink']},
-    {t:1,y:Math.round(ROW*3.2),actors:['rothschild','rockefeller','warburg','morgan']},
-    {t:'1b',y:Math.round(ROW*4.0),actors:['vatican']},
-    {t:2,y:Math.round(ROW*4.75),actors:['fed','blackrock','vanguard','statestreet']},
-    {t:'2b',y:Math.round(ROW*5.5),actors:['soros','koch','kissinger']},
-    {t:3,y:Math.round(ROW*6.2),actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
-    {t:3,y:Math.round(ROW*6.9),actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
-    {t:'3b',y:Math.round(ROW*7.6),actors:['sackler','johnson','wellcome','turner']},
-    {t:4,y:Math.round(ROW*8.4),actors:['epstein','maxwell','wexner','andrew']},
-    {t:'4b',y:Math.round(ROW*9.2),actors:['windsor','saud']},
+
+  const TIERS=[
+    {t:'-1',actors:['bis','bilderberg','cfr','trilateral','wef']},
+    {t:0,actors:['rothschild','rockefeller','warburg','morgan','skull_bones']},
+    {t:'1b',actors:['vatican','fed','blackrock','vanguard','statestreet']},
+    {t:0,actors:['xi','ccp','pla','bri','nuclear','brics']},
+    {t:0,actors:['putin','fsb_gru','oligarchs','gazprom','wagner']},
+    {t:0,actors:['five_eyes']},
+    {t:'0c',actors:['mossad','aipac','netanyahu']},
+    {t:'0b',actors:['asml','tsmc','swift','starlink']},
+    {t:'0d',actors:['openai','anthropic_co','nvidia_ai','microsoft_ai','google_ai','xai_musk']},
+    {t:'2b',actors:['soros','koch','kissinger']},
+    {t:3,actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
+    {t:3,actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
+    {t:'3b',actors:['sackler','johnson','wellcome','turner']},
+    {t:4,actors:['epstein','maxwell','wexner','andrew']},
+    {t:'4b',actors:['windsor','saud']},
+    {t:5,actors:['pentagon','lockheed','halliburton']},
+    {t:6,actors:['trump','clinton','schwab','modi','kimjongun','irgc']},
+    {t:0,actors:['adia','qia','kia','cic','abcd_grain']},
+    {t:2,actors:['nato','imf_wb','aramco','bank_of_england','palantir']},
+    {t:7,actors:['tether','ftx','binance','cartels','lazarus']},
   ];
-  const nodePos={};
+
+  const NUM_ROWS=TIERS.length;
+  // Distribute rows evenly across full height with padding
+  const PAD_TOP=18, PAD_BOT=12;
+  const ROW_H=(H-PAD_TOP-PAD_BOT)/NUM_ROWS;
+  const NODE_H=Math.max(Math.min(ROW_H*0.72,32),18);
+  const LABEL_MAX=Math.floor(W/8);  // max chars per label based on width
+
+  // Font size: scale with node height
+  const fSize=Math.max(9,Math.min(Math.round(NODE_H*0.45),13));
+
   let svgHtml='';
-  // lines
-  const lines=[];
-  ACTORS.forEach(a=>{
-    (a.connections||[]).forEach(cid=>{
-      lines.push({from:a.id,to:cid});
-    });
+
+  // SVG defs: glow filters per tier color family
+  const glowColors={
+    mag:'#ff00ff',gold:'#f59e0b',red:'#ef4444',pur:'#8b5cf6',
+    blu:'#3b82f6',teal:'#22d3ee',pink:'#ec4899',grn:'#10b981',
+    ora:'#f97316',cyan:'#2dd4bf',il:'#aa44ff'
+  };
+  svgHtml+=`<defs>`;
+  Object.entries(glowColors).forEach(([k,c])=>{
+    const r=parseInt(c.slice(1,3),16),g=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16);
+    svgHtml+=`<filter id="gf-${k}" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 ${(r/255).toFixed(2)}  0 0 0 0 ${(g/255).toFixed(2)}  0 0 0 0 ${(b/255).toFixed(2)}  0 0 0 18 -7" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>`;
   });
-  // compute positions first
-  tiers.forEach(row=>{
+  svgHtml+=`</defs>`;
+
+  // Build node position map -- matches exact node centre coordinates
+  const nodePos={};
+  const actorTierMap={};
+  TIERS.forEach((row,ri)=>{
     const count=row.actors.length;
+    const nodeY=PAD_TOP+ri*ROW_H;
+    const tm2=getTierMeta(row.t);
+    const lblW2=Math.round((tm2.label.length)*Math.max(8,fSize-2)*0.7)+6;
+    const usW2=W-lblW2-8;
+    const GAP2=Math.max(3,Math.min(6,usW2/(count*6)));
+    const nw2=Math.max(40,Math.min((usW2-(GAP2*(count-1)))/count,W*0.18));
+    const effH2=Math.max(22,Math.min(NODE_H,Math.round(ROW_H*0.75)));
     row.actors.forEach((aid,i)=>{
-      const x=W*(i+1)/(count+1);
-      nodePos[aid]={x,y:row.y+12};
+      const cx=lblW2+i*(nw2+GAP2)+nw2/2;
+      const cy=nodeY+ROW_H*0.12+effH2/2;
+      nodePos[aid]={x:cx,y:cy,ri};
+      actorTierMap[aid]=row.t;
     });
   });
-  // draw edges (subset)
+
+  // Color assignment per tier
+  function tierGlowKey(t){
+    const map={'-1':'mag',0:'gold',1:'red','1b':'red',2:'pur','2b':'pur',
+      3:'blu','3b':'teal',4:'pink','4b':'pink','0b':'cyan','0c':'il',5:'grn',6:'grn',7:'ora'};
+    return map[String(t)]||'gold';
+  }
+  function tierColor(t){
+    const m=getTierMeta(t);
+    return m?m.color:'#888';
+  }
+
+  // Draw edges as bezier curves with tier-based color + glow
+  // Group: edges drawn BEFORE nodes so nodes render on top
   const drawnEdges=new Set();
-  lines.forEach(l=>{
-    const key=[l.from,l.to].sort().join('-');
-    if(drawnEdges.has(key))return;
-    drawnEdges.add(key);
-    const p1=nodePos[l.from],p2=nodePos[l.to];
-    if(!p1||!p2)return;
-    svgHtml+=`<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" class="pyramid-edge"/>`;
+  const edgeData=[];
+  ACTORS.forEach(a=>{
+    (CONN_MAP[a.id]||[]).forEach(cid=>{
+      const key=[a.id,cid].sort().join('-');
+      if(drawnEdges.has(key))return; drawnEdges.add(key);
+      const p1=nodePos[a.id],p2=nodePos[cid];
+      if(!p1||!p2)return;
+      // Source color drives the edge
+      const srcT=actorTierMap[a.id]||0;
+      const gk=tierGlowKey(srcT);
+      const col=tierColor(srcT);
+      // Tier distance determines opacity
+      const tierDist=Math.abs((p2.ri||0)-(p1.ri||0));
+      const opacity=tierDist===0?0.12:tierDist===1?0.09:tierDist<=3?0.07:0.04;
+      // Smart bezier: same-row arcs up, cross-tier curves gently
+      const dx=p2.x-p1.x;
+      const dy=p2.y-p1.y;
+      const mx=(p1.x+p2.x)/2;
+      const my=(p1.y+p2.y)/2;
+      let pathD;
+      if(tierDist===0){
+        // Same row -- arc above the row, height proportional to horizontal distance
+        const arcH=Math.max(18,Math.abs(dx)*0.18);
+        const cpx=mx;
+        const cpy=p1.y-arcH;
+        pathD=`M${Math.round(p1.x)},${Math.round(p1.y)} Q${Math.round(cpx)},${Math.round(cpy)} ${Math.round(p2.x)},${Math.round(p2.y)}`;
+      } else if(tierDist===1){
+        // Adjacent rows -- slight lateral pull
+        const cpx=mx+(p1.x-mx)*0.15;
+        const cpy=my;
+        pathD=`M${Math.round(p1.x)},${Math.round(p1.y)} Q${Math.round(cpx)},${Math.round(cpy)} ${Math.round(p2.x)},${Math.round(p2.y)}`;
+      } else {
+        // Long range -- cubic bezier, both control points near source/dest
+        const cp1x=p1.x+(mx-p1.x)*0.4;
+        const cp1y=p1.y+(my-p1.y)*0.2;
+        const cp2x=p2.x-(mx-p2.x)*0.4;
+        const cp2y=p2.y+(my-p2.y)*0.2;
+        pathD=`M${Math.round(p1.x)},${Math.round(p1.y)} C${Math.round(cp1x)},${Math.round(cp1y)} ${Math.round(cp2x)},${Math.round(cp2y)} ${Math.round(p2.x)},${Math.round(p2.y)}`;
+      }
+      edgeData.push({key,pathD,col,gk,opacity,from:a.id,to:cid});
+    });
   });
-  // draw nodes
-  tiers.forEach(row=>{
+
+  // Single-layer edges with glow filter -- no double lines
+  svgHtml+=`<g id="edge-group">`;
+  edgeData.forEach(e=>{
+    svgHtml+=`<path class="pyramid-edge" data-from="${e.from}" data-to="${e.to}" data-base-opacity="${e.opacity}"
+      d="${e.pathD}"
+      stroke="${e.col}" stroke-width="1.5"
+      filter="url(#gf-${e.gk})"
+      style="opacity:${e.opacity}"/>`;
+  });
+  svgHtml+=`</g>`;
+
+  // Draw rows
+  TIERS.forEach((row,ri)=>{
     const tm=getTierMeta(row.t);
     const count=row.actors.length;
+    const y=PAD_TOP+ri*ROW_H;
+    const nodeY=y+ROW_H*0.14;
+
+    // Tier label on far left -- vertical centre of row
+    const labelY=Math.round(y+ROW_H*0.5+fSize*0.35);
+    svgHtml+=`<text x="4" y="${labelY}" font-family="'Courier New',monospace" font-size="${Math.max(8,fSize-2)}" fill="${tm.color}" opacity=".55" font-weight="700">${tm.label}</text>`;
+
+    // Tier label width -- measure approximate: 6 chars * fSize * 0.65
+    const lblW=Math.round((tm.label.length)*Math.max(8,fSize-2)*0.7)+6;
+    // Usable width: W minus tier label minus right padding
+    const PAD_R=8;
+    const usableW=W-lblW-PAD_R;
+    const GAP=Math.max(3,Math.min(6,usableW/(count*6)));
+    const nw=Math.max(40,Math.min((usableW-(GAP*(count-1)))/count, W*0.18));
+    // Effective font and node height scaled to available space
+    const effFont=Math.max(10,Math.min(fSize, Math.floor(nw/5.5)));
+    const effH=Math.max(22,Math.min(NODE_H,Math.round(ROW_H*0.75)));
+
     row.actors.forEach((aid,i)=>{
       const a=ACTORS.find(x=>x.id===aid);
       if(!a)return;
-      const x=W*(i+1)/(count+1);
-      const y=row.y;
-      const w=Math.min(W*0.13,W/(count+1)-8);
-      const label=a.name.length>14?a.name.slice(0,13)+'...':a.name;
-      svgHtml+=`<g class="pyramid-node" data-node="${aid}" onclick="openActor('${aid}')" transform="translate(${x},${y})">
-        <rect x="${-w/2}" y="0" width="${w}" height="28" rx="5" fill="${tm.color}20" stroke="${tm.color}60" stroke-width="1"/>
-        <text x="0" y="20" text-anchor="middle" fill="${tm.color}">${label}</text>
+      const cx=lblW+i*(nw+GAP)+nw/2;
+      const ny=Math.round(y+ROW_H*0.12);
+
+      // Label: trim to fit node width
+      const maxChars=Math.max(4,Math.floor(nw/(effFont*0.62)));
+      const rawLabel=a.short||a.name;
+      const label=rawLabel.length>maxChars?rawLabel.slice(0,maxChars-1)+'...':rawLabel;
+
+      svgHtml+=`<g class="pyramid-node" data-id="${aid}" onclick="openActor('${aid}')" onmouseenter="hlNode('${aid}')" onmouseleave="unhlNode()" transform="translate(${Math.round(cx)},${ny})">
+        <rect x="${-Math.round(nw/2)}" y="0" width="${Math.round(nw)}" height="${effH}" rx="4" fill="${tm.color}1a" stroke="${tm.color}70" stroke-width="1"/>
+        <text x="0" y="${Math.round(effH*0.65)}" text-anchor="middle" fill="${tm.color}" font-family="'Courier New',monospace" font-size="${effFont}" font-weight="700">${label}</text>
       </g>`;
     });
-    // tier label on left
-    const tm2=getTierMeta(row.t);
-    svgHtml+=`<text x="8" y="${row.y+15}" font-family="'Courier New',monospace" font-size="${Math.max(9,Math.round(H/55))}" fill="${tm2.color}" opacity=".7">${tm2.label}</text>`;
   });
-  svg.innerHTML=svgHtml;
-  // legend
+
+  svgEl.innerHTML=svgHtml;
+  // SVG-level mouseleave guarantees cleanup when cursor leaves entire pyramid
+  svgEl.addEventListener('mouseleave', unhlNode, {once:false});
+
+  // Legend
   const leg=document.getElementById('pyramid-legend');
   if(!leg.dataset.built){
     leg.dataset.built='1';
-    leg.innerHTML=Object.entries(TIER_META).map(([k,v])=>`<div class="leg-item"><div class="leg-dot" style="background:${v.color}"></div>${v.label}: ${v.title}</div>`).join('');
+    leg.innerHTML=Object.entries(TIER_META).map(([k,v])=>`<div class="leg-item" data-tier="${k}" style="color:${v.color}"><div class="leg-dot" style="background:${v.color}"></div><span class="leg-text">${v.label}: ${v.title}</span></div>`).join('');
   }
 }
 
@@ -1360,7 +2142,7 @@ function buildPyramid(){
 function buildTimeline(){
   const c=document.getElementById('timeline-container');
   if(c.dataset.built)return;c.dataset.built='1';
-  c.innerHTML=TIMELINE.sort((a,b)=>a.date.localeCompare(b.date)).map(t=>`
+  c.innerHTML=TIMELINE.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(t=>`
     <div class="tl-item">
       <div class="tl-date">${t.date}</div>
       <div class="tl-body">
@@ -1405,7 +2187,7 @@ function buildMedia(){
   c.innerHTML=MEDIA.map(m=>`
     <div class="media-owner">
       <div class="media-owner-name">&#x25A3; ${m.owner}</div>
-      <div style="font-size:9px;color:var(--muted2);margin-bottom:.5rem">${m.note}</div>
+      <div style="font-size:11px;color:var(--muted2);margin-bottom:.5rem">${m.note}</div>
       ${m.outlets.map(o=>`
         <div class="media-outlet">
           <span class="media-outlet-name">${o.name}</span>
@@ -1440,7 +2222,7 @@ function buildCrypto(){
 function buildSources(){
   const c=document.getElementById('sources-container');
   if(c.dataset.built)return;c.dataset.built='1';
-  c.innerHTML=SOURCES.map(s=>`
+  c.innerHTML=SOURCES.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(s=>`
     <div class="src-row">
       <span class="src-actor">${s.actor}</span>
       <span class="src-doc">${s.doc}<a class="src-link" href="${s.url}" target="_blank" rel="noopener noreferrer">&#x2197; ${s.url.replace('https://','').split('/')[0]}</a></span>
@@ -1452,6 +2234,45 @@ function buildSources(){
 // BLOG DATA
 // ============================================================
 const BLOG_POSTS=[
+  {
+    date:'2026-06-17',
+    timestamp:'Wednesday, 17 June 2026',
+    title:'The Final Boss: Deep Research Findings on Who Rules the World',
+    tags:['final-boss','power','research','documented'],
+    body:[
+      'After exhaustive documented research, the answer to "who rules the world" is: no single entity does. Power is structural, plural, and contested. But the documented evidence points to a convergence of four interlocking structures -- military, monetary, financial-asset, and knowledge -- all dominated by overlapping US institutions with no single hand on all levers.',
+      'The strongest documented claim is US structural hegemony. $954B military spending (33% of global total -- more than the next six countries combined, SIPRI Apr 2026). Dollar reserves at 56.77% of global FX (IMF COFER Q4 2025). The Federal Reserve controls the global interest rate de facto. The BIS sets capital rules for 63 central banks covering ~95% of world GDP.',
+      'The closest thing to a "final boss" is a system: US dollar + Federal Reserve + Pentagon + BIS + BlackRock/Vanguard/State Street (largest shareholder in 88% of S&P 500). Within that: the Fed chair controls monetary power, the US President controls relational power, Larry Fink (BlackRock) controls financial-asset influence. No single human commands all three simultaneously.',
+      'Shadow networks (Bilderberg, dynastic capital) shape access and agenda but have no documented command authority over outcomes. The Vitali et al. ETH Zurich 2011 study found a "super-entity" of 147 companies controlling 40% of global operating revenue -- 75% were financial institutions. This is concentration, not rule.',
+    ],
+    sources:['SIPRI Apr 2026','IMF COFER Q4 2025','Susan Strange States and Markets 1988','Fichtner et al. Business and Politics 2017','Chatham House Mar 2025','Vitali-Glattfelder-Battiston ETH Zurich PLoS ONE 2011']
+  },
+  {
+    date:'2026-06-17',
+    timestamp:'Wednesday, 17 June 2026',
+    title:'UN Security Council Veto: Who Signed It, Why 1945, and Is Anyone Bound by It?',
+    tags:['un','veto','international-law','documented'],
+    body:[
+      'The UN Charter was signed 26 June 1945 in San Francisco by 50 nations. The five permanent members -- US, UK, France, USSR (now Russia), China -- were chosen because they were the principal Allied victors of WWII. They wrote the document. They gave themselves the veto. There is no older authority. They created the authority.',
+      'The veto derives from Article 27(3): substantive decisions require "an affirmative vote of nine members including the concurring votes of the permanent members." The veto applies only in the Security Council -- the General Assembly is unaffected. As of April 2026: Russia/USSR has cast 130 vetoes, the US 89 (51 to protect Israel), UK 29, China 20, France 16.',
+      'Russia inherited the USSR seat through the "continuator state" doctrine -- not formal re-admission. In December 1991, Boris Yeltsin sent a letter to the Secretary-General stating Russia was continuing the USSR membership. No member objected. The Charter (Article 23) still literally names the "Union of Soviet Socialist Republics" -- never amended.',
+      'Is anyone personally bound by a treaty signed before they were born? Yes -- but the binding runs through the state, not individuals directly. The Vienna Convention on the Law of Treaties (1969) Article 26: "Every treaty in force is binding upon the parties to it." The parties are states. Citizens are bound only insofar as their state is bound and gives the treaty domestic effect.',
+    ],
+    sources:['UN Charter 1945 Art.23/27','Vienna Convention VCLT 1969 Art.26','UN Security Council veto database Apr 2026','UK Litvinenko Inquiry Jan 2016','Chatham House Mar 2025']
+  },
+  {
+    date:'2026-06-17',
+    timestamp:'Wednesday, 17 June 2026',
+    title:'AI Giants Enter the Power Pyramid: Anthropic, OpenAI, Nvidia Now Map to Global Power',
+    tags:['ai','tech','documented','power'],
+    body:[
+      'The global power pyramid now includes six AI entities with documented institutional power positions. Nvidia ($4T+ market cap, 92% AI GPU market share) is the single hardware chokepoint -- every AI model from Claude to GPT to Gemini runs on Nvidia chips. As of July 2025 Nvidia became the first company to reach $4 trillion market cap.',
+      'Anthropic ($965B valuation, May 2026) holds a unique position: via its Palantir partnership (Nov 2024), Claude is documented as the only AI model deployed in US classified missions. DoD awarded $200M in AI contracts to Anthropic, OpenAI, Google, and xAI in July 2025. Claude Gov was in use at multiple US national security agencies by June 2025.',
+      'OpenAI ($852B post-money, March 2026) raised $122B -- the largest private funding round in history. Infrastructure obligations exceed $1.15 trillion across Oracle, Microsoft, and Amazon (PitchBook). 900M+ weekly active ChatGPT users. Confidential IPO filing June 8 2026.',
+      'Microsoft holds 27% of OpenAI valued at $228B -- a 17.6x return on its $13B investment. The structure is circular: Microsoft funds OpenAI, OpenAI buys Azure, Azure books revenue, Microsoft marks up the stake. The AI layer is now embedded in the same financial architecture as the Big Three asset managers -- BlackRock participated in Anthropic funding rounds.',
+    ],
+    sources:['TechCrunch May 2026','CNBC Mar 2026','Wikipedia Anthropic Jun 2026','Sacra Jun 2026','DoD Jul 2025','TheStreet Jun 2026','SIPRI Apr 2026']
+  },
   {
     date:'2026-05-30',
     timestamp:'Saturday, 30 May 2026',
@@ -1517,7 +2338,7 @@ const BLOG_POSTS=[
 function buildBlog(){
   const c=document.getElementById('blog-container');
   if(c.dataset.built)return;c.dataset.built='1';
-  c.innerHTML=BLOG_POSTS.map(p=>`
+  c.innerHTML=BLOG_POSTS.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).map(p=>`
     <div class="blog-entry">
       <div class="blog-date">&#x25C6; ${p.timestamp}</div>
       <div class="blog-title">${p.title}</div>
@@ -1529,11 +2350,720 @@ function buildBlog(){
 }
 
 // ============================================================
+// ============================================================
+// BUILD APEX (static -- content pre-rendered in HTML)
+// ============================================================
+function buildApex(){/* content is static HTML in page-apex div */}
+
+// ============================================================
+// ISRAEL MEMBERSHIP CATEGORIES (from diagram)
+// ============================================================
+const IL_MEMBERSHIPS={
+  member:[
+    {cat:'Economic',items:'OECD (2010)',color:'#10b981'},
+    {cat:'Political',items:'United Nations since 1949',color:'#8b5cf6'},
+    {cat:'Financial',items:'World Bank, IMF -- standard multilateral',color:'#3b82f6'},
+    {cat:'Trade agreements',items:'FTA with US, EU, Canada, EFTA',color:'#f59e0b'},
+    {cat:'Science / Tech',items:'EU Horizon (assoc.) -- CERN observer',color:'#f59e0b'},
+    {cat:'Security (observer)',items:'NATO dialogues -- no full membership',color:'#6b7280'},
+  ],
+  not_member:[
+    {cat:'G7',reason:'GDP too small',color:'#ef4444'},
+    {cat:'G20',reason:'not included',color:'#ef4444'},
+    {cat:'NATO',reason:'geopolitical reasons',color:'#ef4444'},
+    {cat:'EU',reason:'not European state',color:'#ef4444'},
+    {cat:'Arab League',reason:'not an Arab state',color:'#ef4444'},
+    {cat:'African Union',reason:'not on continent',color:'#ef4444'},
+    {cat:'OIC',reason:'Islamic cooperation org',color:'#ef4444'},
+  ],
+  special:[
+    {cat:'NPT (nuclear)',reason:'never signed -- policy of ambiguity -- ~90 warheads (SIPRI 2025)',color:'#f59e0b'},
+    {cat:'ICC',reason:'non-signatory -- contested jurisdiction -- arrest warrant issued Nov 2024',color:'#f59e0b'},
+    {cat:'UN agencies',reason:'WHO, ILO, UNESCO -- full member',color:'#10b981'},
+    {cat:'CTBT',reason:'signed, not ratified',color:'#6b7280'},
+    {cat:'NPT comparison',reason:'Only nuclear-armed state never to sign -- alongside India, Pakistan, NK',color:'#ef4444'},
+  ]
+};
+
+// ============================================================
+// BUILD ISRAEL POWER INDEX PAGE
+// ============================================================
+function buildIsrael(){
+  const c=document.getElementById('israel-container');
+  if(c.dataset.built)return;c.dataset.built='1';
+
+  const TIERS=[
+    {tier:'Shadow / Tier 0 Intelligence',pct:82,color:'#aa44ff',
+     label:'Mossad + Unit 8200',
+     detail:'Peer-level intel partnership with CIA/MI6/NSA. NSO Pegasus deployed to 45+ governments. Unit 8200 alumni founded Check Point, CyberArk, Waze. Operates outside formal multilateral accountability.',
+     src:'UK PKI 2016 / WhatsApp v NSO US jury May 2025 / SIPRI 2025'},
+    {tier:'Tier 1 &mdash; Formal US bilateral',pct:94,color:'#f59e0b',
+     label:'US-Israel MOU + UNSC veto cover',
+     detail:'$3.8B/year guaranteed military aid (10-yr MOU, largest in US history). US has used UNSC veto 83+ times on Israel-related resolutions. Qualitative Military Edge (QME) doctrine mandates US ensures Israeli regional military superiority by law (22 U.S.C. &sect;2776).',
+     src:'US State Dept MOU 2016 / US Code 22 U.S.C. &sect;2776 / UN veto database'},
+    {tier:'Tier 1B &mdash; Nuclear ambiguity',pct:88,color:'#ef4444',
+     label:'~90 undeclared warheads (SIPRI)',
+     detail:'Only nuclear-armed state never to sign NPT. Jericho III IRBM range 6,500km+. Submarine-launched Popeye Turbo cruise missiles (widely reported, unconfirmed officially). Policy of deliberate ambiguity since Golda Meir era.',
+     src:'SIPRI Yearbook 2025 / Kristensen & Norris FAS'},
+    {tier:'Tier 2B &mdash; Electoral lobbying (US)',pct:79,color:'#7c3aed',
+     label:'AIPAC: $95.1M+ 2024 US elections',
+     detail:'Largest single foreign-policy electoral spending in US 2024 cycle. United Democracy Project super PAC: $14.6M vs Rep. Bowman, $8.6M vs Rep. Bush (both defeated). No other single foreign-policy lobby approaches this scale.',
+     src:'OpenSecrets / FEC 2024'},
+    {tier:'Tier 3 &mdash; Tech &amp; surveillance economy',pct:68,color:'#3b82f6',
+     label:'Unit 8200 tech ecosystem',
+     detail:'Unit 8200 is described as the most elite signals intelligence unit outside NSA/GCHQ. Alumni founded $100B+ market-cap companies. CyberArk (NASDAQ), Check Point (~$22B market cap), Waze (acquired Google $1.3B 2013), ironSource, Monday.com.',
+     src:'Forbes Israel Tech / Wired / Haaretz'},
+    {tier:'Tier 4 &mdash; ICC non-signatory',pct:55,color:'#ec4899',
+     label:'Contest jurisdiction, never signed',
+     detail:'ICC opened formal investigation into Gaza/West Bank 2021. Arrest warrants issued for PM Netanyahu and former Defense Minister Gallant (Nov 2024) &mdash; war crimes/crimes against humanity. Israel rejects ICC jurisdiction. US sanctions ICC officials over investigation.',
+     src:'ICC PTC-I Decision Mar 2021 / ICC warrant Nov 2024'},
+    {tier:'Tier 5 &mdash; Regional military reach',pct:76,color:'#6b7280',
+     label:'Documented strikes in 7+ countries',
+     detail:'Documented IDF/Israeli strikes in Syria (1,000+ documented 2013-2026), Lebanon (Hezbollah infrastructure), Gaza, Iraq (1981 Osirak, 2007 Al-Kibar), Sudan, Iran (acknowledged cyber: Stuxnet attributed US/Israel). Iron Dome/David\'s Sling/Arrow &mdash; most layered missile defense in world.',
+     src:'CSIS / IDF spokesperson / IAEA / Symantec Stuxnet analysis'},
+    {tier:'Formal multilateral (OECD, UN)',pct:28,color:'#10b981',
+     label:'Member but regularly outvoted',
+     detail:'OECD member since 2010. UN member since 1949. Most-voted-against nation in UNGA history on Palestine/settlements resolutions (150+ to 5-8 votes typical). Excluded from G7, G20, NATO, EU, Arab League.',
+     src:'UN voting records / OECD 2010 accession'},
+  ];
+
+  // Build membership grid from IL_MEMBERSHIPS
+  let memHtml='<div class="il-section-hdr">MEMBERSHIP MAP -- VERIFIED INTERNATIONAL BODIES</div>';
+  memHtml+='<div style="margin-bottom:.35rem;font-size:11px;font-weight:700;color:var(--doc);letter-spacing:.1em">MEMBER</div>';
+  memHtml+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.4rem;margin-bottom:.75rem">';
+  IL_MEMBERSHIPS.member.forEach(m=>{
+    memHtml+=`<div style="background:${m.color}18;border:1px solid ${m.color}40;border-radius:6px;padding:.5rem .65rem"><div style="font-size:11px;font-weight:700;color:${m.color}">${m.cat}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${m.items}</div></div>`;
+  });
+  memHtml+='</div>';
+  memHtml+='<div style="margin-bottom:.35rem;font-size:11px;font-weight:700;color:var(--unp);letter-spacing:.1em">NOT A MEMBER</div>';
+  memHtml+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.4rem;margin-bottom:.75rem">';
+  IL_MEMBERSHIPS.not_member.forEach(m=>{
+    memHtml+=`<div style="background:#ef444418;border:1px solid #ef444440;border-radius:6px;padding:.5rem .65rem"><div style="font-size:11px;font-weight:700;color:#ef4444">${m.cat}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${m.reason}</div></div>`;
+  });
+  memHtml+='</div>';
+  memHtml+='<div style="margin-bottom:.35rem;font-size:11px;font-weight:700;color:var(--rep);letter-spacing:.1em">SPECIAL STATUS / CONTESTED</div>';
+  memHtml+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.4rem;margin-bottom:1rem">';
+  IL_MEMBERSHIPS.special.forEach(m=>{
+    memHtml+=`<div style="background:${m.color}18;border:1px solid ${m.color}40;border-radius:6px;padding:.5rem .65rem"><div style="font-size:11px;font-weight:700;color:${m.color}">${m.cat}</div><div style="font-size:11px;color:var(--muted);margin-top:2px">${m.reason}</div></div>`;
+  });
+  memHtml+='</div>';
+
+  let html=`<div class="il-intro">
+    Israel\'s formal rank in the global power pyramid is <strong>Tier 3-4</strong> (OECD economy, UN member, no G7/G20/NATO seat).
+    Its operational power reaches <strong>Tier 0-1</strong> through intelligence capability, nuclear ambiguity, and the US bilateral relationship.
+    The bars below show estimated leverage at each structural tier &mdash; based on verified metrics only.
+  </div>
+  <div class="il-section-hdr">POWER INDEX BY TIER</div>`;
+
+  TIERS.forEach(t=>{
+    const cls=t.pct>=80?'pi-high':t.pct>=60?'pi-mid':'pi-low';
+    const ilCls=t.tier.includes('Intel')||t.tier.includes('Shadow')?'pi-il':cls;
+    html+=`<div class="il-tier-row">
+      <div class="il-tier-left">
+        <div class="il-tier-name">${t.tier}</div>
+        <div class="il-tier-sub"><strong style="color:${t.color}">${t.label}</strong> &mdash; ${t.detail}</div>
+        <div style="font-size:11px;color:var(--muted2);margin-top:3px">Source: ${t.src}</div>
+      </div>
+      <div class="il-pct-big" style="color:${t.color}">${t.pct}%</div>
+      <div class="il-bar-wrap">
+        <div class="pi-track" style="height:7px"><div class="pi-fill ${ilCls}" style="--pi-w:${t.pct}%;width:0" data-pi="${t.pct}"></div></div>
+      </div>
+    </div>`;
+  });
+
+  // Summary composite
+  const avg=Math.round(TIERS.reduce((s,t)=>s+t.pct,0)/TIERS.length);
+  html+=`<div class="il-section-hdr" style="margin-top:1.25rem">COMPOSITE INDEX</div>
+  <div class="il-tier-row" style="border-color:#aa44ff40">
+    <div class="il-tier-left">
+      <div class="il-tier-name" style="color:#aa44ff">Israel &mdash; overall pyramid position</div>
+      <div class="il-tier-sub">Weighted average across all tiers. Formal rank: ~28%. Operational reach via intelligence + US veto + nuclear: ~82%. Composite accounts for asymmetric leverage.</div>
+    </div>
+    <div class="il-pct-big" style="color:#aa44ff">${avg}%</div>
+    <div class="il-bar-wrap">
+      <div class="pi-track" style="height:9px"><div class="pi-fill pi-il" style="--pi-w:${avg}%;width:0" data-pi="${avg}"></div></div>
+    </div>
+  </div>`;
+
+  // Israel actors cross-link
+  const ilActors=ACTORS.filter(a=>(a.tags||[]).includes('israel'));
+  if(ilActors.length){
+    html+=`<div class="il-section-hdr" style="margin-top:1.25rem">ISRAEL ACTORS IN THE DATABASE</div>
+    <div class="actor-grid">`;
+    ilActors.forEach(a=>{
+      const tm=getTierMeta(a.tier);
+      const pct=POWER_INDEX[a.id]||0;
+      const cls2=a.id==='mossad'||a.id==='aipac'?'pi-il':pct>=80?'pi-high':pct>=60?'pi-mid':'pi-low';
+      html+=`<div class="actor-card" onclick="openActor('${a.id}')" style="border-top:2px solid ${tm.color}40">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.3rem;margin-bottom:.35rem">
+          <div class="ac-name" style="color:${tm.color}">${a.name}</div>
+          ${statusBadge(a.status)}
+        </div>
+        <div class="ac-role">${a.role}</div>
+        <div class="ac-metric">${a.metric}</div>
+        ${pct?`<div class="pi-wrap"><div class="pi-label"><span>POWER INDEX</span><span class="pi-pct">${pct}%</span></div><div class="pi-track"><div class="pi-fill ${cls2}" style="--pi-w:${pct}%;width:0" data-pi="${pct}"></div></div></div>`:''}
+      </div>`;
+    });
+    html+='</div>';
+  }
+
+  html+=`<div class="il-disclaimer">
+    Power index % = analyst estimate based on verified metrics: AUM, electoral spending (FEC), military reach (DOD/SIPRI), intelligence capability (court records/NSO verdict), treaty status (UN/ICC/NPT records), and institutional position. Not an official metric. Documented sources only. No original claims.
+  </div>`;
+
+  c.innerHTML=memHtml+html;
+  setTimeout(()=>{c.querySelectorAll('.pi-fill').forEach(el=>el.classList.add('animate'));},120);
+}
+
+// ============================================================
+// PROFILE TAG FILTER
+// ============================================================
+function filterProfiles(tag, btn){
+  document.querySelectorAll('#profile-tag-filters .nav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.actor-card').forEach(card=>{
+    const cardTags=(card.dataset.tags||'').split(',');
+    card.style.display=(tag==='all'||cardTags.includes(tag))?'':'none';
+  });
+}
+window.filterProfiles=filterProfiles;
+
+// ============================================================
+// PYRAMID HOVER HIGHLIGHT
+// ============================================================
+function hlNode(aid){
+  const svg=document.getElementById('pyramid-svg');
+  if(!svg||!svg.dataset.built)return;
+  // Find this actor's connections
+  const a=ACTORS.find(x=>x.id===aid);
+  if(!a)return;
+  // Use bidirectional map -- includes both outgoing + incoming
+  const linked=new Set([aid,...(CONN_MAP[aid]||[])]);
+  svg.classList.add('dim-mode');
+  // Highlight matching nodes
+  svg.querySelectorAll('.pyramid-node').forEach(n=>{
+    const isLit=linked.has(n.dataset.id);
+    n.classList.toggle('lit', isLit);
+    n.style.opacity=isLit?'1':'0.15';
+  });
+  // Highlight matching edges
+  svg.querySelectorAll('.pyramid-edge').forEach(e=>{
+    const from=e.dataset.from, to=e.dataset.to;
+    const isLit=linked.has(from)&&linked.has(to);
+    e.classList.toggle('lit', isLit);
+    if(isLit){ e.style.opacity='1'; e.style.strokeWidth='2.5px'; }
+    else { e.style.opacity='0.03'; e.style.strokeWidth=''; }
+  });
+  // Collect all tiers involved in this node + its connections
+  const litTiers=new Set();
+  linked.forEach(id=>{
+    const ac=ACTORS.find(x=>x.id===id);
+    if(ac) litTiers.add(String(ac.tier));
+  });
+  // Also add the directly hovered node's tier
+  if(a) litTiers.add(String(a.tier));
+  document.querySelectorAll('#pyramid-legend .leg-item').forEach(li=>{
+    li.classList.toggle('lit', litTiers.has(li.dataset.tier));
+  });
+}
+function unhlNode(){
+  const svg=document.getElementById('pyramid-svg');
+  if(!svg)return;
+  svg.classList.remove('dim-mode');
+  svg.querySelectorAll('.pyramid-edge').forEach(e=>{
+    e.classList.remove('lit');
+    e.style.opacity=e.dataset.baseOpacity||'0.07';
+    e.style.strokeWidth='';
+  });
+  svg.querySelectorAll('.pyramid-node').forEach(n=>{
+    n.classList.remove('lit');
+    n.style.opacity='';
+  });
+  document.querySelectorAll('#pyramid-legend .leg-item').forEach(li=>li.classList.remove('lit'));
+}
+window.hlNode=hlNode;
+window.unhlNode=unhlNode;
+
+// ============================================================
+// SEARCH
+// ============================================================
+function runSearch(q){
+  const panel=document.getElementById('search-panel');
+  const results=document.getElementById('search-results');
+  const countEl=document.getElementById('search-count');
+  q=q.trim().toLowerCase();
+  if(!q){panel.classList.remove('open');return;}
+  panel.classList.add('open');
+  const terms=q.split(/\s+/).filter(Boolean);
+  const scored=[];
+  ACTORS.forEach(a=>{
+    const haystack=[
+      a.name,a.role,a.metric,a.detail||'',
+      (a.tags||[]).join(' '),
+      (a.events||[]).map(e=>e.event).join(' '),
+      (a.money||[]).map(m=>m.from+' '+m.to+' '+m.label).join(' ')
+    ].join(' ').toLowerCase();
+    let count=0;
+    terms.forEach(t=>{
+      let idx=0;
+      while((idx=haystack.indexOf(t,idx))!==-1){count++;idx+=t.length;}
+    });
+    if(count>0)scored.push({a,count});
+  });
+  scored.sort((a,b)=>b.count-a.count);
+  countEl.textContent=scored.length+' actor'+(scored.length!==1?'s':'')+' matched';
+  if(!scored.length){results.innerHTML='<div class="sr-item" style="color:var(--muted)">No matches</div>';return;}
+  results.innerHTML=scored.slice(0,20).map(({a,count})=>`
+    <div class="sr-item" onclick="openActor('${a.id}');document.getElementById('search-panel').classList.remove('open')">
+      <span class="sr-count">${count} hit${count!==1?'s':''}</span>
+      <div class="sr-name">${a.name}</div>
+      <div class="sr-role">${a.role}</div>
+    </div>`).join('');
+}
+document.addEventListener('click',e=>{
+  if(!document.getElementById('search-wrap').contains(e.target))
+    document.getElementById('search-panel').classList.remove('open');
+});
+
+// ============================================================
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded',()=>{
   // profiles built lazily on tab click
 });
+
+// ============================================================
+// AVIDAA GLOBE -- v2  -  Inertia drag  -  Tier colors  -  Country fills
+// ============================================================
+(function(){
+  var canvas=document.getElementById('globe-canvas');
+  if(!canvas)return;
+  var wrap=document.getElementById('globe-wrap');
+  var ctx=canvas.getContext('2d');
+
+  // -- TIER COLORS (match pyramid exactly) ----------------------
+  var COL={
+    APEX:   '#ff00ff',  // shadow apex  BIS/Bilderberg/CFR/Trilateral/WEF
+    T0:     '#f59e0b',  // gold         dynasties, China, Russia, SWFs
+    T1B:    '#ef4444',  // red          Vatican, Fed, BlackRock
+    T0C:    '#aa44ff',  // israel purple Mossad/AIPAC/Netanyahu
+    T0B:    '#22d3ee',  // cyan         ASML/TSMC/SWIFT/Starlink
+    T0D:    '#c084fc',  // ai apex      OpenAI/Anthropic/Nvidia
+    T2B:    '#8b5cf6',  // purple       Soros/Koch/Kissinger/Palantir
+    T3:     '#3b82f6',  // blue         Tech billionaires
+    T4:     '#ec4899',  // pink         Epstein network
+    T5:     '#6b7280',  // gray         war economy Pentagon
+    T6:     '#10b981',  // green        political operators
+    T7:     '#f97316',  // orange       crypto shadow
+  };
+
+  // -- POWER NODES: [lat, lon, tier-color, tier-label, name, size] --
+  // Each node matches an actor and its pyramid tier color
+  var NODES=[
+    // SHADOW APEX (magenta)
+    {lat:47.6, lon:7.6,   col:COL.APEX, lbl:'APEX', name:'BIS -- Basel',       sz:1.2},
+    {lat:51.2, lon:4.4,   col:COL.APEX, lbl:'APEX', name:'Bilderberg -- Brussels', sz:1.0},
+    {lat:40.7, lon:-74.0, col:COL.APEX, lbl:'APEX', name:'CFR -- New York',    sz:1.1},
+    {lat:46.2, lon:6.1,   col:COL.APEX, lbl:'APEX', name:'Trilateral/WEF -- Geneva', sz:1.0},
+    // TIER 0 gold -- dynasties
+    {lat:51.5, lon:-0.1,  col:COL.T0,   lbl:'T0',   name:'Rothschild -- London', sz:1.0},
+    {lat:40.7, lon:-73.9, col:COL.T0,   lbl:'T0',   name:'Rockefeller -- NY',  sz:1.0},
+    // TIER 0 gold -- China
+    {lat:39.9, lon:116.4, col:COL.T0,   lbl:'T0',   name:'Xi/CCP -- Beijing',  sz:1.1},
+    // TIER 0 gold -- Russia
+    {lat:55.7, lon:37.6,  col:COL.T0,   lbl:'T0',   name:'Putin/FSB -- Moscow',sz:1.0},
+    // TIER 0 gold -- SWFs
+    {lat:24.7, lon:46.7,  col:COL.T0,   lbl:'T0',   name:'Saudi Royals/Aramco',sz:0.9},
+    {lat:25.2, lon:55.3,  col:COL.T0,   lbl:'T0',   name:'ADIA -- Dubai',      sz:0.8},
+    {lat:25.3, lon:51.5,  col:COL.T0,   lbl:'T0',   name:'QIA -- Qatar',       sz:0.8},
+    // TIER 1B red -- Fed/BlackRock
+    {lat:38.9, lon:-77.0, col:COL.T1B,  lbl:'T1B',  name:'Fed/Pentagon -- DC', sz:1.0},
+    {lat:40.7, lon:-74.0, col:COL.T1B,  lbl:'T1B',  name:'BlackRock -- NY',    sz:1.0},
+    // TIER 0C purple -- Israel
+    {lat:31.8, lon:35.2,  col:COL.T0C,  lbl:'IL',   name:'Mossad/AIPAC -- Israel', sz:0.9},
+    // TIER 0B cyan -- infra choke
+    {lat:52.1, lon:5.3,   col:COL.T0B,  lbl:'INFRA',name:'ASML -- Netherlands',sz:0.8},
+    {lat:25.0, lon:121.5, col:COL.T0B,  lbl:'INFRA',name:'TSMC -- Taiwan',     sz:0.9},
+    // TIER 0D purple -- AI apex
+    {lat:37.4, lon:-122.0,col:COL.T0D,  lbl:'AI',   name:'OpenAI/Anthropic -- SV', sz:1.0},
+    {lat:37.3, lon:-122.0,col:COL.T0D,  lbl:'AI',   name:'Nvidia/Google -- SV',sz:1.0},
+    // TIER 2B purple -- operators
+    {lat:48.2, lon:16.4,  col:COL.T2B,  lbl:'T2B',  name:'Soros -- Vienna',    sz:0.8},
+    {lat:38.9, lon:-77.1, col:COL.T2B,  lbl:'T2B',  name:'Palantir/CIA -- DC', sz:0.8},
+    // TIER 3 blue -- tech billionaires
+    {lat:47.6, lon:-122.3,col:COL.T3,   lbl:'T3',   name:'Gates -- Seattle',   sz:0.8},
+    {lat:30.3, lon:-97.7, col:COL.T3,   lbl:'T3',   name:'Musk/xAI -- Austin', sz:0.8},
+    {lat:22.3, lon:114.2, col:COL.T3,   lbl:'T3',   name:'Huawei/Adani -- HK', sz:0.7},
+    // TIER 6 green -- political
+    {lat:48.9, lon:2.3,   col:COL.T6,   lbl:'T6',   name:'Schwab/NATO -- Paris',sz:0.7},
+    {lat:28.6, lon:77.2,  col:COL.T6,   lbl:'T6',   name:'Modi -- Delhi',      sz:0.7},
+    {lat:37.6, lon:127.0, col:COL.T6,   lbl:'T6',   name:'Kim Jong-Un -- Seoul',sz:0.6},
+    // TIER 7 orange -- crypto shadow
+    {lat:1.3,  lon:103.8, col:COL.T7,   lbl:'T7',   name:'Tether/Binance -- SG',sz:0.8},
+    // TIER 5 gray -- war economy
+    {lat:38.8, lon:-77.1, col:COL.T5,   lbl:'T5',   name:'Lockheed/Halliburton',sz:0.7},
+    // Additional global spread nodes
+    {lat:-33.9,lon:18.4,  col:COL.T6,   lbl:'T6',   name:'Cape Town -- Africa SWF',sz:0.6},
+    {lat:-23.5,lon:-46.6, col:COL.T6,   lbl:'T6',   name:'Sao Paulo -- LatAm finance',sz:0.6},
+    {lat:-34.6,lon:-58.4, col:COL.T6,   lbl:'T6',   name:'Buenos Aires -- Mercosur',sz:0.5},
+    {lat:19.4, lon:-99.1, col:COL.T6,   lbl:'T6',   name:'Mexico City -- Cartels/AMLO',sz:0.6},
+    {lat:-37.8,lon:144.9, col:COL.T0B,  lbl:'INFRA',name:'Sydney -- Five Eyes / ASD',sz:0.6},
+    {lat:43.7, lon:87.3,  col:COL.T0,   lbl:'T0',   name:'Xinjiang -- BRI hub',sz:0.6},
+    {lat:6.4,  lon:3.4,   col:COL.T7,   lbl:'T7',   name:'Lagos -- crypto/cartels',sz:0.5},
+    {lat:30.1, lon:31.2,  col:COL.T0,   lbl:'T0',   name:'Cairo -- BRI/Gulf hub',sz:0.6},
+    {lat:-26.2,lon:28.0,  col:COL.T0,   lbl:'T0',   name:'Johannesburg -- gold/mining',sz:0.6},
+    {lat:55.8, lon:37.6,  col:COL.T0,   lbl:'T0',   name:'Moscow -- FSB nerve centre',sz:0.7},
+  ];
+
+  // -- CONNECTIONS (match CONN_MAP from pyramid data) -----------
+  // [from-idx, to-idx, color] -- uses source node color
+  var CONNS=[
+    // BIS shadow apex connections
+    [0,1,COL.APEX],[0,2,COL.APEX],[0,3,COL.APEX],[0,4,COL.APEX],[0,11,COL.APEX],
+    // CFR connections
+    [2,4,COL.APEX],[2,18,COL.APEX],[2,20,COL.APEX],
+    // Rothschild-Rockefeller dynastic
+    [4,5,COL.T0],[4,0,COL.T0],[4,11,COL.T0],
+    // China network
+    [6,7,COL.T0],[6,10,COL.T0],[6,15,COL.T0],
+    // Russia network
+    [7,8,COL.T0],[7,0,COL.T0],
+    // Saudi/Gulf
+    [8,9,COL.T0],[8,10,COL.T0],[8,13,COL.T0],
+    // Fed/BlackRock -- documented 2020 emergency bond buying
+    [11,12,COL.T1B],[11,4,COL.T1B],
+    // Israel connections
+    [13,8,COL.T0C],[13,19,COL.T0C],[13,2,COL.T0C],
+    // AI apex -- Microsoft/Amazon invest in all
+    [16,17,COL.T0D],[16,12,COL.T0D],[16,21,COL.T0D],
+    // Palantir -- CIA seeded -- Thiel/DoD
+    [19,11,COL.T2B],[19,18,COL.T2B],
+    // Gates -- WHO/Wellcome
+    [20,3,COL.T3],[20,16,COL.T3],
+    // Musk -- Pentagon/xAI
+    [21,11,COL.T3],[21,22,COL.T3],
+    // Crypto shadow
+    [26,22,COL.T7],[26,6,COL.T7],
+    // War economy
+    [27,11,COL.T5],
+    // Southern hemisphere / global spread
+    [31,9,COL.T0],   // Johannesburg <-> Riyadh (gold)
+    [28,4,COL.T6],   // Lagos <-> DC
+    [29,6,COL.T0],   // Cairo <-> Beijing (BRI)
+    [30,11,COL.T0B], // Sydney <-> DC (Five Eyes)
+    [25,6,COL.T7],   // Singapore <-> xAI (crypto/AI)
+  ];
+
+  // -- COUNTRY COLOR FILLS (simplified polygon approximations) --
+  // Each entry: {col, alpha, points:[[lat,lon],...]}
+  var REGIONS=[
+    // USA -- gold/red (home of Fed, Pentagon, CFR, Silicon Valley)
+    {col:'#f59e0b', a:0.08, pts:[[49,-125],[49,-67],[25,-80],[25,-117],[49,-125]]},
+    // China -- orange
+    {col:'#f97316', a:0.08, pts:[[53,73],[53,135],[20,135],[20,100],[25,73],[53,73]]},
+    // Russia -- red
+    {col:'#ef4444', a:0.06, pts:[[70,30],[70,180],[50,180],[45,130],[45,60],[50,30],[70,30]]},
+    // Europe -- purple
+    {col:'#8b5cf6', a:0.07, pts:[[72,-10],[72,30],[45,30],[37,10],[36,-8],[45,-10],[72,-10]]},
+    // Middle East -- cyan/gold
+    {col:'#22d3ee', a:0.07, pts:[[37,25],[37,60],[22,60],[22,35],[28,25],[37,25]]},
+    // India -- green
+    {col:'#10b981', a:0.06, pts:[[35,68],[35,97],[8,80],[8,68],[35,68]]},
+    // Southeast Asia/Singapore -- orange
+    {col:'#f97316', a:0.06, pts:[[22,100],[22,140],[1,140],[1,95],[22,100]]},
+    // UK -- gold
+    {col:'#f59e0b', a:0.10, pts:[[58,-6],[58,2],[51,2],[51,-6],[58,-6]]},
+    // Switzerland/Basel -- magenta
+    {col:'#ff00ff', a:0.12, pts:[[48,5],[48,11],[46,11],[46,5],[48,5]]},
+    // Taiwan -- cyan
+    {col:'#22d3ee', a:0.15, pts:[[25.5,120],[25.5,122],[22,122],[22,120],[25.5,120]]},
+  ];
+
+  // -- GEOMETRY HELPERS -----------------------------------------
+  function latLon3D(lat,lon){
+    var ph=(90-lat)*Math.PI/180, th=(lon+180)*Math.PI/180;
+    return {x:-Math.sin(ph)*Math.cos(th), y:Math.cos(ph), z:Math.sin(ph)*Math.sin(th)};
+  }
+  function rotY(p,a){return {x:p.x*Math.cos(a)+p.z*Math.sin(a),y:p.y,z:-p.x*Math.sin(a)+p.z*Math.cos(a)};}
+  function rotX(p,a){return {x:p.x,y:p.y*Math.cos(a)-p.z*Math.sin(a),z:p.y*Math.sin(a)+p.z*Math.cos(a)};}
+  function rot(p,ry,rx){return rotX(rotY(p,ry),rx);}
+  function proj(p,R,cx,cy){
+    return {sx:cx+p.x*R, sy:cy-p.y*R, visible:p.z>-0.05};
+  }
+  function hexRGB(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+
+  // -- DRAG + INERTIA STATE --------------------------------------
+  var spinY=1.0, spinX=-0.28;     // start: Atlantic view, equator centred
+  var velY=0.004, velX=0;      // angular velocity
+  var mouseTiltY=0,mouseTiltX=0; // subtle tilt from mouse (not drag)
+  var dragging=false,lastMX=0,lastMY=0;
+  var prevDX=0,prevDY=0;        // for velocity capture
+  var FRICTION=0.92;
+
+  function onDown(cx,cy){
+    dragging=true; lastMX=cx; lastMY=cy;
+    velY=0; velX=0; prevDX=0; prevDY=0;
+  }
+  function onMove(cx,cy){
+    if(!dragging)return;
+    var dx=cx-lastMX, dy=cy-lastMY;
+    spinY+=dx*0.008;
+    spinX+=dy*0.008;
+    spinX=Math.max(-1.2,Math.min(1.2,spinX));
+    prevDX=dx; prevDY=dy;
+    lastMX=cx; lastMY=cy;
+  }
+  function onUp(){
+    if(!dragging)return;
+    dragging=false;
+    // Hand velocity to inertia
+    velY=prevDX*0.008;
+    velX=prevDY*0.008;
+  }
+
+  // Mouse events
+  wrap.addEventListener('mousedown',function(e){onDown(e.clientX,e.clientY);});
+  window.addEventListener('mouseup',onUp);
+  wrap.addEventListener('mousemove',function(e){
+    onMove(e.clientX,e.clientY);
+    if(!dragging){
+      var r=wrap.getBoundingClientRect();
+      mouseTiltY=((e.clientX-r.left)/r.width-0.5)*0.25;
+      mouseTiltX=((e.clientY-r.top)/r.height-0.5)*0.18;
+    }
+    // cursor
+    var r=wrap.getBoundingClientRect();
+    cursor.style.left=(e.clientX-r.left)+'px';
+    cursor.style.top=(e.clientY-r.top)+'px';
+  });
+  wrap.addEventListener('mouseleave',function(){mouseTiltY=0;mouseTiltX=0;cursor.style.display='none';});
+  wrap.addEventListener('mouseenter',function(){cursor.style.display='block';});
+
+  // Touch events
+  wrap.addEventListener('touchstart',function(e){onDown(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
+  wrap.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    onMove(e.touches[0].clientX,e.touches[0].clientY);
+  },{passive:false});
+  wrap.addEventListener('touchend',onUp);
+
+  // Cursor
+  var cursor=document.createElement('div');
+  cursor.style.cssText='position:absolute;pointer-events:none;z-index:10;display:none;width:26px;height:26px;margin:-13px 0 0 -13px;transition:none';
+  cursor.innerHTML='<svg width="26" height="26"><circle cx="13" cy="13" r="5" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.9"/><line x1="13" y1="1" x2="13" y2="8" stroke="#f59e0b" stroke-width="1.2"/><line x1="13" y1="18" x2="13" y2="25" stroke="#f59e0b" stroke-width="1.2"/><line x1="1" y1="13" x2="8" y2="13" stroke="#f59e0b" stroke-width="1.2"/><line x1="18" y1="13" x2="25" y2="13" stroke="#f59e0b" stroke-width="1.2"/></svg>';
+  wrap.appendChild(cursor);
+
+  // Canvas sizing
+  function resize(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.round(wrap.clientWidth*dpr);
+    canvas.height=Math.round(wrap.clientHeight*dpr);
+  }
+  resize();
+  window.addEventListener('resize',function(){resize();});
+
+  // -- DRAW REGION FILL -----------------------------------------
+  function drawRegion(reg,ry,rx,R,cx,cy){
+    var pts=reg.pts.map(function(ll){return proj(rot(latLon3D(ll[0],ll[1]),ry,rx),R,cx,cy);});
+    var anyVis=pts.some(function(p){return p.visible;});
+    if(!anyVis)return;
+    var rgb=hexRGB(reg.col);
+    ctx.save();
+    ctx.beginPath();
+    var first=true;
+    pts.forEach(function(p){
+      if(first){ctx.moveTo(p.sx,p.sy);first=false;}
+      else ctx.lineTo(p.sx,p.sy);
+    });
+    ctx.closePath();
+    ctx.fillStyle='rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+reg.a+')';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // -- DRAW ARC (great circle) -----------------------------------
+  function drawArc(n1,n2,col,ry,rx,R,cx,cy,t,idx){
+    var p1=latLon3D(n1.lat,n1.lon), p2=latLon3D(n2.lat,n2.lon);
+    var dot=Math.min(1,Math.max(-1,p1.x*p2.x+p1.y*p2.y+p1.z*p2.z));
+    var omega=Math.acos(dot);
+    if(omega<0.01)return;
+    var si=1/Math.sin(omega), STEPS=36;
+    var rgb=hexRGB(col);
+    var pulse=0.25+0.15*Math.sin(t*1.8+idx);
+    ctx.save();
+    ctx.strokeStyle='rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+pulse+')';
+    ctx.lineWidth=1.4;
+    ctx.shadowColor=col;
+    ctx.shadowBlur=4;
+    ctx.beginPath();
+    var started=false;
+    for(var i=0;i<=STEPS;i++){
+      var f=i/STEPS;
+      var sinA=Math.sin((1-f)*omega)*si, sinB=Math.sin(f*omega)*si;
+      var p={x:sinA*p1.x+sinB*p2.x, y:sinA*p1.y+sinB*p2.y, z:sinA*p1.z+sinB*p2.z};
+      var pr=proj(rot(p,ry,rx),R,cx,cy);
+      if(!pr.visible){if(started){ctx.stroke();ctx.beginPath();started=false;}continue;}
+      if(!started){ctx.moveTo(pr.sx,pr.sy);started=true;}
+      else ctx.lineTo(pr.sx,pr.sy);
+    }
+    if(started)ctx.stroke();
+    ctx.restore();
+  }
+
+  // -- DRAW GRID -------------------------------------------------
+  function drawGrid(ry,rx,R,cx,cy){
+    ctx.save();
+    ctx.strokeStyle='rgba(0,180,60,0.10)';
+    ctx.lineWidth=0.6;
+    [-60,-30,0,30,60].forEach(function(lat){
+      ctx.beginPath(); var st=true;
+      for(var lon=-180;lon<=185;lon+=6){
+        var pr=proj(rot(latLon3D(lat,lon),ry,rx),R,cx,cy);
+        if(!pr.visible){st=true;continue;}
+        if(st){ctx.moveTo(pr.sx,pr.sy);st=false;}else ctx.lineTo(pr.sx,pr.sy);
+      }
+      ctx.stroke();
+    });
+    [-150,-120,-90,-60,-30,0,30,60,90,120,150].forEach(function(lon){
+      ctx.beginPath(); var st=true;
+      for(var lat=-85;lat<=85;lat+=6){
+        var pr=proj(rot(latLon3D(lat,lon),ry,rx),R,cx,cy);
+        if(!pr.visible){st=true;continue;}
+        if(st){ctx.moveTo(pr.sx,pr.sy);st=false;}else ctx.lineTo(pr.sx,pr.sy);
+      }
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  // -- ANIMATION -------------------------------------------------
+  var t=0, animating=true;
+
+  function frame(){
+    if(!animating)return;
+    requestAnimationFrame(frame);
+    t+=0.014;
+
+    // Inertia
+    if(!dragging){
+      velY*=FRICTION; velX*=FRICTION;
+      if(Math.abs(velY)<0.0001) velY=0.003; // maintain slow auto-spin
+      spinY+=velY; spinX+=velX;
+      spinX=Math.max(-0.8,Math.min(0.8,spinX));
+    }
+
+    var W=canvas.width, H=canvas.height;
+    var R=Math.min(W,H)*0.4;
+    var cx=W/2, cy=H/2;
+    var ry=spinY+mouseTiltY, rx=spinX+mouseTiltX;
+
+    ctx.clearRect(0,0,W,H);
+
+    // -- Deep space background pulse --------------------------
+    var bgGlow=ctx.createRadialGradient(cx,cy,R*0.5,cx,cy,R*2.2);
+    bgGlow.addColorStop(0,'rgba(0,20,40,0.0)');
+    bgGlow.addColorStop(0.6,'rgba(0,80,160,0.03)');
+    bgGlow.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=bgGlow;ctx.fillRect(0,0,W,H);
+
+    // -- Globe base (clipping) ---------------------------------
+    ctx.save();
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.clip();
+
+    // Base fill -- deep space dark
+    var base=ctx.createRadialGradient(cx-R*0.3,cy-R*0.3,R*0.02,cx,cy,R);
+    base.addColorStop(0,'rgba(4,12,28,1)');
+    base.addColorStop(0.6,'rgba(2,6,16,1)');
+    base.addColorStop(1,'rgba(1,3,10,1)');
+    ctx.fillStyle=base;ctx.fill();
+
+    // Region fills
+    REGIONS.forEach(function(r){drawRegion(r,ry,rx,R,cx,cy);});
+
+    // Grid lines
+    drawGrid(ry,rx,R,cx,cy);
+
+    // -- SONAR SWEEP -------------------------------------------
+    var sonarAngle=(t*0.8)%(Math.PI*2);
+    var sweepGrd=ctx.createConicalGradient?null:null;
+    // Draw sonar as a rotating wedge gradient
+    ctx.save();
+    ctx.translate(cx,cy);
+    var wedgeSteps=30;
+    for(var wi=0;wi<wedgeSteps;wi++){
+      var a0=sonarAngle-(wi/wedgeSteps)*1.2;
+      var a1=sonarAngle-((wi+1)/wedgeSteps)*1.2;
+      var fade=1-wi/wedgeSteps;
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.arc(0,0,R,a0,a1,true);
+      ctx.closePath();
+      ctx.fillStyle='rgba(0,255,100,'+(fade*0.06)+')';
+      ctx.fill();
+    }
+    // Sonar line
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(Math.cos(sonarAngle)*R,Math.sin(sonarAngle)*R);
+    ctx.strokeStyle='rgba(0,255,100,0.5)';
+    ctx.lineWidth=1.2;
+    ctx.shadowColor='#00ff64';
+    ctx.shadowBlur=8;
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.restore(); // end clip
+
+    // -- Atmosphere glow (NO solid border ring) ----------------
+    var atm=ctx.createRadialGradient(cx,cy,R*0.82,cx,cy,R*1.18);
+    atm.addColorStop(0,'rgba(0,80,255,0.0)');
+    atm.addColorStop(0.5,'rgba(0,120,255,0.06)');
+    atm.addColorStop(0.8,'rgba(0,200,100,0.08)');
+    atm.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.arc(cx,cy,R*1.18,0,Math.PI*2);
+    ctx.fillStyle=atm;ctx.fill();
+
+    // Soft edge glow only -- no hard ring
+    ctx.save();
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    var edgeGrd=ctx.createRadialGradient(cx,cy,R*0.94,cx,cy,R);
+    edgeGrd.addColorStop(0,'rgba(0,200,80,0)');
+    edgeGrd.addColorStop(1,'rgba(0,200,80,0.15)');
+    ctx.fillStyle=edgeGrd;ctx.fill();
+    ctx.restore();
+
+    // Connection arcs
+    CONNS.forEach(function(c,i){
+      var n1=NODES[c[0]], n2=NODES[c[1]];
+      if(n1&&n2) drawArc(n1,n2,c[2],ry,rx,R,cx,cy,t,i);
+    });
+
+    // Power nodes
+    NODES.forEach(function(n,i){
+      var rp=rot(latLon3D(n.lat,n.lon),ry,rx);
+      var pr=proj(rp,R,cx,cy);
+      if(rp.z<0)return; // behind globe -- skip
+      var alpha=Math.min(1,rp.z*1.5+0.2);
+      var sz=n.sz*(3.5+1.8*Math.sin(t*1.3+i*0.7));
+      var rgb=hexRGB(n.col);
+      // Glow
+      ctx.save();
+      ctx.shadowColor=n.col;ctx.shadowBlur=sz*3;
+      var grd=ctx.createRadialGradient(pr.sx,pr.sy,0,pr.sx,pr.sy,sz*3);
+      grd.addColorStop(0,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',0.4)');
+      grd.addColorStop(1,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',0)');
+      ctx.beginPath();ctx.arc(pr.sx,pr.sy,sz*3,0,Math.PI*2);
+      ctx.fillStyle=grd;ctx.fill();
+      // Core dot
+      ctx.beginPath();ctx.arc(pr.sx,pr.sy,sz*0.8,0,Math.PI*2);
+      ctx.fillStyle='rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+',0.95)';ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  frame();
+  document.addEventListener('visibilitychange',function(){animating=!document.hidden;if(!document.hidden)frame();});
+})();
 </script>
 </body>
 </html>
