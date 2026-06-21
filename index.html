@@ -500,7 +500,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div class="home-title">WHO RULES THE WORLD?</div>
     <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
     <div class="home-stats">
-      <div class="home-stat"><div class="home-stat-n">93</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat"><div class="home-stat-n">94</div><div class="home-stat-l">ACTORS PROFILED</div></div>
       <div class="home-stat"><div class="home-stat-n">15</div><div class="home-stat-l">POWER TIERS</div></div>
       <div class="home-stat"><div class="home-stat-n">$65T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
       <div class="home-stat"><div class="home-stat-n">100%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
@@ -682,7 +682,7 @@ const ACTORS=[
    detail:'The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records.'
   },
   {id:'bilderberg',short:'Bilderberg',tier:0,name:'Bilderberg Group',role:'Annual private conference of Western elites',metric:'~130 attendees per year &middot; Founded 1954 &middot; Chatham House Rule',source:'bilderbergmeetings.org',date:'2025',status:'doc',
-   connections:['cfr','trilateral','wef','rockefeller','kissinger'],tags:['politics','apex','secretive'],
+   connections:['cfr','trilateral','wef','rockefeller','kissinger','dialog_society'],tags:['politics','apex','secretive'],
    events:[
      {date:'1954-05-29',event:'First conference at Hotel de Bilderberg, Oosterbeek, Netherlands'},
      {date:'1976',event:'Founder Prince Bernhard resigned as chair amid Lockheed bribery scandal'},
@@ -692,7 +692,7 @@ const ACTORS=[
    detail:'Operates under Chatham House Rule. Issues no resolutions, votes, or communiqu&eacute;s. Steering Committee has two members per ~18 nations. Documented overlap with CFR, Trilateral Commission, and WEF membership.'
   },
   {id:'cfr',short:'CFR',tier:0,name:'Council on Foreign Relations',role:'US foreign policy think tank and membership org',metric:'~5,000 members &middot; Founded 1921 &middot; Publisher of Foreign Affairs',source:'cfr.org',date:'2025',status:'doc',
-   connections:['bilderberg','trilateral','rockefeller','kissinger','gates','bezos'],tags:['policy','apex','usa'],
+   connections:['bilderberg','trilateral','rockefeller','kissinger','gates','bezos','dialog_society'],tags:['policy','apex','usa'],
    events:[
      {date:'1921-07-29',event:'CFR incorporated; first honorary president Elihu Root'},
      {date:'1922',event:'Foreign Affairs journal first published'},
@@ -926,8 +926,12 @@ const ACTORS=[
    detail:'Sam Altman met multiple government officials and foreign heads of state in 2024 in his capacity as OpenAI CEO, documented via White House readouts and foreign ministry releases.'
   },
   {id:'thiel',short:'Peter Thiel',tier:3,name:'Peter Thiel',role:'Palantir &middot; Founders Fund &middot; Political donor',metric:'Palantir: $2.7B+ gov contracts &middot; CIA seed ~$2M (2003)',source:'Palantir S-1 2020 &middot; USAspending.gov',date:'2025',status:'doc',
-   connections:['musk','altman','trump','palantir','five_eyes'],tags:['tech','ai','politics','surveillance'],
+   connections:['musk','altman','trump','palantir','five_eyes','dialog_society','skull_bones','cfr'],tags:['tech','ai','politics','surveillance'],
    events:[
+     {date:'2026-06-16',event:'Dialog Society leaked -- Thiel co-founded secret 222-member network exposed -- members include Treasury Sec, NATO commander, senators, AI executives (Wired Jun 2026)'},
+     {date:'2026-06-16',event:'Dialog 2026 agenda leaked: Navigating WWIII, Build-a-Cult, Battlefield Technologies, Bring Back Nuclear -- retreat Dublin Aug 12-16'},
+     {date:'2025',event:'More than a dozen Thiel associates hold key Trump administration roles: JD Vance (VP), Elon Musk (DOGE), David Sacks (AI/crypto czar), Gregory Barbaccia (CIO), Michael Kratsios (OSTP) (Fortune 2025)'},
+     {date:'2009',event:'Thiel publishes Cato Unbound essay: "I no longer believe that freedom and democracy are compatible" -- foundational ideology'},
      {date:'1998',event:'PayPal co-founded'},
      {date:'2003',event:'Palantir founded with ~$2M CIA seed via In-Q-Tel (disclosed in S-1)'},
      {date:'2016',event:'Donates $1.25M+ to Trump campaign'},
@@ -1421,7 +1425,7 @@ const ACTORS=[
     role:'CIA-seeded surveillance platform -- $2.7B+ gov contracts -- ImmigrationOS -- ICE/FBI/NSA/DoD',
     metric:'$2.7B+ federal contracts -- CIA seed via In-Q-Tel 2003 -- ICE ImmigrationOS $30M -- S&P 500 2024',
     source:'Palantir S-1 2020 / USAspending.gov / DHS 2025',date:'2025',status:'doc',
-    connections:['thiel','pentagon','five_eyes','anthropic_co'],
+    connections:['thiel','pentagon','five_eyes','anthropic_co','dialog_society'],
     tags:['surveillance','ai','government','usa'],
     events:[
       {date:'2003',event:'Palantir founded with ~$2M CIA seed via In-Q-Tel (disclosed in S-1 2020)'},
@@ -1499,6 +1503,28 @@ const ACTORS=[
     money:[],
     detail:'Bank of England: world oldest central bank -- founded to fund war. Nationalized 1946. Rothschild & Co. (formerly N M Rothschild) has historically been a primary dealer at BofE gilts auctions -- documented commercial relationship. ECB: no elected mandate -- 26-member governing council sets rates for 350M+ people. Both are BIS members.'
   }
+  ,{id:'dialog_society',tier:'2b',short:'Dialog Society',name:'Dialog / Peter Thiel',
+    role:'Invitation-only shadow governance network -- 222 elite members -- parallel to Bilderberg',
+    metric:'Founded 2006 -- 222 registrants 2026 retreat -- leaked Jun 16 2026 -- Dublin Aug 12-16',
+    source:'Wired Jun 16 2026 -- maia arson crimew -- Bluesky leak',date:'2026-06-16',status:'doc',
+    connections:['thiel','palantir','cfr','bilderberg','skull_bones','musk','fed','blackrock'],
+    tags:['secretive','surveillance','usa','elite','network-state','politics','tech','finance'],
+    events:[
+      {date:'2006',event:'Dialog co-founded by Peter Thiel and Auren Hoffman -- invitation-only -- no public website -- no disclosed membership'},
+      {date:'2013',event:'Epstein files (released 2026) show Dialog invitation listing Jonathan Levin, Susan Athey, Joe Lonsdale, Auren Hoffman'},
+      {date:'2021',event:'NATO Supreme Allied Commander Europe Gen. Grynkewich begins attending -- documented since 2021'},
+      {date:'2025-08',event:'Dialog eyes campus near Washington DC -- planning expansion (Semafor Aug 2025)'},
+      {date:'2026-06-15',event:'Swiss hacktivist maia arson crimew finds member directory in Dialog website source code via anonymous tip -- 113 names embedded in React JS bundle'},
+      {date:'2026-06-16',event:'Wired publishes leak -- 222-name 2026 retreat list exposed -- Airtable database with personal emails, phones, birthdates, political leanings, login tokens, dating preferences all exposed'},
+      {date:'2026-06-16',event:'Confirmed 2026 members include: Elon Musk, Treasury Sec. Scott Bessent, Sen. Ted Cruz, Sen. Cory Booker, Gen. Grynkewich (NATO), Army Sec. Dan Driscoll, Joe Lonsdale (Palantir), Marc Andreessen, Reid Hoffman, Eric Schmidt, Leonard Leo, Henry Kravis, Larry Summers, Jonathan Levin (Stanford), Jared Kushner, Sam Harris, Ezra Klein, Bryan Johnson, Josh Brolin, Grover Norquist, Roger Myerson (Nobel)'},
+      {date:'2026-06-17',event:'Kaja Kallas (EU foreign affairs chief) name appears -- EU denies she will attend'},
+      {date:'2026-06-18',event:'Epstein link surfaces: Dialog 2014 invitation found in Epstein files -- Jonathan Levin, Lonsdale, Hoffman named'},
+    ],
+    money:[
+      {from:'Auren Hoffman (SafeGraph/LiveRamp)',arrow:'chairs',to:'Dialog Society',label:'data broker runs shadow governance network',source:'Wired Jun 2026'},
+    ],
+    detail:'Dialog is not merely a conference. The roster places regulators in the same private room as the companies they regulate: Ted Cruz (chairs FTC oversight) with data broker founders; Scott Bessent (Treasury, writes financial data rules) with Auren Hoffman (SafeGraph, LiveRamp -- major data brokers); Joe Lonsdale (Palantir, runs ICE/Pentagon systems) with Army Sec. Driscoll and House Intel Committee ranking member. The ideology is documented: Thiel (2009, Cato Unbound): "I no longer believe that freedom and democracy are compatible." The project has a name -- Network State (Balaji Srinivasan 2022): replace territorial democracy with invitation-only networks of aligned elites. Dialog is 20 years of that project made operational. The 2026 agenda: Navigating WWIII, Battlefield Technologies, Build-a-Cult, Build-a-Party, Bring Back Nuclear, How is Your Sex Life. Dialog also runs a private dating app. None of the 222 used government email -- all attendance kept outside public records laws.'
+  }
 ];
 
 // ============================================================
@@ -1524,6 +1550,8 @@ const CONN_MAP = (()=>{
 // TIMELINE DATA
 // ============================================================
 const TIMELINE=[
+  {date:'2026-06-16',title:'Dialog Society Leak',event:'Swiss hacktivist maia arson crimew exposes Peter Thiel secret Dialog network -- 113 names in website source code, 222-name 2026 retreat list via Airtable -- NATO commander, Treasury Sec, senators, AI executives all confirmed members',source:'Wired Jun 16 2026',status:'doc',actor:'Dialog Society'},
+  {date:'2026-06-16',title:'Dialog Ideology Exposed',event:'Leaked agenda confirms Network State project in operation: sessions titled "Navigating WWIII", "Build-a-Cult", "Battlefield Technologies" -- 20-year shadow governance network documented for first time',source:'Wired / EuropeanPowell analysis Jun 2026',status:'doc',actor:'Peter Thiel'},
   {date:'1910-11',title:'Jekyll Island Secret Meeting',desc:'Six men secretly draft the Aldrich Plan -- basis of the Federal Reserve Act. Attendees: Aldrich, Warburg, Davison (Morgan), Vanderlip, Andrew, Shelton.',src:'Federal Reserve History / federalreservehistory.org',badge:'doc'},
   {date:'1913-12-23',title:'Federal Reserve Act Signed',desc:'President Wilson signs the Federal Reserve Act creating the US central bank. Paul Warburg appointed to first Board.',src:'12 U.S.C. &sect;241',badge:'doc'},
   {date:'1921-07-29',title:'Council on Foreign Relations Founded',desc:'CFR incorporated; first honorary president Elihu Root. Rockefeller family involvement from the start.',src:'CFR.org',badge:'doc'},
@@ -1667,6 +1695,8 @@ const CRYPTOS=[
 // SOURCES DATA
 // ============================================================
 const SOURCES=[
+  {actor:'Dialog Society',doc:'Leak Exposes Members of Dialog Society -- Wired',url:'https://www.wired.com/story/leak-exposes-members-of-peter-thiels-secretive-dialog-society/',date:'2026-06-16'},
+  {actor:'Peter Thiel / Dialog',doc:'Cato Unbound -- Freedom and democracy incompatible',url:'https://www.cato-unbound.org/2009/04/13/peter-thiel/education-libertarian',date:'2009'},
   {actor:'BIS',doc:'BIS Member Central Banks list',url:'https://www.bis.org/about/member_cb.htm',date:'2025'},
   {actor:'BIS',doc:'BIS Extraordinary GM Jan 2001 -- private share buyback',url:'https://www.bis.org',date:'2001'},
   {actor:'Bilderberg',doc:'Official Bilderberg meeting records',url:'https://www.bilderbergmeetings.org',date:'2025'},
@@ -1779,6 +1809,7 @@ const POWER_INDEX={
   'mossad':82,'aipac':79,'netanyahu':71,
   'openai':88,'anthropic_co':82,'nvidia_ai':91,'microsoft_ai':85,'google_ai':86,'xai_musk':75,
   'pentagon':88,'five_eyes':85,'nato':76,'palantir':72,'aramco':74,'imf_wb':79,'skull_bones':55,'bank_of_england':70,
+  'dialog_society':74,
   // Other
   'adia':72,'qia':68,'kia':65,'wagner':52,'oligarchs':60,'gazprom':66,
   'huawei':64,'bri':82,'cic':70,
@@ -1955,7 +1986,7 @@ function _drawPyramid(canvasW){
     {t:'0c',actors:['mossad','aipac','netanyahu']},
     {t:'0b',actors:['asml','tsmc','swift','starlink']},
     {t:'0d',actors:['openai','anthropic_co','nvidia_ai','microsoft_ai','google_ai','xai_musk']},
-    {t:'2b',actors:['soros','koch','kissinger']},
+    {t:'2b',actors:['soros','koch','kissinger','palantir','dialog_society']},
     {t:3,actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
     {t:3,actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
     {t:'3b',actors:['sackler','johnson','wellcome','turner']},
@@ -2236,6 +2267,21 @@ function buildSources(){
 // BLOG DATA
 // ============================================================
 const BLOG_POSTS=[
+  {
+    date:'2026-06-20',
+    timestamp:'Friday, 20 June 2026',
+    title:'Dialog Society: 20 Years of Shadow Governance Exposed',
+    tags:['dialog','thiel','network-state','shadow-governance','documented'],
+    body:[
+      'On June 16 2026, Swiss hacktivist maia arson crimew found the full member directory of Dialog embedded in the source code of dialog.org -- a React app that served its entire member list to any visitor who viewed the page source. No exploit, no intrusion. Right-click, View Source. Twenty years of operational secrecy undone by a basic web development error.',
+      'Dialog was co-founded in 2006 by Peter Thiel and data broker Auren Hoffman. The 2026 retreat at Powerscourt Hotel near Dublin (August 12-16) registered 222 people. The confirmed non-government list includes: Elon Musk, Marc Andreessen, Reid Hoffman, Eric Schmidt, Joe Lonsdale, Henry Kravis, Leonard Leo, Grover Norquist, Jonathan Levin (Stanford), Larry Summers, Sam Harris, Ezra Klein, Bryan Johnson, Jared Kushner, Josh Brolin, Barry Sternlicht, Roger Myerson (Nobel), Randy Kroszner (ex-Fed, now Bank of England FPC). Government attendees (using personal emails to evade public records law): Treasury Sec. Scott Bessent, Army Sec. Dan Driscoll, NATO SACEUR Gen. Grynkewich, Sen. Ted Cruz, Rep. Jim Himes (House Intel ranking member), Sen. Cory Booker.',
+      'The session agenda documents the ideology: "Navigating WWIII", "Battlefield Technologies", "Build-a-Cult", "Build-a-Party", "Bring Back Nuclear". Dialog also runs a private matchmaking app. All 222 registrants used personal or corporate email -- deliberately keeping attendance outside public records laws.',
+      'The structural analysis is the real story. Auren Hoffman (Dialog chairman) founded SafeGraph and LiveRamp -- two of the largest location-data and identity-resolution companies in the US. He sits in Dialog with Scott Bessent (Treasury, writes financial data rules) and Ted Cruz (chairs the FTC oversight committee). Joe Lonsdale (Palantir, runs ICE case management and Pentagon data fusion) attends with Army Secretary Dan Driscoll and Jim Himes (who oversees the agencies Palantir contracts with). The regulated and the regulator, in the same invitation-only room, off the record, for 20 years.',
+      'The intellectual foundation: Thiel (Cato Unbound, 2009): "I no longer believe that freedom and democracy are compatible." The operating theory is Balaji Srinivasan Network State (2022): replace territorial democracy with invitation-only networks of aligned elites, votes replaced by invitations, parliaments replaced by retreats. The spatial implementation: Thiel, Andreessen and Srinivasan back Pronomos Capital, which financed Prospera -- a privately governed zone in Honduras where investors write their own laws and run their own courts. Britain now has 91 free zones, an AI Growth Zone at Teesworks, and a proposal for Forest City: a private city for one million people governed by a corporation, not a council. The lineage runs in a straight line.',
+      'An Epstein link also surfaces: a 2014 Dialog invitation found in the Epstein files (released 2026) lists Jonathan Levin, Susan Athey, Joe Lonsdale and Auren Hoffman as 2013 participants. The document shows invitation only, not wrongdoing -- but the network overlap is documented.',
+    ],
+    sources:['Wired Jun 16 2026','maia arson crimew Bluesky Jun 16 2026','EuropeanPowell Substack Jun 18 2026','Thiel Cato Unbound 2009','Stanford Daily Jun 2026','Hollywood Reporter Jun 2026','Security Affairs Jun 19 2026','Wired verified Airtable contents']
+  },
   {
     date:'2026-06-17',
     timestamp:'Wednesday, 17 June 2026',
