@@ -172,7 +172,12 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .pyramid-edge{fill:none;stroke-linecap:round;cursor:default;transition:opacity .2s,stroke-width .2s}
 .pyramid-edge:hover{stroke-width:2.5}
 #pyramid-svg.dim-mode .pyramid-edge{opacity:.03!important}
-#pyramid-svg.dim-mode .pyramid-edge.lit{opacity:1!important;stroke-width:2.5px}
+#pyramid-svg.dim-mode .pyramid-edge.lit{
+  opacity:1!important;stroke-width:2.6px;
+  stroke-dasharray:7 9;
+  animation:laserFlow .7s linear infinite;
+}
+@keyframes laserFlow{ to{ stroke-dashoffset:-32; } }
 #pyramid-svg.dim-mode .pyramid-node{opacity:.2}
 #pyramid-svg.dim-mode .pyramid-node.lit{opacity:1!important}
 #pyramid-svg.dim-mode .pyramid-node rect{opacity:.3}
@@ -241,7 +246,14 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 .home-title{font-size:24px;font-weight:700;letter-spacing:.1em;color:var(--gold);margin-bottom:.5rem}
 .home-sub{font-size:13px;color:var(--muted);letter-spacing:.08em;margin-bottom:1rem}
 .home-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:.5rem;max-width:700px;margin:0 auto}
-.home-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.75rem;text-align:center}
+.home-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rl);padding:.75rem;text-align:center;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+.home-stat:hover.revealed,.home-stat.revealed:hover{transform:translateY(-4px) scale(1.02);border-color:var(--gold);box-shadow:0 8px 24px rgba(245,158,11,.15)}
+.home-stat:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(245,158,11,.15)}
+.how-card{transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
+.how-card:hover.revealed,.how-card.revealed:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 6px 20px rgba(245,158,11,.1)}
+.how-card:hover{border-color:var(--gold);box-shadow:0 6px 20px rgba(245,158,11,.1)}
+.reveal-item{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.8,.2,1)}
+.reveal-item.revealed{opacity:1;transform:translateY(0)}
 .home-stat-n{font-size:20px;font-weight:700;color:var(--gold)}
 .home-stat-l{font-size:12px;color:var(--muted);letter-spacing:.06em;margin-top:2px}
 .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1.5rem}
@@ -372,6 +384,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 <div id="nav-wrap" style="position:relative;flex-shrink:0;width:100%">
 <div id="nav">
   <button class="nav-btn" onclick="go('apex',this)" data-full="FINAL BOSS" data-short="BOSS" style="color:#ff00ff;font-weight:700">FINAL BOSS</button>
+  <button class="nav-btn" onclick="go('endpoint',this)" data-full="ENDPOINT" data-short="END" style="color:#ef4444;font-weight:700">ENDPOINT</button>
   <button class="nav-btn" onclick="go('pyramid',this)" data-full="PYRAMID" data-short="PYR">PYRAMID</button>
   <button class="nav-btn" onclick="go('profiles',this)" data-full="PROFILES" data-short="PROF">PROFILES</button>
   <button class="nav-btn" onclick="go('timeline',this)" data-full="TIMELINE" data-short="TIME">TIMELINE</button>
@@ -500,20 +513,20 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div class="home-title">WHO RULES THE WORLD?</div>
     <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
     <div class="home-stats">
-      <div class="home-stat"><div class="home-stat-n">94</div><div class="home-stat-l">ACTORS PROFILED</div></div>
-      <div class="home-stat"><div class="home-stat-n">15</div><div class="home-stat-l">POWER TIERS</div></div>
-      <div class="home-stat"><div class="home-stat-n">$65T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
-      <div class="home-stat"><div class="home-stat-n">100%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
+      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="109" data-suffix="">0</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="16" data-suffix="">0</div><div class="home-stat-l">POWER TIERS</div></div>
+      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="68" data-prefix="$" data-suffix="T+">$0T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
+      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="100" data-suffix="%">0%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
     </div>
   </div>
   <div class="disclaimer">
     <strong>DISCLAIMER</strong> -- This page presents information sourced exclusively from public records, declassified documents, court filings, SEC/Companies House filings, congressional testimony, and verified journalism. No original claims are made. AVIDAA is an independent knowledge platform with no political affiliation, no funding from any government or private entity, and no agenda beyond education. Documented facts (<span class="badge doc">&#x2713; DOCUMENTED</span>) and unproven allegations (<span class="badge unp">&#x2717; UNPROVEN</span>) are always explicitly separated.
   </div>
   <div class="how-grid">
-    <div class="how-card"><div class="how-icon">&#x25B2;</div><div class="how-title">THE PYRAMID</div><div class="how-desc">Interactive hierarchy from apex institutions down to crypto shadow networks. Click any node to open the full profile.</div></div>
-    <div class="how-card"><div class="how-icon">&#x25C8;</div><div class="how-title">PROFILES</div><div class="how-desc">Deep-dive cards on every actor -- verified metrics, documented events, connections, and money trails.</div></div>
-    <div class="how-card"><div class="how-icon">$</div><div class="how-title">FOLLOW THE MONEY</div><div class="how-desc">Documented financial flows from source to destination. Every trail cites the primary record.</div></div>
-    <div class="how-card"><div class="how-icon">&#x25C9;</div><div class="how-title">MEDIA OWNERSHIP</div><div class="how-desc">Who owns the information? Full ownership chains for major Western news and media outlets.</div></div>
+    <div class="how-card reveal-item"><div class="how-icon">&#x25B2;</div><div class="how-title">THE PYRAMID</div><div class="how-desc">Interactive hierarchy from apex institutions down to crypto shadow networks. Click any node to open the full profile.</div></div>
+    <div class="how-card reveal-item"><div class="how-icon">&#x25C8;</div><div class="how-title">PROFILES</div><div class="how-desc">Deep-dive cards on every actor -- verified metrics, documented events, connections, and money trails.</div></div>
+    <div class="how-card reveal-item"><div class="how-icon">$</div><div class="how-title">FOLLOW THE MONEY</div><div class="how-desc">Documented financial flows from source to destination. Every trail cites the primary record.</div></div>
+    <div class="how-card reveal-item"><div class="how-icon">&#x25C9;</div><div class="how-title">MEDIA OWNERSHIP</div><div class="how-desc">Who owns the information? Full ownership chains for major Western news and media outlets.</div></div>
   </div>
   <div class="disclaimer" style="margin-top:0">
     <strong>STATUS KEY</strong> -- <span class="badge doc">&#x2713; DOCUMENTED</span> = court filing, SEC, FOIA, or official record &nbsp;&middot;&nbsp; <span class="badge rep">&#x26A0; REPORTED</span> = named journalist, verified outlet, dated &nbsp;&middot;&nbsp; <span class="badge unp">&#x2717; UNPROVEN</span> = allegation with no documentary evidence &middot; All unproven claims are included for completeness and clearly labeled -- not endorsed.
@@ -524,9 +537,117 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 </div>
 
+<!-- ENDPOINT -->
+<div class="page" id="page-endpoint">
+  <div class="sec" style="color:#ef4444">&#x25A0; ENDPOINT -- THE WALL BEHIND THE FINAL BOSS</div>
+  <div class="disclaimer">Where documented transparency actually ends. Named individuals at the tip of each structural pillar, as of 21 July 2026 -- and an explicit line marking where verified public record stops and unverifiable speculation would begin. We do not cross that line.</div>
+
+  <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:1rem;margin-bottom:1.5rem">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.1em;color:#ef4444;margin-bottom:.5rem">&#x25A0; WHAT "THE WALL" MEANS</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.7">Every institution on this page has a named, documented, currently-serving human at its operational tip -- a Chair, a Governor, a Chief Executive. That is not hidden; it is published on the institution's own website. <strong style="color:var(--text)">The wall is what comes after that name.</strong> Boardroom deliberation content, private conversations, and informal influence networks are, by design, never published by any institution, anywhere. This is the honest limit of open-source research -- not evidence of a further concealed "true owner." Where AVIDAA has no court filing, no official disclosure, and no named on-record source, this page says so directly instead of speculating.</div>
+  </div>
+
+  <div class="sec" style="color:#ef4444;font-size:12px">THE NAMED HUMANS -- APEX INSTITUTIONS, JULY 2026</div>
+  <div style="display:grid;gap:.6rem;margin-bottom:1.5rem">
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">BANK FOR INTERNATIONAL SETTLEMENTS</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Board Chair: <strong style="color:var(--text)">Fabio Panetta</strong> (Governor, Bank of Italy) -- elected 3 June 2026. General Manager (chief executive): <strong style="color:var(--text)">Pablo Hernandez de Cos</strong> (ex-Governor, Bank of Spain; ex-Chair, Basel Committee on Banking Supervision) -- 5-year term from 1 July 2025. GEM/ECC Chair (the two closed-door coordination forums): <strong style="color:var(--text)">Christine Lagarde</strong> (ECB President) -- succeeded Jerome Powell, May 2026.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: bis.org press releases 2025-2026</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">US FEDERAL RESERVE</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Chair: <strong style="color:var(--text)">Jerome Powell</strong> (term as Chair expires May 2026; remains a Fed Governor until 2028 regardless of Chair reappointment). Board of Governors: 7 seats, each Senate-confirmed, staggered 14-year terms. Powell also holds a permanent ex officio seat on the BIS Board by law as sitting Fed Chair.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: federalreserve.gov / 12 U.S.C. &sect;241-242</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">EUROPEAN CENTRAL BANK</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">President: <strong style="color:var(--text)">Christine Lagarde</strong> -- 8-year non-renewable term begun Nov 2019. Simultaneously chairs BIS GEM/ECC (above) -- the same person holds the top operational seat at two of the world's four most consequential monetary-policy bodies simultaneously.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: ecb.europa.eu / bis.org</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">BLACKROCK / VANGUARD / STATE STREET (BIG THREE)</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">BlackRock CEO: <strong style="color:var(--text)">Larry Fink</strong> (co-founder, CEO since 1988). Vanguard has no single named controlling individual -- owned by its own funds. State Street CEO: <strong style="color:var(--text)">Ronald O'Hanley</strong>. Combined the three vote roughly 25% of all S&amp;P 500 shares as fiduciaries for underlying investors -- not as beneficial owners (Fichtner/Heemskerk/Garcia-Bernardo, 2017; Bebchuk &amp; Hirst, 2019).</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: SEC Form ARS filings / company disclosures</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">IMF / WORLD BANK</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">IMF Managing Director: <strong style="color:var(--text)">Kristalina Georgieva</strong> (since 2019, reappointed 2024 for second 5-year term). World Bank President: <strong style="color:var(--text)">Ajay Banga</strong> (since June 2023). By unwritten convention dating to 1944, the IMF head is always European and the World Bank head is always American -- a documented informal norm, not a written rule.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: imf.org / worldbank.org</div>
+    </div>
+
+  </div>
+
+  <div class="sec" style="color:#ef4444;font-size:12px">WHAT IS GENUINELY UNKNOWN -- STATED PLAINLY</div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1.5rem;font-size:12px;color:var(--muted);line-height:1.7">
+    No verified public record establishes a single named individual, family, or body with binding authority over the Federal Reserve, the BIS, the IMF/World Bank, and the Big Three asset managers simultaneously. Multiple institutions overlap in membership (Bilderberg, CFR, Trilateral, Dialog, WEF) and in personnel history (many officials rotate between central banks, the IMF, and private finance -- documented as the "revolving door"), but overlap and coordination are not the same as a single command structure. Claims beyond this point -- a secret global council, a bloodline monarchy above elected and appointed officials, or a single ultimate owner of the monetary system -- are not supported by any court record, leaked document, or named on-record source found in this research. This page states that gap honestly rather than filling it with speculation.
+  </div>
+
+  <div class="sec" style="color:#ef4444">&#x2694; CURRENT WARS -- AS OF 21 JULY 2026</div>
+  <div class="disclaimer">Casualty figures from UCDP (Uppsala Conflict Data Program), ACLED, Wikipedia casualty pages sourced to named ministries/health authorities, and named wire-service reporting. Ranges reflect genuine disagreement between sources, not imprecision on our part -- both ends of each range are shown.</div>
+
+  <div style="display:grid;gap:.6rem;margin-bottom:1rem">
+
+    <div style="background:var(--bg2);border:1px solid rgba(249,115,22,.3);border-left:3px solid #f97316;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">2026 IRAN WAR (US / ISRAEL vs IRAN) -- ACTIVE, ESCALATING</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Began 28 February 2026 (US/Israel strikes on Iran). April 7-8 ceasefire broke down; fighting resumed July 2026 after Iran struck three commercial vessels bypassing its Strait of Hormuz route. As of 19 July 2026: US conducting its 9th consecutive night of strikes on Iran; Israel not currently participating in this latest wave. Total casualties (all countries, cumulative to April ceasefire): <strong style="color:var(--text)">7,144-9,676+ killed, 46,965+ injured</strong> across Iran, Lebanon, Iraq, Israel, US, Gulf states. Iran alone: 3,468-6,000+ killed depending on source (Iranian govt vs US/Israeli estimates). Lebanon: 3,433 killed (Lebanese Health Ministry) from a single 8 April Israeli strike wave alone, part of continued Israel-Hezbollah fighting tied to this war.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: Wikipedia "Casualties of the 2026 Iran war" (sourced to Iranian Health Ministry, HRANA, IDF, Lebanese Health Ministry) &middot; CNN live coverage 17-19 Jul 2026 &middot; Britannica</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(107,114,128,.3);border-left:3px solid #6b7280;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">RUSSIA-UKRAINE WAR -- ACTIVE, 4TH YEAR</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Began 24 February 2022. Cumulative estimated casualties (military, both sides): <strong style="color:var(--text)">500,000+</strong> since 2022. 2025 fatalities alone (UCDP state-based conflict data): among the highest of any active conflict globally. Recent: Russia reports capture of Kostyantynivka, Donetsk Oblast (mid-July 2026). Ongoing daily missile/drone strikes on Kyiv, Odesa, Zaporizhzhia, Sumy hitting civilian areas -- confirmed civilian deaths in the hundreds monthly per UN monitoring.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: UCDP/PRIO Armed Conflict Data via NPR analysis (9 Jun 2026) &middot; Wikipedia Portal:Current events July 2026 &middot; UN OCHA</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">SUDAN CIVIL WAR (SAF vs RSF) -- ACTIVE, 3RD YEAR</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Began April 2023. Cumulative: <strong style="color:var(--text)">150,000+ killed</strong> (likely undercount -- access to conflict zones severely restricted), <strong style="color:var(--text)">10M+ displaced</strong>. 2025 state-based battle deaths (UCDP): 12,200 -- third-deadliest conflict globally by this metric. Separately, 17,000+ civilians killed Jan-Nov 2025 (highest civilian toll in Africa). UN human rights chief issued a "red alert" for El-Obeid, North Kordofan (July 2026) warning of catastrophe; 6,000+ detentions reported by Sudan's National Human Rights Commission; cholera outbreak active in West/South Kordofan (800+ cases).</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: UCDP via NPR (9 Jun 2026) &middot; UN OCHA situation reports (Jul 2026) &middot; Sudan National Human Rights Commission</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">ISRAEL-GAZA CONFLICT -- CEASEFIRE, INTERMITTENT VIOLATIONS</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Began October 2023. Ceasefire in effect but repeatedly violated. 2025 fatalities (UCDP): <strong style="color:var(--text)">14,400</strong> -- second-deadliest state-based conflict globally that year, though down from prior year due to the ceasefire. Cumulative Palestinian deaths since Oct 2023 commonly cited at 40,000-70,000+ depending on direct-vs-indirect counting method (Gaza Health Ministry vs epidemiological estimates). West Bank: settler attacks now account for 55% of all Palestinian injuries recorded there in 2026 (UN OCHA). Recent: 6+ killed including a 9-year-old girl in Israeli strikes on Gaza reported mid-July 2026, violating the ceasefire.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: UCDP via NPR (9 Jun 2026) &middot; UN OCHA (Jul 2026) &middot; Wikipedia Portal:Current events</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(16,185,129,.3);border-left:3px solid #10b981;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">MYANMAR CIVIL WAR -- ACTIVE</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Ongoing since the 2021 military coup. 2025 deaths: <strong style="color:var(--text)">13,700+</strong> nationwide. Continues into 2026 with no resolution in sight; military junta contests territory against multiple ethnic armed organizations and pro-democracy resistance forces.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: UCDP-adjacent 2025 aggregation via multiple conflict trackers</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(16,185,129,.3);border-left:3px solid #10b981;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">SYRIA -- ACTIVE, POST-ASSAD TRANSITION VIOLENCE</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Conflict-related deaths rose to <strong style="color:var(--text)">9,000+</strong> over the year to mid-2026 amid continued instability following the fall of the Assad government.</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: 2025-2026 conflict tracker aggregation</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(107,114,128,.3);border-left:3px solid #6b7280;border-radius:8px;padding:.85rem">
+      <div style="font-size:13px;font-weight:700;color:var(--text)">OTHER ACTIVE CONFLICTS (LOWER INTENSITY, STILL ONGOING)</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">DR Congo (M23/eastern Congo instability, Ebola response disrupted by armed men Jul 2026), Mali, Burkina Faso, Niger (Sahel jihadist insurgencies), Somalia (al-Shabaab), Yemen (Houthi conflict, reduced intensity), Mexico/Ecuador/Haiti (cartel-driven violence, among the world's most violent non-state conflicts by death toll). UCDP tracks approximately <strong style="color:var(--text)">56 active armed conflicts</strong> globally as of 2026; ACLED/UCDP jointly track 40+ meeting the "armed conflict" threshold, with roughly a dozen qualifying as full "wars" (1,000+ battle deaths/year).</div>
+      <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: UCDP 2026 conflict count &middot; ACLED Conflict Index &middot; UN OCHA regional reports</div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand"><strong>AVIDAA</strong> * IO &nbsp;&middot;&nbsp; Educational reference only &nbsp;&middot;&nbsp; Public record only &nbsp;&middot;&nbsp; No original claims</span>
+  </div>
+
+</div>
+
 <!-- PYRAMID -->
 <div class="page" id="page-pyramid">
-  <div class="sec gold">&#x25B2; POWER HIERARCHY -- APEX TO BASE</div>
+
+  <div class="sec gold" style="display:flex;align-items:center;gap:.5rem">&#x25B2; POWER HIERARCHY -- APEX TO BASE
+    <button id="tier-info-btn" onclick="openTierInfo()" title="How are tiers determined?" style="width:20px;height:20px;border-radius:50%;border:1px solid var(--gold);background:rgba(245,158,11,.1);color:var(--gold);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1">i</button>
+  </div>
   <div class="disclaimer">Click any node to open the full profile. Connections show documented relationships only.</div>
   <div id="pyramid-legend-wrap"><div id="pyramid-legend"></div></div>
   <div id="pyramid-canvas"><svg id="pyramid-svg" viewBox="0 0 900 760" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%"></svg></div>
@@ -641,6 +762,27 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
   </div>
 </div>
 
+<!-- TIER METHODOLOGY INFO MODAL -->
+<div id="tier-info-overlay" onclick="closeTierInfo(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:1rem">
+  <div id="tier-info-modal" onclick="event.stopPropagation()" style="background:var(--bg2);border:1px solid var(--gold);border-radius:var(--rl);max-width:640px;width:100%;max-height:85vh;overflow-y:auto;padding:1.5rem;position:relative">
+    <button onclick="closeTierInfo()" style="position:absolute;top:.75rem;right:.75rem;background:none;border:1px solid var(--border2);color:var(--muted);border-radius:4px;padding:3px 8px;cursor:pointer;font-size:11px">&#x2715; CLOSE</button>
+    <div style="font-size:16px;font-weight:700;color:var(--gold);margin-bottom:.75rem">HOW TIERS ARE DETERMINED</div>
+    <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:1rem">
+      Two separate, independent measurements are used on this page -- they are not the same thing:
+    </div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:6px;padding:.75rem 1rem;margin-bottom:1rem;font-size:12px;line-height:1.6">
+      <strong style="color:var(--gold)">TIER</strong> = which <em>category</em> of power an actor belongs to, banded roughly by scale within that category (Tier 0 = largest scale in its category, higher numbers = smaller scale). Tiers group actors by <em>type</em> of power, not a strict 1st-to-109th ranking.<br><br>
+      <strong style="color:var(--gold)">POWER INDEX</strong> (the % bar on each profile card) = an individual quantitative estimate for that one actor, scored independently of its tier.<br><br>
+      A Tier 3 tech billionaire can have a higher Power Index than a Tier 2 institution -- that is expected and correct. The tier tells you <em>what kind</em> of power it is; the Power Index tells you <em>how much</em>, within reasonable estimate.
+    </div>
+    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:.5rem">THE 15 CATEGORIES</div>
+    <div id="tier-info-list" style="font-size:12px;line-height:1.7"></div>
+    <div style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border);font-size:11px;color:var(--muted2)">
+      Vertical position in the pyramid follows this same category banding, not a claim that every actor above another wields literally more power. All tier assignments are manually curated and cross-checked against each actor's own documented connections for consistency.
+    </div>
+  </div>
+</div>
+
 <script>
 // ============================================================
 // SFX STUB
@@ -671,17 +813,22 @@ const TIER_META={
 
 const ACTORS=[
   // TIER 0
-  {id:'bis',short:'BIS',tier:0,name:'Bank for International Settlements',role:'Central bank for central banks',metric:'63 member central banks &middot; Basel HQ &middot; Founded 17 May 1930',source:'bis.org/about/member_cb.htm',date:'2025',status:'doc',
+  {id:'bis',short:'BIS',tier:-1,name:'Bank for International Settlements',role:'Central bank for central banks',metric:'63 member central banks &middot; ~95% of world GDP represented &middot; Basel HQ &middot; Founded 17 May 1930',source:'bis.org/about/member_cb.htm &middot; bis.org/about/board.htm &middot; BIS press releases 2025-2026',date:'2026',status:'doc',
    connections:['fed','rothschild','rockefeller','bank_of_england'],tags:['banking','apex','international'],
    events:[
-     {date:'1930',event:'Founded under the Hague Agreement to administer German WWI reparations (Young Plan)'},
+     {date:'2026-06-03',event:'Fabio Panetta (Governor, Bank of Italy) elected Board Chair for 3-year term, succeeding Francois Villeroy de Galhau (Governor, Bank of France) -- BIS press release'},
+     {date:'2026-05',event:'Christine Lagarde (ECB President) becomes Chair of the Global Economy Meeting and Economic Consultative Committee, succeeding Jerome Powell (Fed Chair) -- the two most powerful recurring closed-door meetings in global central banking'},
+     {date:'2026-02-27',event:'Agustin Carstens (BIS General Manager 2017-2025) nominated to UBS Group AG board -- documented revolving door between BIS leadership and private Swiss banking'},
+     {date:'2025-07-01',event:'Pablo Hernandez de Cos (ex-Governor, Bank of Spain, ex-Chair Basel Committee on Banking Supervision) begins 5-year term as BIS General Manager'},
+     {date:'2023-09-01',event:'Andrea Maechler (Swiss National Bank Governing Board) appointed Deputy General Manager for 5-year term'},
      {date:'2001',event:'Mandatory buyback of all private shares at Jan 2001 Extraordinary GM -- BIS now owned exclusively by central banks'},
      {date:'2003',event:'Hague Arbitral Tribunal ordered additional CHF 9,052.90/share to former private holders'},
+     {date:'1930',event:'Founded under the Hague Agreement to administer German WWI reparations (Young Plan)'},
    ],
    money:[{from:'Central Banks',arrow:'fund',to:'BIS',label:'Member contributions',source:'BIS Annual Report'}],
-   detail:'The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records.'
+   detail:'THE NAMED HUMANS BEHIND "63 CENTRAL BANKS" (as of July 2026): Board Chair -- Fabio Panetta, Governor of the Bank of Italy. General Manager (chief executive) -- Pablo Hernandez de Cos, former Governor of the Bank of Spain and former Chair of the Basel Committee on Banking Supervision (writes the capital rules binding every major bank on Earth). Deputy General Manager -- Andrea Maechler, Swiss National Bank Governing Board. Economic Adviser -- Hyun Song Shin (retiring Aug 2026, succeeded by Helene Rey). The Board itself: up to 18 seats, 6 held automatically (ex officio) by the sitting central bank governors of Belgium, France, Germany, Italy, the UK, and the United States -- meaning the sitting Federal Reserve Chair holds a permanent, non-elected seat on the BIS Board by law, alongside 11 elected governors from other member banks. The Global Economy Meeting and Economic Consultative Committee -- the two closed-door forums where the world\'s most powerful central bankers actually coordinate policy every two months -- is now chaired by ECB President Christine Lagarde, having just succeeded Fed Chair Jerome Powell. Sets Basel I-IV capital rules binding on banks worldwide. The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records. What remains genuinely undocumented: the internal deliberation content of GEM/ECC meetings is never published -- only the resulting standards are. This is the actual, sourced limit of transparency, not a claim of concealment beyond it.'
   },
-  {id:'bilderberg',short:'Bilderberg',tier:0,name:'Bilderberg Group',role:'Annual private conference of Western elites',metric:'~130 attendees per year &middot; Founded 1954 &middot; Chatham House Rule',source:'bilderbergmeetings.org',date:'2025',status:'doc',
+  {id:'bilderberg',short:'Bilderberg',tier:-1,name:'Bilderberg Group',role:'Annual private conference of Western elites',metric:'~130 attendees per year &middot; Founded 1954 &middot; Chatham House Rule',source:'bilderbergmeetings.org',date:'2025',status:'doc',
    connections:['cfr','trilateral','wef','rockefeller','kissinger','dialog_society'],tags:['politics','apex','secretive'],
    events:[
      {date:'1954-05-29',event:'First conference at Hotel de Bilderberg, Oosterbeek, Netherlands'},
@@ -691,7 +838,7 @@ const ACTORS=[
    money:[],
    detail:'Operates under Chatham House Rule. Issues no resolutions, votes, or communiqu&eacute;s. Steering Committee has two members per ~18 nations. Documented overlap with CFR, Trilateral Commission, and WEF membership.'
   },
-  {id:'cfr',short:'CFR',tier:0,name:'Council on Foreign Relations',role:'US foreign policy think tank and membership org',metric:'~5,000 members &middot; Founded 1921 &middot; Publisher of Foreign Affairs',source:'cfr.org',date:'2025',status:'doc',
+  {id:'cfr',short:'CFR',tier:-1,name:'Council on Foreign Relations',role:'US foreign policy think tank and membership org',metric:'~5,000 members &middot; Founded 1921 &middot; Publisher of Foreign Affairs',source:'cfr.org',date:'2025',status:'doc',
    connections:['bilderberg','trilateral','rockefeller','kissinger','gates','bezos','dialog_society'],tags:['policy','apex','usa'],
    events:[
      {date:'1921-07-29',event:'CFR incorporated; first honorary president Elihu Root'},
@@ -701,7 +848,7 @@ const ACTORS=[
    money:[],
    detail:'Documented revolving-door overlap with successive US administrations across both parties. The Rockefeller family has been deeply involved since founding.'
   },
-  {id:'trilateral',short:'Trilateral Comm.',tier:0,name:'Trilateral Commission',role:'Policy coordination body -- North America, Europe, Asia-Pacific',metric:'~400 members &middot; Founded July 1973 &middot; Archives: Rockefeller Archive Center',source:'Rockefeller Archive Center',date:'2025',status:'doc',
+  {id:'trilateral',short:'Trilateral Comm.',tier:-1,name:'Trilateral Commission',role:'Policy coordination body -- North America, Europe, Asia-Pacific',metric:'~400 members &middot; Founded July 1973 &middot; Archives: Rockefeller Archive Center',source:'Rockefeller Archive Center',date:'2025',status:'doc',
    connections:['cfr','bilderberg','rockefeller','kissinger','wef'],tags:['policy','apex','international'],
    events:[
      {date:'1973-07',event:'Founded by David Rockefeller and Zbigniew Brzezinski after Bilderberg declined Japanese members'},
@@ -711,7 +858,7 @@ const ACTORS=[
    money:[],
    detail:'Members must resign upon taking government office. Documented agenda overlap with G7/G8 summits. Original records held at Rockefeller Archive Center.'
   },
-  {id:'wef',short:'WEF / Davos',tier:0,name:'World Economic Forum (Davos)',role:'Global elite forum &middot; Young Global Leaders pipeline',metric:'Annual Davos meeting &middot; YGL program launched 2004 &middot; 1,400+ alumni',source:'weforum.org',date:'2025',status:'doc',
+  {id:'wef',short:'WEF / Davos',tier:-1,name:'World Economic Forum (Davos)',role:'Global elite forum &middot; Young Global Leaders pipeline',metric:'Annual Davos meeting &middot; YGL program launched 2004 &middot; 1,400+ alumni',source:'weforum.org',date:'2025',status:'doc',
    connections:['bilderberg','cfr','gates','musk','zuckerberg','altman','schwab'],tags:['policy','apex','international'],
    events:[
      {date:'1971',event:'Founded by Klaus Schwab as European Management Forum'},
@@ -725,7 +872,7 @@ const ACTORS=[
   },
 
   // TIER 1
-  {id:'rothschild',short:'Rothschilds',tier:1,name:'Rothschild Family',role:'Dynastic banking empire',metric:'RIT Capital Partners ~&pound;4B AUM &middot; Rothschild & Co (Paris-listed)',source:'ritcap.com Annual Report 2024',date:'2024',status:'doc',
+  {id:'rothschild',short:'Rothschilds',tier:0,name:'Rothschild Family',role:'Dynastic banking empire',metric:'RIT Capital Partners ~&pound;4B AUM &middot; Rothschild & Co (Paris-listed)',source:'ritcap.com Annual Report 2024',date:'2024',status:'doc',
    connections:['bis','cfr','fed'],tags:['banking','dynasty','finance'],
    events:[
      {date:'1760s',event:'Mayer Amschel Rothschild establishes banking house in Frankfurt'},
@@ -735,7 +882,7 @@ const ACTORS=[
    money:[],
    detail:'Documented vehicles: RIT Capital Partners plc (FTSE 250), Rothschild & Co (Paris-listed merchant bank), N M Rothschild & Sons. Dame Hannah Rothschild serves on the RIT board. No mythology -- all documented via public filings.'
   },
-  {id:'rockefeller',short:'Rockefellers',tier:1,name:'Rockefeller Family',role:'Dynastic wealth &middot; CFR founders &middot; Federal Reserve architects',metric:'Rockefeller Foundation &middot; Chase Manhattan (merged JPMorgan 2000)',source:'Rockefeller Archive Center',date:'2025',status:'doc',
+  {id:'rockefeller',short:'Rockefellers',tier:0,name:'Rockefeller Family',role:'Dynastic wealth &middot; CFR founders &middot; Federal Reserve architects',metric:'Rockefeller Foundation &middot; Chase Manhattan (merged JPMorgan 2000)',source:'Rockefeller Archive Center',date:'2025',status:'doc',
    connections:['cfr','trilateral','bis','fed','warburg'],tags:['banking','dynasty','oil'],
    events:[
      {date:'1870',event:'Standard Oil Company founded by John D. Rockefeller'},
@@ -747,7 +894,7 @@ const ACTORS=[
    money:[],
    detail:'The Rockefeller family has been the single most documented force behind the CFR and Trilateral Commission. Chase Manhattan Bank merged with JPMorgan in 2000.'
   },
-  {id:'warburg',short:'Warburg Family',tier:1,name:'Warburg Family',role:'Federal Reserve architects &middot; Kuhn Loeb & Co',metric:'Paul Warburg: first Federal Reserve Board member 1914',source:'Federal Reserve History / federalreservehistory.org',date:'1914',status:'doc',
+  {id:'warburg',short:'Warburg Family',tier:0,name:'Warburg Family',role:'Federal Reserve architects &middot; Kuhn Loeb & Co',metric:'Paul Warburg: first Federal Reserve Board member 1914',source:'Federal Reserve History / federalreservehistory.org',date:'1914',status:'doc',
    connections:['fed','rockefeller','morgan','rothschild'],tags:['banking','dynasty','fed'],
    events:[
      {date:'1910-11',event:'Paul Warburg among six men at secret Jekyll Island meeting that drafted the Aldrich Plan (basis of Federal Reserve Act)'},
@@ -757,7 +904,7 @@ const ACTORS=[
    money:[],
    detail:'The Jekyll Island meeting is fully documented by Federal Reserve History and confirmed by participants in the 1930s. Warburg was a partner at Kuhn, Loeb & Co.'
   },
-  {id:'morgan',short:'JPMorgan/Morgan',tier:1,name:'Morgan Family / JPMorgan',role:'US banking dynasty &middot; Federal Reserve co-architects',metric:'JPMorgan Chase: largest US bank by assets (~$3.9T)',source:'JPMorgan Chase Annual Report 2024',date:'2024',status:'doc',
+  {id:'morgan',short:'JPMorgan/Morgan',tier:0,name:'Morgan Family / JPMorgan',role:'US banking dynasty &middot; Federal Reserve co-architects',metric:'JPMorgan Chase: largest US bank by assets (~$3.9T)',source:'JPMorgan Chase Annual Report 2024',date:'2024',status:'doc',
    connections:['fed','warburg','rockefeller','bis'],tags:['banking','dynasty','finance'],
    events:[
      {date:'1895',event:'J.P. Morgan rescues US gold reserve with $65M bond issue'},
@@ -784,7 +931,7 @@ const ACTORS=[
   },
 
   // TIER 2
-  {id:'fed',short:'Federal Reserve',tier:2,name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241',date:'2025',status:'doc',
+  {id:'fed',short:'Federal Reserve',tier:'1b',name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241',date:'2025',status:'doc',
    connections:['bis','blackrock','vanguard','warburg','rockefeller'],tags:['banking','finance','usa'],
    events:[
      {date:'1913-12-23',event:'Federal Reserve Act signed by President Wilson'},
@@ -795,7 +942,7 @@ const ACTORS=[
    money:[],
    detail:'CORRECTIVE: The "privately owned" claim is refuted by law. The Board of Governors is a federal agency. Members receive a fixed 6% dividend (statutory, not market-rate) and have no control over monetary policy. All profits beyond a surplus cap go to the US Treasury.'
   },
-  {id:'blackrock',short:'BlackRock',tier:2,name:'BlackRock',role:'World\'s largest asset manager',metric:'$14.0T AUM (Dec 2025) &middot; CEO Larry Fink &middot; Aladdin risk system',source:'SEC Form ARS FY2025',date:'2025-12-31',status:'doc',
+  {id:'blackrock',short:'BlackRock',tier:'1b',name:'BlackRock',role:'World\'s largest asset manager',metric:'$14.0T AUM (Dec 2025) &middot; CEO Larry Fink &middot; Aladdin risk system',source:'SEC Form ARS FY2025',date:'2025-12-31',status:'doc',
    connections:['vanguard','statestreet','fed','gates','bezos','pentagon'],tags:['finance','investment','institutional'],
    events:[
      {date:'1988',event:'BlackRock founded by Larry Fink and 7 partners'},
@@ -807,7 +954,7 @@ const ACTORS=[
    money:[],
    detail:'Aladdin risk-management system used by central banks, sovereign wealth funds, and pension funds worldwide. ACADEMIC NOTE: Fichtner/Heemskerk (2017) -- Big Three cast ~25% of S&P 500 votes. They are fiduciaries, not beneficial owners.'
   },
-  {id:'vanguard',short:'Vanguard',tier:2,name:'Vanguard',role:'Second-largest asset manager &middot; Unique mutual ownership',metric:'$11.6T AUM (Sep 2025) &middot; Owned by its own funds/shareholders',source:'Vanguard/AdvRatings 2025',date:'2025-09-30',status:'doc',
+  {id:'vanguard',short:'Vanguard',tier:'1b',name:'Vanguard',role:'Second-largest asset manager &middot; Unique mutual ownership',metric:'$11.6T AUM (Sep 2025) &middot; Owned by its own funds/shareholders',source:'Vanguard/AdvRatings 2025',date:'2025-09-30',status:'doc',
    connections:['blackrock','statestreet'],tags:['finance','investment','institutional'],
    events:[
      {date:'1975',event:'Founded by John Bogle -- first index mutual fund'},
@@ -817,7 +964,7 @@ const ACTORS=[
    money:[],
    detail:'Vanguard has no public stock -- owned by its own member funds, which are owned by fund shareholders. This mutual structure is unique among major asset managers.'
   },
-  {id:'statestreet',short:'State Street',tier:2,name:'State Street',role:'Third of the Big Three asset managers',metric:'~$4.3T AUM (Q1 2024)',source:'State Street Q1 2024 earnings',date:'2024',status:'doc',
+  {id:'statestreet',short:'State Street',tier:'1b',name:'State Street',role:'Third of the Big Three asset managers',metric:'~$4.3T AUM (Q1 2024)',source:'State Street Q1 2024 earnings',date:'2024',status:'doc',
    connections:['blackrock','vanguard'],tags:['finance','investment','institutional'],
    events:[
      {date:'1792',event:'State Street Bank & Trust founded in Boston'},
@@ -943,7 +1090,7 @@ const ACTORS=[
    detail:'Palantir confirmed clients: CIA, NSA, FBI, DHS, DoD, ICE, multiple allied intelligence agencies. Over $2.7B in documented federal contracts since 2009.'
   },
   {id:'page_brin',short:'Page & Brin',tier:3,name:'Larry Page & Sergey Brin',role:'Google/Alphabet founders',metric:'Alphabet market cap ~$2T &middot; Google: ~92% global search share',source:'Alphabet 10-K 2024',date:'2024',status:'doc',
-   connections:['wef'],tags:['tech','ai','data'],
+   connections:['wef','google_ai'],tags:['tech','ai','data'],
    events:[
      {date:'1998',event:'Google founded in a Menlo Park garage'},
      {date:'2004',event:'Google IPO'},
@@ -968,7 +1115,7 @@ const ACTORS=[
    detail:'Documented death toll: 500,000+ opioid overdose deaths in the US (1999-2019, CDC). Sackler family members received immunity from civil suits in the 2025 settlement.'
   },
   {id:'johnson',short:'J&J',tier:'3b',name:'Johnson & Johnson',role:'Pharmaceutical/Consumer goods giant',metric:'Part of ~$60B nationwide opioid settlement &middot; Listed NYSE: JNJ',source:'Reuters/AP',date:'2025',status:'doc',
-   connections:['sackler'],tags:['pharma','settlement'],
+   connections:['sackler','wellcome'],tags:['pharma','settlement'],
    events:[
      {date:'2021',event:'J&J agrees to pay $5B+ as part of national opioid settlement framework'},
      {date:'2023',event:'Spins off consumer health division as Kenvue'},
@@ -1047,7 +1194,7 @@ const ACTORS=[
 
   // TIER 5 -- WAR ECONOMY
   {id:'lockheed',short:'Lockheed Martin',tier:5,name:'Lockheed Martin',role:'Largest US defense contractor',metric:'$313B in Pentagon contracts (2020-2024)',source:'Brown University Costs of War / Quincy Institute',date:'2024',status:'doc',
-   connections:['pentagon'],tags:['defense','military','contracts'],
+   connections:['pentagon','nato'],tags:['defense','military','contracts'],
    events:[
      {date:'1995',event:'Lockheed merges with Martin Marietta'},
      {date:'2001',event:'Wins F-35 Joint Strike Fighter contract -- largest weapons program in US history'},
@@ -1105,7 +1252,7 @@ const ACTORS=[
 
   // TIER 3 ADDITIONAL PHILANTHROPISTS
   {id:'buffett',short:'Warren Buffett',tier:3,name:'Warren Buffett',role:'Berkshire Hathaway &middot; The Giving Pledge &middot; Major donor',metric:'$50B+ donated to Gates Foundation &middot; Net worth ~$130B',source:'Berkshire Hathaway annual letters / Gates Foundation',date:'2025',status:'doc',
-   connections:['gates'],tags:['finance','philanthropy','investment'],
+   connections:['gates','macken'],tags:['finance','philanthropy','investment'],
    events:[
      {date:'2006',event:'Pledges 85% of Berkshire Hathaway shares to five foundations -- primarily Gates Foundation ($30B+ at time)'},
      {date:'2010',event:'Co-founds The Giving Pledge with Bill and Melinda Gates'},
@@ -1166,7 +1313,7 @@ const ACTORS=[
    money:[{from:'Bezos',arrow:'donated',to:'Bezos Earth Fund',label:'$10B (2020 commitment)',source:'Bezos Earth Fund'}],
    detail:'Bezos Earth Fund has disbursed grants to WWF, Natural Resources Defense Council, Environmental Defense Fund, and many others.'
   },
-  {id:'wellcome',short:'Wellcome Trust',tier:3,name:'Wellcome Trust',role:'World\'s largest health research foundation &middot; UK',metric:'~&pound;37B endowment (2024) &middot; Annual grants ~&pound;1.4B',source:'Wellcome Trust Annual Report 2024',date:'2024',status:'doc',
+  {id:'wellcome',short:'Wellcome Trust',tier:'3b',name:'Wellcome Trust',role:'World\'s largest health research foundation &middot; UK',metric:'~&pound;37B endowment (2024) &middot; Annual grants ~&pound;1.4B',source:'Wellcome Trust Annual Report 2024',date:'2024',status:'doc',
    connections:['gates'],tags:['philanthropy','health','research'],
    events:[
      {date:'1936',event:'Sir Henry Wellcome dies; Wellcome Trust established from pharmaceutical fortune'},
@@ -1177,8 +1324,8 @@ const ACTORS=[
    money:[{from:'Wellcome Trust',arrow:'grants',to:'Global health research',label:'~&pound;1.4B/year',source:'Wellcome Annual Report 2024'}],
    detail:'Wellcome Trust was built on the fortune of Burroughs Wellcome pharmaceutical company. It funds scientific research globally and co-funds major initiatives with Gates Foundation and WHO.'
   },
-  {id:'turner',short:'Ted Turner',tier:3,name:'Ted Turner',role:'CNN founder &middot; UN Foundation &middot; $1B pledge',metric:'$1B pledged to UN (1997) &middot; Turner Foundation',source:'UN Foundation / Atlanta Journal-Constitution',date:'2025',status:'doc',
-   connections:['cfr'],tags:['media','philanthropy','environment'],
+  {id:'turner',short:'Ted Turner',tier:'3b',name:'Ted Turner',role:'CNN founder &middot; UN Foundation &middot; $1B pledge',metric:'$1B pledged to UN (1997) &middot; Turner Foundation',source:'UN Foundation / Atlanta Journal-Constitution',date:'2025',status:'doc',
+   connections:['cfr','gates'],tags:['media','philanthropy','environment'],
    events:[
      {date:'1980',event:'CNN founded -- first 24-hour news network'},
      {date:'1997',event:'Turner pledges $1B to United Nations causes over 10 years'},
@@ -1199,37 +1346,37 @@ const ACTORS=[
   },
 
   // TIER 0B - GLOBAL INFRASTRUCTURE CHOKE POINTS
-  {id:'asml',tier:0,short:'ASML',name:'ASML',role:'EUV lithography monopoly -- 100% of advanced chip production',metric:'100% monopoly on EUV machines -- Netherlands',source:'USITC working paper Nov 2023',date:'2023',status:'doc',connections:['tsmc'],tags:['tech','semiconductor','choke-point'],events:[{date:'1984',event:'ASML founded in Eindhoven as Philips spin-off'},{date:'2019',event:'US pressures Netherlands to block ASML EUV exports to China -- license never issued'},{date:'2023',event:'Netherlands restricts DUV exports to China under US pressure'}],money:[],detail:'ASML holds a 100% global monopoly on EUV lithography machines -- required to make chips below 7nm. No other company produces them. Every advanced chip runs through ASML machines. Export to China blocked by Netherlands.'},
-  {id:'tsmc',tier:0,short:'TSMC',name:'TSMC',role:'Taiwan Semiconductor -- 92% of advanced chips',metric:'92%+ of advanced chip capacity -- Taiwan -- ~$67B revenue 2024',source:'USITC / BCG-SIA / The Conversation 2023',date:'2024',status:'doc',connections:['asml','pla'],tags:['tech','semiconductor','choke-point'],events:[{date:'1987',event:'TSMC founded by Morris Chang with Taiwan government backing'},{date:'2020',event:'TSMC suspends Huawei orders after US export controls'},{date:'2022',event:'US CHIPS Act -- $52B+ to onshore semiconductor production'},{date:'2024',event:'TSMC Arizona fab begins 3nm production'}],money:[{from:'Apple/Nvidia/AMD',arrow:'fab contracts',to:'TSMC',label:'$67B+ revenue (2024)',source:'TSMC earnings'}],detail:'A single Taiwanese company makes 92%+ of the worlds most advanced chips. A Chinese invasion of Taiwan would immediately halt global AI, smartphone, and defense chip production.'},
-  {id:'swift',tier:0,short:'SWIFT',name:'SWIFT',role:'Global payment messaging -- weaponized by West',metric:'11,000+ member institutions -- 42M messages/day -- Belgium',source:'SWIFT / EU regulations 2012 / 2022',date:'2024',status:'doc',connections:['fed','bis'],tags:['finance','infrastructure','choke-point'],events:[{date:'1973',event:'SWIFT founded in Brussels, Belgium'},{date:'2012-03-17',event:'Iran disconnected from SWIFT under EU sanctions'},{date:'2022-03',event:'Seven Russian banks disconnected following Ukraine invasion'},{date:'2023',event:'China accelerates CIPS as SWIFT alternative'}],money:[],detail:'SWIFT connects 11,000+ financial institutions. Its weaponization against Iran (2012) and Russia (2022) accelerated global de-dollarization and drove China to develop CIPS.'},
-  {id:'starlink',tier:0,short:'Starlink',name:'Starlink / SpaceX',role:'65% of all active satellites -- 10M+ subscribers',metric:'10,020+ satellites (Mar 2026) -- 65% of all active satellites -- 10M subscribers Feb 2026',source:'Jonathan McDowell tracking / SpaceX Shotwell Feb 2026',date:'2026-02',status:'doc',connections:['musk'],tags:['tech','satellite','military','choke-point'],events:[{date:'2019',event:'First Starlink batch launched (60 satellites)'},{date:'2022',event:'Starlink terminals deployed in Ukraine -- documented military use'},{date:'2026-02',event:'10 million subscribers confirmed by SpaceX President Shotwell'}],money:[{from:'Pentagon/DoD',arrow:'contracts',to:'SpaceX/Starlink',label:'Part of $38B+ Musk gov contracts',source:'Washington Post 2025'}],detail:'SpaceX Starlink is 65% of all active satellites. Its Ukraine role (2022) demonstrated satellite internet as critical military infrastructure. Musk controls more orbital assets than any government except the US.'},
+  {id:'asml',tier:'0b',short:'ASML',name:'ASML',role:'EUV lithography monopoly -- 100% of advanced chip production',metric:'100% monopoly on EUV machines -- Netherlands',source:'USITC working paper Nov 2023',date:'2023',status:'doc',connections:['tsmc','nvidia_ai'],tags:['tech','semiconductor','choke-point'],events:[{date:'1984',event:'ASML founded in Eindhoven as Philips spin-off'},{date:'2019',event:'US pressures Netherlands to block ASML EUV exports to China -- license never issued'},{date:'2023',event:'Netherlands restricts DUV exports to China under US pressure'}],money:[],detail:'ASML holds a 100% global monopoly on EUV lithography machines -- required to make chips below 7nm. No other company produces them. Every advanced chip runs through ASML machines. Export to China blocked by Netherlands.'},
+  {id:'tsmc',tier:'0b',short:'TSMC',name:'TSMC',role:'Taiwan Semiconductor -- 92% of advanced chips',metric:'92%+ of advanced chip capacity -- Taiwan -- ~$67B revenue 2024',source:'USITC / BCG-SIA / The Conversation 2023',date:'2024',status:'doc',connections:['asml','pla'],tags:['tech','semiconductor','choke-point'],events:[{date:'1987',event:'TSMC founded by Morris Chang with Taiwan government backing'},{date:'2020',event:'TSMC suspends Huawei orders after US export controls'},{date:'2022',event:'US CHIPS Act -- $52B+ to onshore semiconductor production'},{date:'2024',event:'TSMC Arizona fab begins 3nm production'}],money:[{from:'Apple/Nvidia/AMD',arrow:'fab contracts',to:'TSMC',label:'$67B+ revenue (2024)',source:'TSMC earnings'}],detail:'A single Taiwanese company makes 92%+ of the worlds most advanced chips. A Chinese invasion of Taiwan would immediately halt global AI, smartphone, and defense chip production.'},
+  {id:'swift',tier:'0b',short:'SWIFT',name:'SWIFT',role:'Global payment messaging -- weaponized by West',metric:'11,000+ member institutions -- 42M messages/day -- Belgium',source:'SWIFT / EU regulations 2012 / 2022',date:'2024',status:'doc',connections:['fed','bis'],tags:['finance','infrastructure','choke-point'],events:[{date:'1973',event:'SWIFT founded in Brussels, Belgium'},{date:'2012-03-17',event:'Iran disconnected from SWIFT under EU sanctions'},{date:'2022-03',event:'Seven Russian banks disconnected following Ukraine invasion'},{date:'2023',event:'China accelerates CIPS as SWIFT alternative'}],money:[],detail:'SWIFT connects 11,000+ financial institutions. Its weaponization against Iran (2012) and Russia (2022) accelerated global de-dollarization and drove China to develop CIPS.'},
+  {id:'starlink',tier:'0b',short:'Starlink',name:'Starlink / SpaceX',role:'65% of all active satellites -- 10M+ subscribers',metric:'10,020+ satellites (Mar 2026) -- 65% of all active satellites -- 10M subscribers Feb 2026',source:'Jonathan McDowell tracking / SpaceX Shotwell Feb 2026',date:'2026-02',status:'doc',connections:['musk'],tags:['tech','satellite','military','choke-point'],events:[{date:'2019',event:'First Starlink batch launched (60 satellites)'},{date:'2022',event:'Starlink terminals deployed in Ukraine -- documented military use'},{date:'2026-02',event:'10 million subscribers confirmed by SpaceX President Shotwell'}],money:[{from:'Pentagon/DoD',arrow:'contracts',to:'SpaceX/Starlink',label:'Part of $38B+ Musk gov contracts',source:'Washington Post 2025'}],detail:'SpaceX Starlink is 65% of all active satellites. Its Ukraine role (2022) demonstrated satellite internet as critical military infrastructure. Musk controls more orbital assets than any government except the US.'},
   // CHINA
   {id:'xi',tier:0,short:'Xi Jinping',name:'Xi Jinping',role:'CCP General Secretary -- CMC Chairman -- President of China',metric:'Controls 1.4B people -- removed term limits 2018 -- 3rd term 2022',source:'NPC March 2018 / 20th Party Congress Oct 2022',date:'2022',status:'doc',connections:['ccp','pla','bri','huawei','cic'],tags:['china','politics','military'],events:[{date:'2012',event:'Becomes CCP General Secretary and CMC Chairman'},{date:'2018-03',event:'NPC removes 2-term presidential limit -- clears path to indefinite rule'},{date:'2022-10',event:'Secures unprecedented 3rd term -- 7-man PSC all loyalists -- first all-male PSC in 25 years'},{date:'2023',event:'Anti-corruption campaign via CCDI -- 4.8M officials disciplined (2012-2022)'}],money:[],detail:'Xi eliminated presidential term limits at the March 2018 NPC and stacked the 2022 Politburo Standing Committee with seven loyalists. Bloomberg (2012) documented extended family wealth in the hundreds of millions -- China blocked Bloomberg after publication.'},
   {id:'ccp',tier:0,short:'CCP',name:'Chinese Communist Party',role:'Ruling party of China -- 98M members',metric:'98M+ members -- controls 1.4B people -- founded 1921',source:'CCP official records',date:'2024',status:'doc',connections:['xi','pla','huawei','bri','cic'],tags:['china','politics','power'],events:[{date:'1921',event:'CCP founded in Shanghai'},{date:'1949',event:'CCP wins civil war -- PRC proclaimed'},{date:'1989',event:'Tiananmen Square -- hundreds to thousands killed'},{date:'2022',event:'20th Party Congress -- Xi secures 3rd term'}],money:[],detail:'United Front Work Department (UFWD) runs documented global influence operations. US GAO (2023): Confucius Institutes fell from ~100 (2019) to fewer than five by 2022.'},
   {id:'pla',tier:0,short:'PLA',name:'PLA -- Peoples Liberation Army',role:'Worlds largest navy -- fastest-growing nuclear arsenal',metric:'$246B+ budget 2025 -- 370+ naval platforms -- ~600 nuclear warheads (SIPRI 2025)',source:'Chinese gov.cn Mar 2025 / US DoD China Military Power Report Dec 2024 / SIPRI 2025',date:'2025',status:'doc',connections:['xi','ccp','bri'],tags:['china','military','nuclear'],events:[{date:'2007',event:'China ASAT test -- destroys own satellite -- documented space militarization'},{date:'2019',event:'DOJ indicts APT41 -- 5 Chinese nationals -- MSS ties (announced Sept 2020)'},{date:'2021',event:'DOJ indicts APT40 -- 3 MSS Hainan State Security Department officers'},{date:'2024',event:'PLA Navy: 370+ platforms -- projected 435 ships by 2030'},{date:'2025',event:'Defense budget: 1.7847T yuan (~$246B) -- 7.2% rise -- 10th straight single-digit growth'}],money:[],detail:'SIPRI 2025: China holds ~600 nuclear warheads -- growing ~100/year -- fastest expansion of any state. US DoD assesses real PLA spending 40-90% above official budget. PLA has fully militarized 3 artificial South China Sea islands.'},
   {id:'bri',tier:0,short:'Belt and Road',name:'Belt and Road Initiative',role:'Chinas global infrastructure creditor network',metric:'~$843B commitments (2013-2021 AidData) -- 165 countries',source:'AidData / Fudan Global Development Policy Lab 2023',date:'2023',status:'doc',connections:['xi','ccp','cic'],tags:['china','finance','geopolitics'],events:[{date:'2013',event:'Xi announces Belt and Road Initiative'},{date:'2017-12',event:'Sri Lanka leases Hambantota Port to China Merchants JV for 99 years -- unable to service ~$1.3B Chinese construction loans'},{date:'2023',event:'AidData: $843B in BRI commitments (2013-2021) across 165 countries'}],money:[{from:'China state banks',arrow:'loans/investment',to:'165+ countries',label:'~$843B+ (2013-2023)',source:'AidData 2023'}],detail:'China is the worlds largest bilateral creditor. Hambantota Port 99-year lease (2017) is the canonical debt-trap case. Chatham House and CSIS note Sri Lankas distress was also driven by Western capital-market borrowing.'},
-  {id:'cic',tier:2,short:'CIC',name:'China Investment Corporation',role:'China sovereign wealth fund',metric:'~$1.57T AUM (2025)',source:'CIC Annual Reports / AI-CIO 2025',date:'2025',status:'doc',connections:['xi','ccp'],tags:['china','finance','sovereign-wealth'],events:[{date:'2007',event:'CIC founded with $200B initial capitalization'},{date:'2023',event:'Total assets: $1.33T (CIC annual report)'},{date:'2025',event:'Estimated AUM: ~$1.57T'}],money:[],detail:'CIC is one of the worlds largest sovereign wealth funds. BeiDou satellite navigation achieved full global coverage June 23, 2020 -- Chinas GPS equivalent.'},
+  {id:'cic',tier:0,short:'CIC',name:'China Investment Corporation',role:'China sovereign wealth fund',metric:'~$1.57T AUM (2025)',source:'CIC Annual Reports / AI-CIO 2025',date:'2025',status:'doc',connections:['xi','ccp'],tags:['china','finance','sovereign-wealth'],events:[{date:'2007',event:'CIC founded with $200B initial capitalization'},{date:'2023',event:'Total assets: $1.33T (CIC annual report)'},{date:'2025',event:'Estimated AUM: ~$1.57T'}],money:[],detail:'CIC is one of the worlds largest sovereign wealth funds. BeiDou satellite navigation achieved full global coverage June 23, 2020 -- Chinas GPS equivalent.'},
   {id:'huawei',tier:3,short:'Huawei',name:'Huawei',role:'Chinese telecom giant -- US sanctions -- DOJ indicted',metric:'US Entity List May 2019 -- DOJ indicted Jan 2019',source:'DOJ Jan 2019 / Commerce Dept May 2019',date:'2020',status:'doc',connections:['ccp','xi'],tags:['china','tech','sanctions'],events:[{date:'2019-01-28',event:'DOJ indicts Huawei -- bank/wire fraud -- Iran sanctions violations -- T-Mobile trade-secret theft'},{date:'2019-05-16',event:'Commerce Dept adds Huawei to Entity List'},{date:'2020-02',event:'Superseding indictment adds RICO racketeering'},{date:'2023',event:'Huawei Mate 60 Pro ships with 7nm chip -- partial US export-control evasion (Techinsights)'}],money:[],detail:'CFO Meng Wanzhou arrested in Canada Dec 2018 -- released Sept 2021 after deferred prosecution agreement. Huawei denied all charges.'},
   // RUSSIA
   {id:'putin',tier:0,short:'Putin',name:'Vladimir Putin',role:'Russian President -- former KGB/FSB -- documented assassinations',metric:'In power since 1999 -- UK inquiry: Litvinenko murder "probably approved by Putin"',source:'UK Litvinenko Public Inquiry Jan 21, 2016',date:'2024',status:'doc',connections:['fsb_gru','gazprom','wagner','oligarchs'],tags:['russia','politics','military'],events:[{date:'1999',event:'Becomes PM then Acting President after Yeltsin resignation'},{date:'2006',event:'Alexander Litvinenko murdered with polonium-210 in London'},{date:'2016-01-21',event:'UK public inquiry: murder "probably approved by Patrushev and by President Putin"'},{date:'2018',event:'Salisbury Novichok poisoning -- UK attributes to GRU officers'},{date:'2022-02-24',event:'Orders full-scale invasion of Ukraine'}],money:[],detail:'Putins personal wealth is undisclosed. Bellingcat, OCCRP, and Navalnys FBK documented palatial assets including the Gelendzhik palace. The Litvinenko inquiry is the most authoritative state-assassination attribution.'},
   {id:'fsb_gru',tier:0,short:'FSB/GRU/SVR',name:'FSB / GRU / SVR',role:'Russian intelligence triad -- documented global operations',metric:'SolarWinds 2021 (SVR) -- NotPetya 2017 (GRU) -- both gov-attributed',source:'White House Apr 2021 / Mueller indictment Jul 2018 / Axios Feb 2018',date:'2022',status:'doc',connections:['putin','wagner','oligarchs'],tags:['russia','intelligence','cyber'],events:[{date:'2018-07-13',event:'Mueller indicts 12 GRU officers (Unit 26165/Fancy Bear) for 2016 US election hacking'},{date:'2018-02-15',event:'White House/UK attribute NotPetya to GRU -- ~$10B global damage'},{date:'2021-04-15',event:'White House attributes SolarWinds to SVR -- 16,000+ systems -- 9 federal agencies'},{date:'2022',event:'GRU Unit 29155 named in EU indictments for European sabotage/assassinations'}],money:[],detail:'FSB (domestic), GRU (military ops), SVR (foreign intel). Colonial Pipeline (May 2021) was DarkSide -- Russia-based criminal group, NOT GRU-attributed. All three services have Western court/government attribution.'},
-  {id:'wagner',tier:5,short:'Wagner/Africa Corps',name:'Wagner Group / Africa Corps',role:'Russian state PMC -- Africa operations',metric:'6+ African countries -- absorbed into MoD Africa Corps Aug 2023',source:'UN Panel of Experts / HRW / NBC News 2025',date:'2025',status:'doc',connections:['putin','fsb_gru'],tags:['russia','military','africa'],events:[{date:'2018',event:'Wagner deploys to Central African Republic'},{date:'2021',event:'Wagner deploys to Mali'},{date:'2023-06-23',event:'Prigozhin launches armed mutiny -- columns reach 200km from Moscow before standing down'},{date:'2023-08-23',event:'Prigozhin dies in plane crash -- WSJ Dec 2023: bomb orchestrated by Patrushev'},{date:'2025',event:'Wagner leaving Mali after heavy losses -- Africa Corps remains (NBC News 2025)'}],money:[],detail:'Wagner operated in CAR, Mali, Libya, Sudan, Mozambique. After Prigozhins death, Africa Corps (MoD-controlled) absorbed African footprint. UN and HRW documented mass civilian killings in Mali.'},
-  {id:'oligarchs',tier:2,short:'Russian Oligarchs',name:'Russian Oligarch Network',role:'Post-1991 privatization wealth -- mass Western sanctions 2022',metric:'300B+ frozen/seized by West -- Abramovich forced Chelsea sale GBP 2.5B',source:'UK OFSI / EU sanctions 2022',date:'2022',status:'doc',connections:['putin','gazprom'],tags:['russia','finance','sanctions'],events:[{date:'1991-1999',event:'Mass privatization -- state assets transferred at below-market prices'},{date:'2022-03',event:'UK sanctions Abramovich, Usmanov, Fridman, Mordashov and dozens more'},{date:'2022-03',event:'Abramovich forced to sell Chelsea FC for GBP 2.5B -- proceeds to Ukraine humanitarian fund'},{date:'2023',event:'Western governments freeze/seize $300B+ in Russian sovereign assets'}],money:[],detail:'The oligarch network was built through 1990s privatization. After the 2022 invasion, EU/UK/US sanctioned 1,000+ Russian individuals and entities.'},
-  {id:'gazprom',tier:2,short:'Gazprom/Rosneft',name:'Gazprom / Rosneft',role:'Russian state energy giants',metric:'Gazprom: worlds largest natural gas company -- Russian state ~50.2% owner',source:'Gazprom annual filings',date:'2024',status:'doc',connections:['putin','oligarchs'],tags:['russia','energy'],events:[{date:'2006',event:'Russia cuts gas to Ukraine -- first documented energy weapon use'},{date:'2022-09-26',event:'Nord Stream pipelines sabotaged -- attribution disputed'}],money:[],detail:'Rosneft CEO Igor Sechin is a close Putin ally. Gazproms European market share collapsed post-2022, accelerating EU energy diversification.'},
+  {id:'wagner',tier:0,short:'Wagner/Africa Corps',name:'Wagner Group / Africa Corps',role:'Russian state PMC -- Africa operations',metric:'6+ African countries -- absorbed into MoD Africa Corps Aug 2023',source:'UN Panel of Experts / HRW / NBC News 2025',date:'2025',status:'doc',connections:['putin','fsb_gru'],tags:['russia','military','africa'],events:[{date:'2018',event:'Wagner deploys to Central African Republic'},{date:'2021',event:'Wagner deploys to Mali'},{date:'2023-06-23',event:'Prigozhin launches armed mutiny -- columns reach 200km from Moscow before standing down'},{date:'2023-08-23',event:'Prigozhin dies in plane crash -- WSJ Dec 2023: bomb orchestrated by Patrushev'},{date:'2025',event:'Wagner leaving Mali after heavy losses -- Africa Corps remains (NBC News 2025)'}],money:[],detail:'Wagner operated in CAR, Mali, Libya, Sudan, Mozambique. After Prigozhins death, Africa Corps (MoD-controlled) absorbed African footprint. UN and HRW documented mass civilian killings in Mali.'},
+  {id:'oligarchs',tier:0,short:'Russian Oligarchs',name:'Russian Oligarch Network',role:'Post-1991 privatization wealth -- mass Western sanctions 2022',metric:'300B+ frozen/seized by West -- Abramovich forced Chelsea sale GBP 2.5B',source:'UK OFSI / EU sanctions 2022',date:'2022',status:'doc',connections:['putin','gazprom'],tags:['russia','finance','sanctions'],events:[{date:'1991-1999',event:'Mass privatization -- state assets transferred at below-market prices'},{date:'2022-03',event:'UK sanctions Abramovich, Usmanov, Fridman, Mordashov and dozens more'},{date:'2022-03',event:'Abramovich forced to sell Chelsea FC for GBP 2.5B -- proceeds to Ukraine humanitarian fund'},{date:'2023',event:'Western governments freeze/seize $300B+ in Russian sovereign assets'}],money:[],detail:'The oligarch network was built through 1990s privatization. After the 2022 invasion, EU/UK/US sanctioned 1,000+ Russian individuals and entities.'},
+  {id:'gazprom',tier:0,short:'Gazprom/Rosneft',name:'Gazprom / Rosneft',role:'Russian state energy giants',metric:'Gazprom: worlds largest natural gas company -- Russian state ~50.2% owner',source:'Gazprom annual filings',date:'2024',status:'doc',connections:['putin','oligarchs'],tags:['russia','energy'],events:[{date:'2006',event:'Russia cuts gas to Ukraine -- first documented energy weapon use'},{date:'2022-09-26',event:'Nord Stream pipelines sabotaged -- attribution disputed'}],money:[],detail:'Rosneft CEO Igor Sechin is a close Putin ally. Gazproms European market share collapsed post-2022, accelerating EU energy diversification.'},
   // INDIA
   {id:'adani',tier:3,short:'Adani Group',name:'Adani Group -- Gautam Adani',role:'Indian conglomerate -- DOJ indicted Nov 2024',metric:'DOJ EDNY indictment Nov 2024 -- $250M bribe scheme -- net worth ~$70B',source:'DOJ EDNY / SEC Nov 2024',date:'2024-11-20',status:'doc',connections:['modi'],tags:['india','business','indictment'],events:[{date:'2023-01-24',event:'Hindenburg Research: 106-page report alleging stock manipulation and accounting fraud'},{date:'2024-11-20',event:'DOJ EDNY: 5-count indictment -- Gautam Adani charged with $250M+ bribe scheme to Indian officials for solar contracts + securities fraud'},{date:'2024-11-20',event:'SEC files parallel civil case against Adani Green Energy'}],money:[{from:'Adani Green Energy',arrow:'alleged bribes',to:'Indian state officials',label:'$250M+ (DOJ indictment)',source:'DOJ EDNY Nov 2024'}],detail:'Adani denied all charges. DOJ alleges scheme yielded $2B+ projected profit while raising $3B+ from US/international investors on false statements.'},
   {id:'modi',tier:6,short:'Modi / India',name:'Narendra Modi',role:'Indian PM -- BJP -- nuclear state ~180 warheads',metric:'PM since 2014 -- 3rd term 2024 -- 1.4B population -- SIPRI: 180 warheads (2025)',source:'Election Commission of India / SIPRI 2025',date:'2024',status:'doc',connections:['adani','brics','wef'],tags:['india','politics','nuclear'],events:[{date:'2014',event:'Modi elected PM'},{date:'2019',event:'India ASAT test (Mission Shakti) -- destroys own satellite at 300km'},{date:'2024',event:'Modi wins 3rd term -- BJP coalition -- 640M voters'}],money:[],detail:'India nuclear arsenal: ~180 warheads (SIPRI 2025) -- overtook Pakistan. India is Quad member (US/Japan/Australia) and maintains strategic autonomy -- buying Russian oil post-2022 while maintaining US defense ties.'},
   // ISRAEL
-  {id:'mossad',tier:0,short:'Mossad',name:'Mossad / Unit 8200',role:'Israeli intelligence -- documented assassinations -- NSO Group',metric:'~90 warheads (SIPRI 2025) -- NSO $168M US jury verdict May 2025',source:'UK PKI / SIPRI 2025 / WhatsApp v NSO jury May 2025',date:'2025',status:'doc',connections:['aipac','netanyahu'],tags:['israel','intelligence','surveillance'],events:[{date:'1972',event:'Operation Wrath of God -- Mossad hunts Munich massacre perpetrators'},{date:'2010-01-19',event:'Mahmoud al-Mabhouh assassinated in Dubai -- Dubai police identify 26 suspects using forged Western passports -- name Mossad'},{date:'2021-11',event:'NSO Group added to US Commerce Entity List'},{date:'2025-05-06',event:'US federal jury: NSO pays $167.3M punitive + $444,719 compensatory to WhatsApp -- first US jury verdict against commercial spyware firm'}],money:[],detail:'Unit 8200 alumni founded Check Point, CyberArk, and Waze. NSO Pegasus documented targeting 50,000+ phones (Forbidden Stories/Amnesty 2021). Israel Dimona: ~90 undeclared warheads (SIPRI).'},
-  {id:'aipac',tier:'2b',short:'AIPAC',name:'AIPAC',role:'Largest pro-Israel lobby in US -- $95M+ 2024 elections',metric:'$95.1M+ in 2024 US elections -- defeated Reps. Bowman and Bush',source:'OpenSecrets/FEC 2024',date:'2024',status:'doc',connections:['mossad'],tags:['israel','lobbying','usa'],events:[{date:'2022',event:'AIPAC launches United Democracy Project super PAC'},{date:'2024',event:'UDP: $14.6M against Rep. Bowman (defeated) -- $8.6M against Rep. Bush (defeated)'},{date:'2024',event:'Total AIPAC ecosystem: $95.1M+ (OpenSecrets)'}],money:[{from:'AIPAC donors',arrow:'super PAC',to:'US Congressional races',label:'$95.1M+ (2024)',source:'OpenSecrets/FEC'}],detail:'AIPAC is the most powerful foreign-policy lobby in the US by documented electoral spending. Its super PAC targeted progressive critics with unprecedented spending in 2024.'},
+  {id:'mossad',tier:'0c',short:'Mossad',name:'Mossad / Unit 8200',role:'Israeli intelligence -- documented assassinations -- NSO Group',metric:'~90 warheads (SIPRI 2025) -- NSO $168M US jury verdict May 2025',source:'UK PKI / SIPRI 2025 / WhatsApp v NSO jury May 2025',date:'2025',status:'doc',connections:['aipac','netanyahu'],tags:['israel','intelligence','surveillance'],events:[{date:'1972',event:'Operation Wrath of God -- Mossad hunts Munich massacre perpetrators'},{date:'2010-01-19',event:'Mahmoud al-Mabhouh assassinated in Dubai -- Dubai police identify 26 suspects using forged Western passports -- name Mossad'},{date:'2021-11',event:'NSO Group added to US Commerce Entity List'},{date:'2025-05-06',event:'US federal jury: NSO pays $167.3M punitive + $444,719 compensatory to WhatsApp -- first US jury verdict against commercial spyware firm'}],money:[],detail:'Unit 8200 alumni founded Check Point, CyberArk, and Waze. NSO Pegasus documented targeting 50,000+ phones (Forbidden Stories/Amnesty 2021). Israel Dimona: ~90 undeclared warheads (SIPRI).'},
+  {id:'aipac',tier:'0c',short:'AIPAC',name:'AIPAC',role:'Largest pro-Israel lobby in US -- $95M+ 2024 elections',metric:'$95.1M+ in 2024 US elections -- defeated Reps. Bowman and Bush',source:'OpenSecrets/FEC 2024',date:'2024',status:'doc',connections:['mossad'],tags:['israel','lobbying','usa'],events:[{date:'2022',event:'AIPAC launches United Democracy Project super PAC'},{date:'2024',event:'UDP: $14.6M against Rep. Bowman (defeated) -- $8.6M against Rep. Bush (defeated)'},{date:'2024',event:'Total AIPAC ecosystem: $95.1M+ (OpenSecrets)'}],money:[{from:'AIPAC donors',arrow:'super PAC',to:'US Congressional races',label:'$95.1M+ (2024)',source:'OpenSecrets/FEC'}],detail:'AIPAC is the most powerful foreign-policy lobby in the US by documented electoral spending. Its super PAC targeted progressive critics with unprecedented spending in 2024.'},
   // IRAN
-  {id:'irgc',tier:0,short:'IRGC / Khamenei',name:'IRGC / Khamenei / Setad',role:'Supreme Leader -- Setad $95B+ -- IRGC proxy network',metric:'Setad: ~$95B (Reuters 2013) -- IRGC FTO-designated Apr 2019 -- Hezbollah/Hamas/Houthis proxies',source:'Reuters Oct 2013 / State Dept FTO Apr 2019 / US Treasury SDGT',date:'2024',status:'doc',connections:['kimjongun','putin'],tags:['iran','military','sanctions'],events:[{date:'2013-10',event:'Reuters: Setad (EIKO) at ~$95B -- built on confiscated property'},{date:'2019-04-15',event:'US designates IRGC as FTO -- first time part of foreign govt named FTO'},{date:'2024-02-16',event:'Houthis (Ansarallah) designated SDGT'},{date:'2024',event:'Iran enriching uranium to 60% purity -- IAEA documented'}],money:[],detail:'IRGC controls estimated one-third to 50%+ of Irans GDP (contested -- deliberate opacity). Setad built on confiscated minority/political-opponent property. APT33/34/35 are documented Iranian cyber units (DOJ indictments).'},
+  {id:'irgc',tier:6,short:'IRGC / Khamenei',name:'IRGC / Khamenei / Setad',role:'Supreme Leader -- Setad $95B+ -- IRGC proxy network',metric:'Setad: ~$95B (Reuters 2013) -- IRGC FTO-designated Apr 2019 -- Hezbollah/Hamas/Houthis proxies',source:'Reuters Oct 2013 / State Dept FTO Apr 2019 / US Treasury SDGT',date:'2024',status:'doc',connections:['kimjongun','putin'],tags:['iran','military','sanctions'],events:[{date:'2013-10',event:'Reuters: Setad (EIKO) at ~$95B -- built on confiscated property'},{date:'2019-04-15',event:'US designates IRGC as FTO -- first time part of foreign govt named FTO'},{date:'2024-02-16',event:'Houthis (Ansarallah) designated SDGT'},{date:'2024',event:'Iran enriching uranium to 60% purity -- IAEA documented'}],money:[],detail:'IRGC controls estimated one-third to 50%+ of Irans GDP (contested -- deliberate opacity). Setad built on confiscated minority/political-opponent property. APT33/34/35 are documented Iranian cyber units (DOJ indictments).'},
   // NORTH KOREA
-  {id:'kimjongun',tier:0,short:'Kim Jong-un',name:'Kim Jong-un / North Korea',role:'Supreme Leader -- nuclear state -- state crypto hacking',metric:'6 nuclear tests -- ~50 warheads (SIPRI 2025) -- Lazarus Group $6.75B cumulative crypto theft',source:'SIPRI 2025 / FBI Feb 2025 / Chainalysis 2025',date:'2025',status:'doc',connections:['lazarus'],tags:['northkorea','nuclear','hacking'],events:[{date:'2006',event:'1st nuclear test'},{date:'2017-09-03',event:'6th nuclear test -- claimed thermonuclear -- ~250kt (NORSAR)'},{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus Group (FBI/OFAC Apr 2022)'},{date:'2023-09',event:'Russia-NK weapons deal -- artillery shells for Ukraine (US/UK/South Korea documented)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- FBI attributes to Lazarus -- largest single crypto heist ever'},{date:'2025',event:'Chainalysis: NK steals record $2.02B in crypto -- $6.75B cumulative'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group funds North Koreas weapons program through crypto theft. $2.02B stolen in 2025 alone (Chainalysis). Kim supplied Russia with artillery and ballistic missiles for Ukraine war.'},
+  {id:'kimjongun',tier:6,short:'Kim Jong-un',name:'Kim Jong-un / North Korea',role:'Supreme Leader -- nuclear state -- state crypto hacking',metric:'6 nuclear tests -- ~50 warheads (SIPRI 2025) -- Lazarus Group $6.75B cumulative crypto theft',source:'SIPRI 2025 / FBI Feb 2025 / Chainalysis 2025',date:'2025',status:'doc',connections:['lazarus'],tags:['northkorea','nuclear','hacking'],events:[{date:'2006',event:'1st nuclear test'},{date:'2017-09-03',event:'6th nuclear test -- claimed thermonuclear -- ~250kt (NORSAR)'},{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus Group (FBI/OFAC Apr 2022)'},{date:'2023-09',event:'Russia-NK weapons deal -- artillery shells for Ukraine (US/UK/South Korea documented)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- FBI attributes to Lazarus -- largest single crypto heist ever'},{date:'2025',event:'Chainalysis: NK steals record $2.02B in crypto -- $6.75B cumulative'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group funds North Koreas weapons program through crypto theft. $2.02B stolen in 2025 alone (Chainalysis). Kim supplied Russia with artillery and ballistic missiles for Ukraine war.'},
   // GULF STATES
-  {id:'adia',tier:2,short:'ADIA / UAE',name:'ADIA / UAE Sovereign Wealth',role:'Abu Dhabi -- worlds largest SWF ecosystem',metric:'ADIA ~$1.1T + Mubadala ~$302B -- combined Abu Dhabi ~$1.7T',source:'Global SWF / SWFI 2025',date:'2025',status:'doc',connections:['qia','kia'],tags:['uae','finance','sovereign-wealth'],events:[{date:'1976',event:'ADIA founded'},{date:'2023',event:'Mubadala: largest sovereign-owned investor globally -- $29B deployed in 52 deals (Global SWF)'},{date:'2024',event:'GCC SWFs: $55B in 126 transactions in 9 months -- 40% of global deals'}],money:[],detail:'Abu Dhabi combined SWF ecosystem ~$1.7T. UAE documented as Pegasus spyware user (CitizenLab) and host of Erik Prince mercenary operations. GCC sovereign wealth combined estimated $4.9-6T (Global SWF/Deloitte 2024).'},
-  {id:'qia',tier:2,short:'Qatar / QIA',name:'Qatar Investment Authority',role:'Qatar SWF -- Al Jazeera -- US military base',metric:'QIA: ~$524B AUM (Bloomberg May 2025) -- hosts largest US base in Mideast',source:'Bloomberg May 2025 / DOJ FIFA indictments',date:'2025',status:'doc',connections:['adia','kia'],tags:['qatar','finance','military'],events:[{date:'2005',event:'QIA formally established'},{date:'2015-05',event:'FIFA officials arrested -- DOJ indictments include Qatar 2022 World Cup bribery allegations'},{date:'2025',event:'QIA AUM: ~$524B (Bloomberg/QIA CEO)'}],money:[],detail:'Al Jazeera is state-funded. Qatar hosts Al Udeid Air Base (largest US base in the Middle East). Qatar has been named in US Treasury proceedings related to Hamas funding (contested).'},
-  {id:'kia',tier:2,short:'Kuwait / KIA',name:'Kuwait Investment Authority',role:'Worlds oldest SWF -- ~$1T AUM',metric:'~$1.0T AUM (SWFI 2025) -- founded 1953',source:'SWFI / Global SWF 2025',date:'2025',status:'doc',connections:['adia','qia'],tags:['kuwait','finance','sovereign-wealth'],events:[{date:'1953',event:'Kuwait Investment Board founded -- worlds first SWF'},{date:'2025',event:'Estimated AUM: ~$1.0T'}],money:[],detail:'KIA is the worlds oldest sovereign wealth fund. Kuwait hosts a significant US military presence.'},
+  {id:'adia',tier:0,short:'ADIA / UAE',name:'ADIA / UAE Sovereign Wealth',role:'Abu Dhabi -- worlds largest SWF ecosystem',metric:'ADIA ~$1.1T + Mubadala ~$302B -- combined Abu Dhabi ~$1.7T',source:'Global SWF / SWFI 2025',date:'2025',status:'doc',connections:['qia','kia'],tags:['uae','finance','sovereign-wealth'],events:[{date:'1976',event:'ADIA founded'},{date:'2023',event:'Mubadala: largest sovereign-owned investor globally -- $29B deployed in 52 deals (Global SWF)'},{date:'2024',event:'GCC SWFs: $55B in 126 transactions in 9 months -- 40% of global deals'}],money:[],detail:'Abu Dhabi combined SWF ecosystem ~$1.7T. UAE documented as Pegasus spyware user (CitizenLab) and host of Erik Prince mercenary operations. GCC sovereign wealth combined estimated $4.9-6T (Global SWF/Deloitte 2024).'},
+  {id:'qia',tier:0,short:'Qatar / QIA',name:'Qatar Investment Authority',role:'Qatar SWF -- Al Jazeera -- US military base',metric:'QIA: ~$524B AUM (Bloomberg May 2025) -- hosts largest US base in Mideast',source:'Bloomberg May 2025 / DOJ FIFA indictments',date:'2025',status:'doc',connections:['adia','kia'],tags:['qatar','finance','military'],events:[{date:'2005',event:'QIA formally established'},{date:'2015-05',event:'FIFA officials arrested -- DOJ indictments include Qatar 2022 World Cup bribery allegations'},{date:'2025',event:'QIA AUM: ~$524B (Bloomberg/QIA CEO)'}],money:[],detail:'Al Jazeera is state-funded. Qatar hosts Al Udeid Air Base (largest US base in the Middle East). Qatar has been named in US Treasury proceedings related to Hamas funding (contested).'},
+  {id:'kia',tier:0,short:'Kuwait / KIA',name:'Kuwait Investment Authority',role:'Worlds oldest SWF -- ~$1T AUM',metric:'~$1.0T AUM (SWFI 2025) -- founded 1953',source:'SWFI / Global SWF 2025',date:'2025',status:'doc',connections:['adia','qia'],tags:['kuwait','finance','sovereign-wealth'],events:[{date:'1953',event:'Kuwait Investment Board founded -- worlds first SWF'},{date:'2025',event:'Estimated AUM: ~$1.0T'}],money:[],detail:'KIA is the worlds oldest sovereign wealth fund. Kuwait hosts a significant US military presence.'},
   // GLOBAL NUCLEAR TABLE
   {id:'nuclear',tier:0,short:'Nuclear States',name:'Global Nuclear Arsenal',role:'9 states -- ~12,241 warheads (SIPRI Jan 2025)',metric:'Russia 5,580 -- USA 5,550 -- China ~600 -- France 290 -- UK 225 -- India 180 -- Pakistan 170 -- Israel ~90 -- NK ~50',source:'SIPRI Yearbook 2025 (June 2025)',date:'2025-01',status:'doc',connections:['pla','putin','kimjongun','mossad','irgc'],tags:['military','nuclear','global'],events:[{date:'1945',event:'USA first nuclear weapon use -- Hiroshima and Nagasaki (Aug 1945)'},{date:'1949',event:'Soviet Union first nuclear test'},{date:'1964',event:'China first nuclear test'},{date:'1998',event:'India and Pakistan conduct nuclear tests weeks apart'},{date:'2025',event:'SIPRI: 9 nuclear states -- ~12,241 total warheads -- China fastest-growing arsenal'}],money:[],detail:'SIPRI Yearbook 2025: Russia 5,580 / USA 5,550 / China ~600 (fastest-growing +100/yr) / France 290 / UK 225 / India 180 / Pakistan 170 / Israel ~90 (undeclared) / North Korea ~50. Total ~12,241. Israel maintains nuclear ambiguity -- never confirmed or denied.'},
   // BRICS
@@ -1237,16 +1384,16 @@ const ACTORS=[
   // CARTELS
   {id:'cartels',tier:7,short:'Sinaloa/CJNG',name:'Mexican Cartels',role:'FTO-designated Feb 2025 -- fentanyl supply chain',metric:'8 entities designated FTO Feb 20, 2025 (State Dept) -- El Chapo: life + 30 years',source:'Federal Register FR Doc 2025-02873 / DOJ Jul 2019',date:'2025-02-20',status:'doc',connections:['tether','binance'],tags:['crime','drugs','mexico'],events:[{date:'2019-02-12',event:'El Chapo convicted EDNY on 10 counts'},{date:'2019-07-17',event:'El Chapo sentenced: life + 30 years + $12.6B forfeiture'},{date:'2025-02-20',event:'Secretary Rubio designates 8 cartels as FTO/SDGT: Sinaloa, CJNG, CDN, Gulf Cartel, La Nueva Familia Michoacana, Carteles Unidos, MS-13, Tren de Aragua'}],money:[],detail:'Sinaloa and CJNG are dominant US fentanyl suppliers. FTO designation (Feb 2025) opens expanded military/law-enforcement options. El Chapo trial testimony documented Mexican government corruption.'},
   // ABCD GRAIN
-  {id:'abcd_grain',tier:2,short:'ABCD Grain',name:'ABCD Grain Traders',role:'ADM / Bunge / Cargill / Louis Dreyfus -- ~70-90% of global grain trade',metric:'~70-90% global grain trade -- Cargill: largest US private company by revenue',source:'Oxfam 2012 / SOMO',date:'2023',status:'rep',connections:['blackrock','vanguard'],tags:['food','agriculture','oligopoly'],events:[{date:'1865',event:'Cargill founded -- remains private'},{date:'2012',event:'Oxfam: ABCD control 70-90% of global grain trade'},{date:'2022',event:'Ukraine war disrupts global grain supply -- ABCD profits surge'}],money:[],detail:'Cargill is the largest private company in the US. ABCD four control grain from farm to export terminal. Market share (70-90%) is from advocacy research (Oxfam/SOMO) -- not officially audited.'},
+  {id:'abcd_grain',tier:0,short:'ABCD Grain',name:'ABCD Grain Traders',role:'ADM / Bunge / Cargill / Louis Dreyfus -- ~70-90% of global grain trade',metric:'~70-90% global grain trade -- Cargill: largest US private company by revenue',source:'Oxfam 2012 / SOMO',date:'2023',status:'rep',connections:['blackrock','vanguard'],tags:['food','agriculture','oligopoly'],events:[{date:'1865',event:'Cargill founded -- remains private'},{date:'2012',event:'Oxfam: ABCD control 70-90% of global grain trade'},{date:'2022',event:'Ukraine war disrupts global grain supply -- ABCD profits surge'}],money:[],detail:'Cargill is the largest private company in the US. ABCD four control grain from farm to export terminal. Market share (70-90%) is from advocacy research (Oxfam/SOMO) -- not officially audited.'},
   {id:'tether',tier:7,short:'Tether',name:'Tether (USDT)',role:'Largest stablecoin -- persistent audit controversy',metric:'~$140B+ in circulation -- NYAG: reserve claim was a lie -- $18.5M settlement 2021',source:'NYAG settlement Feb 2021',date:'2025',status:'rep',connections:['binance'],tags:['crypto','finance','stablecoin'],events:[{date:'2021-02-23',event:'Tether/Bitfinex pay $18.5M NYAG settlement -- NYAG: reserve claim was a lie'}],money:[],detail:'No full independent audit ever published. DOJ investigated Tether for bank fraud (Fortune Jul 2021). Market cap ~$140B+ as of 2025.'}
   ,{id:'ftx',tier:7,short:'FTX/SBF',name:'FTX / Sam Bankman-Fried',role:'Collapsed crypto exchange -- largest crypto fraud in history',metric:'25 years sentenced -- $11B forfeiture -- Judge Kaplan Mar 28 2024',source:'DOJ SDNY / NBC New York Mar 2024',date:'2024-03-28',status:'doc',connections:['tether','altman','binance'],tags:['crypto','fraud','conviction'],events:[{date:'2023-11',event:'SBF convicted on 7 counts'},{date:'2024-03-28',event:'SBF sentenced: 25 years + $11B forfeiture'}],money:[],detail:'$8B+ in customer funds misused. $40M+ in documented 2022-cycle political donations.'}
   ,{id:'binance',tier:7,short:'Binance/CZ',name:'Binance / CZ (Changpeng Zhao)',role:'World largest crypto exchange -- DOJ guilty plea 2023',metric:'$4.3B DOJ settlement Nov 2023 -- CZ: 4 months prison Apr 2024',source:'DOJ Nov 2023 / Reuters',date:'2024',status:'doc',connections:['tether'],tags:['crypto','money-laundering','conviction'],events:[{date:'2023-11',event:'Binance pleads guilty -- $4.3B settlement'},{date:'2024-04',event:'CZ sentenced to 4 months prison'}],money:[],detail:'Processed $898M+ in transactions with sanctioned entities. Largest crypto exchange by volume.'}
-  ,{id:'lazarus',tier:7,short:'Lazarus Group',name:'Lazarus Group / DPRK',role:'North Korea state hacking unit -- crypto theft funds weapons program',metric:'$6.75B cumulative crypto theft -- $2.02B in 2025 alone -- Bybit $1.5B Feb 2025',source:'Chainalysis 2025 / FBI Feb 2025 / OFAC Apr 2022',date:'2025',status:'doc',connections:['kimjongun'],tags:['northkorea','hacking','crypto'],events:[{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus (Apr 2022)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- largest single crypto heist ever -- FBI attribution'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto exchanges',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group operates under DPRK Reconnaissance General Bureau. Funds North Korea nuclear/missile program through crypto theft. $2.02B stolen in 2025 -- 76% of all service compromises globally that year.'}
+  ,{id:'lazarus',tier:7,short:'Lazarus Group',name:'Lazarus Group / DPRK',role:'North Korea state hacking unit -- crypto theft funds weapons program',metric:'$6.75B cumulative crypto theft -- $2.02B in 2025 alone -- Bybit $1.5B Feb 2025',source:'Chainalysis 2025 / FBI Feb 2025 / OFAC Apr 2022',date:'2025',status:'doc',connections:['kimjongun','tether'],tags:['northkorea','hacking','crypto'],events:[{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus (Apr 2022)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- largest single crypto heist ever -- FBI attribution'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto exchanges',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group operates under DPRK Reconnaissance General Bureau. Funds North Korea nuclear/missile program through crypto theft. $2.02B stolen in 2025 -- 76% of all service compromises globally that year.'}
   ,{id:'netanyahu',tier:'0c',short:'Netanyahu',name:'Benjamin Netanyahu',role:'Israeli PM -- ICC arrest warrant Nov 2024',metric:'ICC arrest warrant Nov 2024 -- war crimes/crimes against humanity',source:'ICC Pre-Trial Chamber I Nov 21 2024',date:'2024-11-21',status:'doc',connections:['mossad','aipac'],tags:['israel','politics','icc'],events:[{date:'2024-11-21',event:'ICC issues arrest warrant for Netanyahu and former Def Min Gallant'},{date:'2025',event:'US sanctions ICC officials over investigation (reported)'}],money:[],detail:'ICC Pre-Trial Chamber I: arrest warrant issued for Netanyahu on charges relating to use of starvation as war method. Israel contests ICC jurisdiction.'}
   // ============================================================
   // AI TECH GIANTS -- DOCUMENTED POWER POSITIONS 2025-2026
   // ============================================================
-  ,{id:'openai',tier:'0b',short:'OpenAI',name:'OpenAI / Sam Altman',
+  ,{id:'openai',tier:'0d',short:'OpenAI',name:'OpenAI / Sam Altman',
     role:'Most valuable AI company -- $852B valuation -- 900M+ weekly users -- US defense contracts',
     metric:'$852B post-money valuation (Mar 2026) -- $122B raise -- $25B ARR -- DoD $200M contract Jul 2025',
     source:'CNBC Mar 2026 / OpenAI blog / DoD Jul 2025',date:'2026-03-31',status:'doc',
@@ -1269,7 +1416,7 @@ const ACTORS=[
     ],
     detail:'OpenAI holds ~$25B ARR (early 2026), 900M+ weekly active ChatGPT users, 50M+ subscribers. Infrastructure obligations exceed $1.15T across Oracle/Microsoft/Amazon (PitchBook). Cash burn projected at $27B in 2026 -- does not turn cash-flow positive until 2030. Claude Gov and GPT-4o deployed at US national security agencies. Elon Musk lawsuit dismissed May 18 2026.'
   }
-  ,{id:'anthropic_co',tier:'0b',short:'Anthropic',name:'Anthropic / Dario Amodei',
+  ,{id:'anthropic_co',tier:'0d',short:'Anthropic',name:'Anthropic / Dario Amodei',
     role:'$965B AI safety company -- Claude -- US classified military AI -- IPO filing Jun 2026',
     metric:'$965B valuation (May 2026) -- $47B ARR -- $125B total raised -- classified DoD + intel agency deployment',
     source:'Wikipedia / TechCrunch May 2026 / Sacra Jun 2026',date:'2026-05-28',status:'doc',
@@ -1294,7 +1441,7 @@ const ACTORS=[
     ],
     detail:'As of Feb 2026, Anthropic via Palantir partnership makes Claude the ONLY AI model used in classified missions. Claude Gov deployed at multiple US national security agencies. Claude Code at $2.5B ARR (Feb 2026) -- 4% of all GitHub public commits globally. 300K+ business customers. Filed confidentially for IPO Jun 1 2026. Raised $125B total. In Nov 2025: Chinese state-sponsored hackers used Claude for automated cyberattacks against 30 global organizations.'
   }
-  ,{id:'nvidia_ai',tier:'0b',short:'Nvidia / Jensen Huang',name:'Nvidia / Jensen Huang',
+  ,{id:'nvidia_ai',tier:'0d',short:'Nvidia / Jensen Huang',name:'Nvidia / Jensen Huang',
     role:'$4T+ market cap -- monopoly on AI training chips -- controls AI compute infrastructure globally',
     metric:'$4T+ market cap (Jul 2025 -- first company ever) -- ~92% AI GPU market share -- H100/H200/Blackwell monopoly',
     source:'TheStreet Jun 2026 / CNBC / SEC filings',date:'2026',status:'doc',
@@ -1315,7 +1462,7 @@ const ACTORS=[
     ],
     detail:'Nvidia holds ~92% market share in AI training chips. Every major AI model -- GPT-4, Claude, Gemini, Llama -- trained on Nvidia GPUs. Jensen Huang net worth ~$167B mid-2026 (TheStreet). Hyperscalers signing 3-year GPU supply contracts with full upfront prepayments. Export controls to China previously removed $50B+ annual revenue -- H200 approvals for 10 Chinese firms announced May 2026. Nvidia chips are the single point of control for all AI development globally.'
   }
-  ,{id:'microsoft_ai',tier:3,short:'Microsoft / Satya',name:'Microsoft / Satya Nadella',
+  ,{id:'microsoft_ai',tier:'0d',short:'Microsoft / Satya',name:'Microsoft / Satya Nadella',
     role:'$3T company -- 27% OpenAI -- Azure AI cloud -- Copilot -- $190B 2026 capex',
     metric:'$3T market cap -- $13B OpenAI investment worth $228B -- Azure AI at $37B run rate -- $190B capex 2026',
     source:'Microsoft 10-Q Mar 2026 / CNBC / Globe and Mail May 2026',date:'2026',status:'doc',
@@ -1335,7 +1482,7 @@ const ACTORS=[
     ],
     detail:'Microsoft 10-Q (Mar 2026): holds ~27% of OpenAI on as-converted basis. Net gains from OpenAI investment: $5.9B over 9 months ending Mar 31 2026. The Azure AI business runs at $37B -- driven by OpenAI compute purchases. $190B capex in 2026. The structure is circular: Microsoft funds OpenAI, OpenAI buys Azure, Azure books revenue, Microsoft marks up OpenAI stake. Azure capacity constrained through 2026. OpenAI IPO could unlock $228B stake.'
   }
-  ,{id:'google_ai',tier:3,short:'Google / DeepMind',name:'Google / DeepMind / Gemini',
+  ,{id:'google_ai',tier:'0d',short:'Google / DeepMind',name:'Google / DeepMind / Gemini',
     role:'Alphabet $2T -- DeepMind -- Gemini -- $40B Anthropic investor -- Waymo -- AI monopoly threat',
     metric:'Alphabet ~$2T market cap -- $40B Anthropic investment Apr 2026 -- DeepMind founded 2010 -- Gemini 1.5 Pro',
     source:'PYMNTS Apr 2026 / Alphabet 10-K',date:'2026',status:'doc',
@@ -1355,7 +1502,7 @@ const ACTORS=[
     ],
     detail:'Google faces existential threat from AI search alternatives. Response: $40B into Anthropic + own Gemini models + Waymo autonomous vehicles. DeepMind: AlphaFold solved protein folding (2020) -- Nobel Prize-adjacent. Google Cloud TPUs are the primary alternative to Nvidia for AI compute. DOJ antitrust case (2024-2026) targets Google search monopoly -- outcome pending. Google holds 90%+ search market share globally.'
   }
-  ,{id:'xai_musk',tier:3,short:'xAI / Grok',name:'xAI / Elon Musk',
+  ,{id:'xai_musk',tier:'0d',short:'xAI / Grok',name:'xAI / Elon Musk',
     role:'Grok AI -- $50B raise -- merged with SpaceX -- DoD $200M contract -- targeting $2T valuation',
     metric:'SpaceX+xAI merger targeting $2T valuation IPO -- $50B raise -- DoD $200M AI contract Jul 2025',
     source:'TechCrunch May 2026 / DoD Jul 2025',date:'2026',status:'doc',
@@ -1472,7 +1619,7 @@ const ACTORS=[
     money:[{from:'Wealthy member states',arrow:'quota contributions',to:'IMF',label:'Largest: US ($118B), Japan, China, Germany',source:'IMF quotas'}],
     detail:'IMF structural adjustment programs historically required privatization, currency devaluation, and austerity in exchange for loans -- documented to worsen inequality (Joseph Stiglitz, Nobel 2001, former World Bank chief economist, documented internal critiques). World Bank largest shareholder: US (16.38% + veto power). IMF largest shareholder: US (17.43% + veto power).'
   }
-  ,{id:'skull_bones',tier:1,short:'Skull & Bones',name:'Skull and Bones / Order 322',
+  ,{id:'skull_bones',tier:0,short:'Skull & Bones',name:'Skull and Bones / Order 322',
     role:'Yale secret society -- documented Bush family + Kerry + CIA directors -- Stimson center',
     metric:'Founded 1832 -- ~800 living members -- documented US Presidents, CIA directors, Senators',
     source:'Ron Rosenbaum Esquire 1977 / Yale archives / court records',date:'2023',status:'rep',
@@ -1524,6 +1671,232 @@ const ACTORS=[
       {from:'Auren Hoffman (SafeGraph/LiveRamp)',arrow:'chairs',to:'Dialog Society',label:'data broker runs shadow governance network',source:'Wired Jun 2026'},
     ],
     detail:'Dialog is not merely a conference. The roster places regulators in the same private room as the companies they regulate: Ted Cruz (chairs FTC oversight) with data broker founders; Scott Bessent (Treasury, writes financial data rules) with Auren Hoffman (SafeGraph, LiveRamp -- major data brokers); Joe Lonsdale (Palantir, runs ICE/Pentagon systems) with Army Sec. Driscoll and House Intel Committee ranking member. The ideology is documented: Thiel (2009, Cato Unbound): "I no longer believe that freedom and democracy are compatible." The project has a name -- Network State (Balaji Srinivasan 2022): replace territorial democracy with invitation-only networks of aligned elites. Dialog is 20 years of that project made operational. The 2026 agenda: Navigating WWIII, Battlefield Technologies, Build-a-Cult, Build-a-Party, Bring Back Nuclear, How is Your Sex Life. Dialog also runs a private dating app. None of the 222 used government email -- all attendance kept outside public records laws.'
+  }
+  // ============================================================
+  // DEFENSE PRIMES -- BIG 5 (public SEC/SIPRI data only)
+  // ============================================================
+  ,{id:'rtx',tier:5,short:'RTX/Raytheon',name:'RTX Corporation (Raytheon)',
+    role:'2nd-largest US defense prime -- missiles, radars, jet engines',
+    metric:'$40.6B defense revenue 2024 -- Patriot, Tomahawk, F135 engine (F-35)',
+    source:'SIPRI arms industry database 2025 -- company 10-K',date:'2025',status:'doc',
+    connections:['pentagon','lockheed','nato'],
+    tags:['military','usa','defense-contractor'],
+    events:[
+      {date:'2020',event:'Formed from merger of Raytheon Company and United Technologies'},
+      {date:'2024',event:'$40.6B in defense revenue -- Patriot, Stinger, Tomahawk, AIM-9X missile systems'},
+      {date:'2026-04',event:'$3.7B Patriot GEM-T contract awarded amid global air defense demand surge'},
+    ],
+    money:[{from:'US DoD',arrow:'contracts',to:'RTX',label:'$24.1B-$34B annual (2023-2025 range)',source:'USAspending.gov / DoD budget'}],
+    detail:'RTX combines Raytheon (Patriot, Stinger, Tomahawk, radars, cybersecurity) with Pratt & Whitney (F135 engine powering the F-35, commercial aviation engines). Ranked #2 among US defense primes by SIPRI. Publicly traded (NYSE: RTX), $183B market cap.'
+  }
+  ,{id:'northrop',tier:5,short:'Northrop Grumman',name:'Northrop Grumman',
+    role:'B-21 stealth bomber -- Sentinel ICBM -- space systems',
+    metric:'$37.85B defense revenue 2024 -- B-21 Raider, Sentinel ICBM (GBSD)',
+    source:'SIPRI 2025 / company 10-K',date:'2025',status:'doc',
+    connections:['pentagon','rtx'],
+    tags:['military','usa','defense-contractor','space'],
+    events:[
+      {date:'2024',event:'$37.85B defense revenue -- B-21 Raider stealth bomber, Sentinel ICBM, space systems'},
+      {date:'2025',event:'Continues Sentinel ICBM (GBSD) program -- full replacement of US land-based nuclear deterrent'},
+    ],
+    money:[{from:'US DoD',arrow:'contracts',to:'Northrop Grumman',label:'B-21 + Sentinel multi-decade programs',source:'DoD budget justification documents'}],
+    detail:'Publicly traded (NYSE: NOC). Builds the B-21 Raider (next-generation stealth bomber) and the Sentinel ICBM -- the complete replacement of the US land-based nuclear missile arsenal. Also a top-3 US space systems contractor.'
+  }
+  ,{id:'general_dynamics',tier:5,short:'General Dynamics',name:'General Dynamics',
+    role:'Abrams tanks -- nuclear submarines -- Gulfstream jets',
+    metric:'$33.63B defense revenue 2024 -- Virginia/Columbia-class submarines, Abrams tanks',
+    source:'SIPRI 2025 / company 10-K',date:'2025',status:'doc',
+    connections:['pentagon','nato'],
+    tags:['military','usa','defense-contractor'],
+    events:[
+      {date:'2024',event:'$33.63B defense revenue across aerospace, marine systems, combat systems, technologies'},
+    ],
+    money:[{from:'US DoD',arrow:'contracts',to:'General Dynamics',label:'$35.9B FY2025 federal contract obligations',source:'USAspending.gov FY2025'}],
+    detail:'Publicly traded (NYSE: GD). Four segments: aerospace (Gulfstream business jets), marine systems (Virginia-class and Columbia-class nuclear submarines), combat systems (Abrams tanks, Stryker vehicles), and technologies/IT.'
+  }
+  ,{id:'boeing_defense',tier:5,short:'Boeing Defense',name:'Boeing Defense, Space & Security',
+    role:'Military aircraft -- satellites -- space systems',
+    metric:'$30.55B defense revenue 2024 -- F/A-18, Apache, satellite programs',
+    source:'SIPRI 2025 / company 10-K',date:'2025',status:'doc',
+    connections:['pentagon','nato'],
+    tags:['military','usa','defense-contractor','space'],
+    events:[
+      {date:'2024',event:'$30.55B defense revenue -- military aircraft and satellite programs anchor US/allied fleets'},
+    ],
+    money:[],
+    detail:'Boeing Defense, Space & Security division (parent: Boeing NYSE:BA). Builds F/A-18 Super Hornet, Apache and Chinook helicopters, and satellite systems for US and allied militaries. Part of the "Big 5" US defense primes alongside Lockheed, RTX, Northrop, and General Dynamics.'
+  }
+  // ============================================================
+  // SECRETIVE ELITE SOCIETIES -- documented via confirmed public leaks only
+  // ============================================================
+  ,{id:'bohemian_grove',tier:'2b',short:'Bohemian Grove',name:'Bohemian Club / Bohemian Grove',
+    role:'Private all-male retreat -- 2,700-acre Sonoma County compound -- ~2,200 members leaked 2026',
+    metric:'Founded 1872 -- 2,200-name membership list leaked Feb 2026, member-confirmed authentic',
+    source:'SF Standard Feb 2026 (journalist Daniel Boguslaw) -- ProPublica (Clarence Thomas reporting)',date:'2026-02-25',status:'doc',
+    connections:['skull_bones','cfr','bilderberg'],
+    tags:['secretive','usa','elite'],
+    events:[
+      {date:'1872',event:'Bohemian Club founded in San Francisco by journalists, artists, musicians'},
+      {date:'1899',event:'Annual Bohemian Grove summer encampment tradition begins at Sonoma County compound'},
+      {date:'1970s',event:'Ronald Reagan inducted into the Bohemian Club -- documented in club/press records'},
+      {date:'2004-2019',event:'Justice Clarence Thomas documented as long-time attendee/guest -- ProPublica reporting on undisclosed hospitality'},
+      {date:'2026-02-25',event:'Journalist Daniel Boguslaw obtains full 2023 attendance list (~2,200 names) -- authenticity confirmed by a club member to SF Standard'},
+      {date:'2026-03',event:'Investigation finds roughly 25% of Heritage Foundation board were Bohemian Club members during Project 2025 drafting period'},
+    ],
+    money:[],
+    detail:'Private, all-male retreat club, membership and guest lists historically undisclosed by the club itself ("does not maintain public membership lists" -- official statement). The 2026 leak is the most complete public documentation to date: confirmed past attendees include Richard Nixon, Ronald Reagan, Herbert Hoover, Dwight Eisenhower, George H.W. Bush, Henry Kissinger, Clarence Thomas, Eric Schmidt, Michael Bloomberg. Status: DOCUMENTED for the leak itself and named historical attendees (multiple independent press/archival sources); membership vs. one-time-guest status is not always distinguishable in the leaked document.'
+  }
+  // ============================================================
+  // RUSSIA STATE APPARATUS -- nuclear + space (public corporate record)
+  // ============================================================
+  ,{id:'rosatom',tier:0,short:'Rosatom',name:'Rosatom (State Atomic Energy Corp)',
+    role:'Russian state nuclear monopoly -- civilian + weapons complex -- occupies Zaporizhzhia NPP',
+    metric:'Founded 2007 by Putin -- 371,000+ employees -- controls entire Russian nuclear value chain',
+    source:'Wikipedia/TAdviser corporate record -- Bellona.org 2025 analysis',date:'2025',status:'doc',
+    connections:['putin','roscosmos'],
+    tags:['russia','nuclear','state-owned'],
+    events:[
+      {date:'2007-12-01',event:'Rosatom founded by law signed by Vladimir Putin -- consolidates 350+ nuclear enterprises'},
+      {date:'2022',event:'Rosatom personnel occupy Zaporizhzhia Nuclear Power Plant, Ukraine -- first seizure of an active nuclear plant in wartime'},
+      {date:'2025',event:'Bellona analysis: Rosatom functions as a multifunctional state instrument beyond civilian nuclear -- Arctic development, dual-use infrastructure, nuclear diplomacy despite sanctions'},
+    ],
+    money:[],
+    detail:'100% Russian state-owned. Manages the entire nuclear value chain: uranium mining, enrichment, reactor construction/export, decommissioning, AND the nuclear weapons complex. Largest electricity producer in Russia (20.28% of national generation). Active in nuclear plant exports to multiple countries despite Western sanctions.'
+  }
+  ,{id:'roscosmos',tier:0,short:'Roscosmos',name:'Roscosmos (State Space Corp)',
+    role:'Russian state space agency -- Baikonur/Plesetsk/Vostochny -- nuclear-lunar cooperation with China',
+    metric:'170,500 employees -- 154 billion ruble annual budget (2021) -- 3 spaceports',
+    source:'Official agency records -- The National Interest Jan 2026',date:'2025',status:'doc',
+    connections:['rosatom','putin'],
+    tags:['russia','space','state-owned'],
+    events:[
+      {date:'1992-02-25',event:'Roscosmos formed as Russian Space Agency, successor to Soviet space program'},
+      {date:'2026-01',event:'Contracts NPO Lavochkin to develop nuclear-powered lunar energy station by 2036 -- joint China-Russia International Lunar Research Station (ILRS)'},
+    ],
+    money:[],
+    detail:'Russian state space corporation operating Baikonur, Plesetsk, and Vostochny cosmodromes. Developing nuclear lunar infrastructure jointly with China (Rosatom + Kurchatov Institute) as part of the ILRS program -- direct evidence of deepening Russia-China space/nuclear cooperation.'
+  }
+  // ============================================================
+  // CHINA DEFENSE-INDUSTRIAL COMPLEX (SIPRI-ranked, state-owned, public data)
+  // ============================================================
+  ,{id:'avic',tier:0,short:'AVIC',name:'Aviation Industry Corp of China',
+    role:'China -- 2nd largest global defense firm by revenue -- builds entire PLA combat aircraft fleet',
+    metric:'$82.65B total revenue 2024 -- $44.9B defense revenue 2023 (SIPRI #2 globally after Lockheed)',
+    source:'SIPRI arms industry database -- Wikipedia corporate record',date:'2025',status:'doc',
+    connections:['ccp','xi','pla'],
+    tags:['china','military','state-owned'],
+    events:[
+      {date:'1951-04-01',event:'Founded as Aviation Industry Administration Commission'},
+      {date:'2023',event:'SIPRI ranks AVIC #2 global defense firm by revenue ($44.9B), trailing only Lockheed Martin'},
+      {date:'2025',event:'J-20 fifth-gen fighter production estimated 100-120 units/year (independent analyst estimates); J-35 carrier fighter line at AVIC Shenyang'},
+    ],
+    money:[],
+    detail:'State-owned, overseen by the State-owned Assets Supervision and Administration Commission. Builds the entire PLA combat aircraft, helicopter, and trainer fleet: J-20 stealth fighter, J-35 carrier fighter, Y-20 transport, Z-20 helicopter. Fortune Global 500 #140 (2021). Sanctioned subsidiaries appear on US Treasury and Pentagon Chinese military company lists.'
+  }
+  ,{id:'norinco',tier:0,short:'Norinco',name:'China North Industries Group (Norinco)',
+    role:'China state defense conglomerate -- armored vehicles, munitions, missiles',
+    metric:'$82.6B revenue 2023 -- 216,339 employees -- SIPRI top-10 global defense firm',
+    source:'Wikipedia corporate record -- SIPRI 2025',date:'2025',status:'doc',
+    connections:['ccp','pla','avic'],
+    tags:['china','military','state-owned'],
+    events:[
+      {date:'1980',event:'Norinco Group founded'},
+      {date:'2023',event:'$82.6B revenue, $1.7B net income -- ranked among world top-10 defense contractors by SIPRI'},
+      {date:'2025',event:'Reuters/SIPRI: revenue fell 31% to $14B amid corruption-related personnel purges and government reviews'},
+    ],
+    money:[],
+    detail:'State-owned, publicly listed (SZSE: 000065). Manufactures tank/artillery munitions, small arms, armored vehicles, missiles, and anti-aircraft systems for the PLA and export customers. One of five major Chinese state defense conglomerates alongside AVIC, CASC, CSSC, and CETC.'
+  }
+  ,{id:'cssc',tier:0,short:'CSSC',name:'China State Shipbuilding Corp',
+    role:'China state shipbuilder -- PLA Navy warships -- worlds largest shipbuilder by tonnage',
+    metric:'$48.9B revenue 2023 -- 196,309 employees -- SIPRI top-10 global defense firm',
+    source:'Wikipedia corporate record -- SIPRI 2025',date:'2025',status:'doc',
+    connections:['ccp','pla'],
+    tags:['china','military','state-owned'],
+    events:[
+      {date:'1982-05-04',event:'China State Shipbuilding Corporation founded'},
+      {date:'2023',event:'$48.9B revenue -- SIPRI top-10 global defense firm ranking, 8th place'},
+    ],
+    money:[],
+    detail:'State-owned. Builds the majority of PLA Navy warships including aircraft carriers, destroyers, and submarines. Also the world\'s largest commercial shipbuilder by tonnage -- dual civilian/military production gives China unmatched naval shipbuilding capacity versus the US.'
+  }
+  // ============================================================
+  // PRIVATE EQUITY MEGA-FUNDS (SEC-filed public AUM data)
+  // ============================================================
+  ,{id:'blackstone',tier:'1b',short:'Blackstone',name:'Blackstone Inc.',
+    role:'Worlds largest alternative asset manager -- real estate, PE, credit, infrastructure',
+    metric:'$1.26-1.3T total AUM (Q3 2025-Q1 2026) -- 250+ active portfolio companies',
+    source:'Blackstone SEC Form 8-K FY2025 -- company Q3 2025 earnings',date:'2025',status:'doc',
+    connections:['blackrock','vanguard'],
+    tags:['finance','private-equity'],
+    events:[
+      {date:'1985',event:'Blackstone founded in New York'},
+      {date:'2025-10-23',event:'Reports $1.26T total AUM, up 8% YoY -- fee-earning AUM $1.05T'},
+      {date:'2026',event:'Total AUM reaches $1.3T -- high-net-worth channel grows to $250B+ of total firm AUM'},
+    ],
+    money:[],
+    detail:'Publicly traded (NYSE: BSE). Largest alternative asset manager on Earth. Operates across private equity (26% of fee-earning AUM), real estate (31%), private credit (34%), and other alternatives. 84% institutional investors, 16% high-net-worth channel. SEC-filed AUM rollforward data, fully public.'
+  }
+  ,{id:'apollo_global',tier:'1b',short:'Apollo Global',name:'Apollo Global Management',
+    role:'Major alternative asset manager -- credit, retirement services, distressed assets',
+    metric:'$840B-$938B AUM (2025-2026) -- 21% YoY growth -- targeting $1T by 2026',
+    source:'Company Q2 2025 earnings -- industry AUM rankings 2026',date:'2025',status:'doc',
+    connections:['blackstone'],
+    tags:['finance','private-equity'],
+    events:[
+      {date:'1990',event:'Apollo Global Management founded'},
+      {date:'2011',event:'Apollo goes public (NYSE: APO)'},
+      {date:'2025',event:'$840B AUM, 21% YoY growth -- targeting $1T by 2026, $1.5T within 5 years'},
+    ],
+    money:[],
+    detail:'Publicly traded (NYSE: APO). Differentiates via credit solutions and distressed-asset investing rather than traditional buyouts -- credit segment is the majority of total AUM, including a large retirement-services/insurance annuities business (Athene).'
+  }
+  ,{id:'carlyle',tier:'1b',short:'Carlyle Group',name:'The Carlyle Group',
+    role:'Global alternative asset manager -- buyouts, credit, real assets -- DC-based',
+    metric:'$426-474B AUM (2025) -- 3,100+ active investors from 87 countries',
+    source:'Company Q3 2025 filings -- industry AUM rankings',date:'2025',status:'doc',
+    connections:['blackstone'],
+    tags:['finance','private-equity'],
+    events:[
+      {date:'1987',event:'The Carlyle Group founded in Washington DC'},
+      {date:'2022',event:'Private debt business outstrips private equity business for first time in 35-year history'},
+      {date:'2025',event:'$474.1B total AUM -- 29 offices across 5 continents, 3,100+ active carry fund investors from 87 countries'},
+    ],
+    money:[],
+    detail:'Publicly traded (NASDAQ: CG). Historically noted for deep Washington political connections (documented past advisors/board members include former senior US and UK government officials -- widely reported in business press since the 1990s-2000s). Three segments: global private equity, global credit, investment solutions.'
+  }
+  // ============================================================
+  // US INTELLIGENCE (public ODNI-disclosed aggregate budget figures only)
+  // ============================================================
+  ,{id:'nro',tier:0,short:'NRO',name:'National Reconnaissance Office',
+    role:'Builds/operates US spy satellites -- one of the Big Five US intelligence agencies',
+    metric:'Existence declassified 1992 -- part of $106.3B combined NIP+MIP FY2024 budget (ODNI aggregate disclosure)',
+    source:'ODNI annual aggregate budget disclosure -- Washington Post Black Budget project -- nro.gov',date:'2024',status:'doc',
+    connections:['five_eyes','pentagon'],
+    tags:['intelligence','usa','surveillance'],
+    events:[
+      {date:'1960-08-25',event:'NRO established -- so secretive its name itself was classified for 32 years'},
+      {date:'1992-09-18',event:'NRO existence formally declassified'},
+      {date:'2013',event:'Washington Post Black Budget project publishes leaked FY2013 aggregate figures: CIA+NSA+NRO receive 68%+ of total US intelligence budget'},
+      {date:'2023',event:'NRO announces plan to quadruple operated satellites and increase signals/imagery delivery tenfold within a decade'},
+      {date:'2024',event:'ODNI discloses combined NIP ($76.5B) + MIP ($29.8B) = $106.3B aggregate intelligence budget -- line-item detail remains classified by law'},
+    ],
+    money:[],
+    detail:'Builds and operates US signals/imagery reconnaissance satellites. One of the "Big Five" US intelligence agencies (CIA, NSA, NRO, DIA, NGA). Individual agency budgets are NOT public -- only the combined National Intelligence Program + Military Intelligence Program aggregate is disclosed annually by law (since 2013, per a 1949 CIA Act framework predating that disclosure requirement). This entry reports only that lawfully published aggregate; no classified figures are included.'
+  }
+  ,{id:'opus_dei',tier:'1b',short:'Opus Dei',name:'Opus Dei (Prelature of the Holy Cross)',
+    role:'Catholic personal prelature -- documented public membership list -- Vatican-recognized',
+    metric:'Personal prelature status since 1982 -- membership figures published in Vatican/Opus Dei annual directories',
+    source:'Wikipedia "List of members of Opus Dei" -- Opus Dei official bulletin Romana',date:'2025',status:'doc',
+    connections:['vatican'],
+    tags:['religion','secretive','elite'],
+    events:[
+      {date:'1928',event:'Opus Dei founded in Spain by Josemaria Escriva'},
+      {date:'1982',event:'Pope John Paul II establishes Opus Dei as the Catholic Churchs first "personal prelature"'},
+      {date:'2017',event:'Joaquin Navarro-Valls (numerary member, former Vatican Press Office Director 1984-2006) dies -- documented Opus Dei-Vatican leadership overlap'},
+    ],
+    money:[],
+    detail:'The only documented members reported here are those published in official Catholic sources (Romana bulletin, Vatican directories) or verified by mainstream press -- e.g. Joaquin Navarro-Valls, who ran the Vatican Press Office for 22 years while a numerary Opus Dei member. Opus Dei maintains separate unpublished lists of "cooperators" (non-member supporters, not Catholic-required) which are NOT included here as they are not public record.'
   }
 ];
 
@@ -1810,6 +2183,11 @@ const POWER_INDEX={
   'openai':88,'anthropic_co':82,'nvidia_ai':91,'microsoft_ai':85,'google_ai':86,'xai_musk':75,
   'pentagon':88,'five_eyes':85,'nato':76,'palantir':72,'aramco':74,'imf_wb':79,'skull_bones':55,'bank_of_england':70,
   'dialog_society':74,
+  'rtx':80,'northrop':78,'general_dynamics':76,'boeing_defense':74,
+  'bohemian_grove':71,'rosatom':77,'roscosmos':70,
+  'avic':81,'norinco':73,'cssc':72,
+  'blackstone':85,'apollo_global':78,'carlyle':74,
+  'nro':83,'opus_dei':58,
   // Other
   'adia':72,'qia':68,'kia':65,'wagner':52,'oligarchs':60,'gazprom':66,
   'huawei':64,'bri':82,'cic':70,
@@ -1944,6 +2322,51 @@ window.closeModal=closeModal;
 document.getElementById('modal').addEventListener('click',e=>e.stopPropagation());
 
 // ============================================================
+// TIER METHODOLOGY INFO MODAL
+// ============================================================
+// Plain-language criteria for each tier -- kept in sync with TIER_META keys.
+// If a new tier key is added to TIER_META, add its description here too.
+const TIER_CRITERIA={
+  '-1':'Self-selected, no formal government mandate. Cross-national elite coordination bodies whose membership is by invitation, not election or appointment (BIS, Bilderberg, CFR, Trilateral, WEF).',
+  0:'State-level or civilizational-scale power: multi-generational dynasties, national leadership apparatus of major powers (China, Russia), sovereign wealth funds, and state intelligence bodies with global reach.',
+  '0b':'Chokepoint infrastructure providers -- single points of control or failure the global economy depends on (chip lithography, semiconductor fabrication, interbank messaging, satellite internet).',
+  '0c':'A special case kept structurally distinct: the US-Israel bilateral relationship, treated separately due to its unique combination of undeclared nuclear status and unconditional allied backing.',
+  '0d':'Frontier AI model and compute owners -- the newest power layer, control over training infrastructure and the models themselves.',
+  1:'Multi-generational private dynastic wealth with centuries of documented institutional reach (banking houses, industrial dynasties).',
+  '1b':'Non-elected institutions the global financial system structurally depends on: the largest asset managers, the Federal Reserve, and non-state sovereign bodies (Vatican).',
+  2:'Formal multilateral institutions with treaty-based mandates (IMF, World Bank, NATO) plus additional sovereign financial vehicles.',
+  '2b':'Power exercised through access-brokering, lobbying, and private networks rather than owning a formal institution outright.',
+  3:'Individual tech-sector billionaires and the personal fortunes/companies they founded and still control.',
+  '3b':'Pharmaceutical-sector dynastic and corporate power, kept distinct from general tech/finance due to its own regulatory and public-health dimension.',
+  4:'A specific documented criminal-adjacent elite network, kept as its own category due to the volume of court and investigative record specific to it.',
+  '4b':'Hereditary monarchies with constitutional or absolute authority still in effect today.',
+  5:'Defense contractors, private military contractors, and the military-industrial complex.',
+  6:'Elected or formerly-elected political figures and political-adjacent organizations.',
+  7:'Cryptocurrency and illicit-finance networks operating partly or wholly outside regulated systems.',
+};
+
+function openTierInfo(){
+  const list=document.getElementById('tier-info-list');
+  if(!list.dataset.built){
+    list.dataset.built='1';
+    list.innerHTML=Object.entries(TIER_META).map(([k,v])=>{
+      const crit=TIER_CRITERIA[k]||'Criteria not yet documented for this tier.';
+      return `<div style="margin-bottom:.65rem;padding-left:.6rem;border-left:3px solid ${v.color}">
+        <strong style="color:${v.color}">${v.label}</strong> <span style="color:var(--muted2)">-- ${v.title}</span><br>
+        <span style="color:var(--muted)">${crit}</span>
+      </div>`;
+    }).join('');
+  }
+  document.getElementById('tier-info-overlay').style.display='flex';
+}
+function closeTierInfo(e){
+  if(e&&e.target!==document.getElementById('tier-info-overlay'))return;
+  document.getElementById('tier-info-overlay').style.display='none';
+}
+window.openTierInfo=openTierInfo;
+window.closeTierInfo=closeTierInfo;
+
+// ============================================================
 // BUILD PYRAMID (SVG)
 // ============================================================
 function buildPyramid(){
@@ -1979,23 +2402,24 @@ function _drawPyramid(canvasW){
   const TIERS=[
     {t:'-1',actors:['bis','bilderberg','cfr','trilateral','wef']},
     {t:0,actors:['rothschild','rockefeller','warburg','morgan','skull_bones']},
-    {t:'1b',actors:['vatican','fed','blackrock','vanguard','statestreet']},
-    {t:0,actors:['xi','ccp','pla','bri','nuclear','brics']},
-    {t:0,actors:['putin','fsb_gru','oligarchs','gazprom','wagner']},
-    {t:0,actors:['five_eyes']},
+    {t:0,actors:['xi','ccp','pla','bri','nuclear','brics','avic','norinco','cssc']},
+    {t:0,actors:['putin','fsb_gru','oligarchs','gazprom','wagner','rosatom','roscosmos']},
+    {t:0,actors:['five_eyes','nro']},
+    {t:0,actors:['adia','qia','kia','cic','abcd_grain']},
     {t:'0c',actors:['mossad','aipac','netanyahu']},
     {t:'0b',actors:['asml','tsmc','swift','starlink']},
     {t:'0d',actors:['openai','anthropic_co','nvidia_ai','microsoft_ai','google_ai','xai_musk']},
-    {t:'2b',actors:['soros','koch','kissinger','palantir','dialog_society']},
+    {t:'1b',actors:['vatican','fed','blackrock','vanguard','statestreet','blackstone','apollo_global','carlyle','opus_dei']},
+    {t:2,actors:['nato','imf_wb','aramco','bank_of_england']},
+    {t:'2b',actors:['soros','koch','kissinger','palantir','dialog_society','bohemian_grove']},
     {t:3,actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
     {t:3,actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
+    {t:3,actors:['adani','bezos_earth','huawei','chan_zuckerberg']},
     {t:'3b',actors:['sackler','johnson','wellcome','turner']},
     {t:4,actors:['epstein','maxwell','wexner','andrew']},
     {t:'4b',actors:['windsor','saud']},
-    {t:5,actors:['pentagon','lockheed','halliburton']},
+    {t:5,actors:['pentagon','lockheed','halliburton','rtx','northrop','general_dynamics','boeing_defense']},
     {t:6,actors:['trump','clinton','schwab','modi','kimjongun','irgc']},
-    {t:0,actors:['adia','qia','kia','cic','abcd_grain']},
-    {t:2,actors:['nato','imf_wb','aramco','bank_of_england','palantir']},
     {t:7,actors:['tether','ftx','binance','cartels','lazarus']},
   ];
 
@@ -2038,9 +2462,11 @@ function _drawPyramid(canvasW){
     const tm2=getTierMeta(row.t);
     const lblW2=Math.round((tm2.label.length)*Math.max(8,fSize-2)*0.7)+6;
     const usW2=W-lblW2-8;
-    const GAP2=Math.max(3,Math.min(6,usW2/(count*6)));
-    const nw2=Math.max(40,Math.min((usW2-(GAP2*(count-1)))/count,W*0.18));
-    const effH2=Math.max(22,Math.min(NODE_H,Math.round(ROW_H*0.75)));
+    const GAP2=Math.max(1,Math.min(6,usW2/(count*10)));
+    // No artificial floor -- width MUST fit available space or boxes overlap.
+    // Readability for dense rows comes from shrinking font (see effFont below), not from forcing box width.
+    const nw2=Math.min((usW2-(GAP2*(count-1)))/count, W*0.18);
+    const effH2=Math.max(18,Math.min(NODE_H,Math.round(ROW_H*0.75)));
     row.actors.forEach((aid,i)=>{
       const cx=lblW2+i*(nw2+GAP2)+nw2/2;
       const cy=nodeY+ROW_H*0.12+effH2/2;
@@ -2102,18 +2528,39 @@ function _drawPyramid(canvasW){
         const cp2y=p2.y+(my-p2.y)*0.2;
         pathD=`M${Math.round(p1.x)},${Math.round(p1.y)} C${Math.round(cp1x)},${Math.round(cp1y)} ${Math.round(cp2x)},${Math.round(cp2y)} ${Math.round(p2.x)},${Math.round(p2.y)}`;
       }
-      edgeData.push({key,pathD,col,gk,opacity,from:a.id,to:cid});
+      // Target color -- for rainbow gradient flow direction (source hue -> target hue)
+      const dstT=actorTierMap[cid]||0;
+      const dstCol=tierColor(dstT);
+      edgeData.push({key,pathD,col,dstCol,gk,opacity,from:a.id,to:cid,p1x:p1.x,p1y:p1.y,p2x:p2.x,p2y:p2.y});
     });
   });
 
-  // Single-layer edges with glow filter -- no double lines
+  // -- RAINBOW LASER EDGES --------------------------------------------
+  // Each connection gets its own gradient: source-tier color -> target-tier color.
+  // Shows FLOW DIRECTION visually (color transitions source->destination) without
+  // arrowhead clutter across 225+ edges. Default: dim, glow-filtered.
+  // On hover (.lit class): full brightness + animated moving dash ("laser" travel)
+  // + direction arrowhead visible.
+  svgHtml+=`<defs>`;
+  edgeData.forEach((e,i)=>{
+    svgHtml+=`<linearGradient id="eg-${i}" gradientUnits="userSpaceOnUse" x1="${Math.round(e.p1x)}" y1="${Math.round(e.p1y)}" x2="${Math.round(e.p2x)}" y2="${Math.round(e.p2y)}">
+      <stop offset="0%" stop-color="${e.col}"/>
+      <stop offset="100%" stop-color="${e.dstCol}"/>
+    </linearGradient>
+    <marker id="arr-${i}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="${e.dstCol}"/>
+    </marker>`;
+  });
+  svgHtml+=`</defs>`;
+
   svgHtml+=`<g id="edge-group">`;
-  edgeData.forEach(e=>{
-    svgHtml+=`<path class="pyramid-edge" data-from="${e.from}" data-to="${e.to}" data-base-opacity="${e.opacity}"
+  edgeData.forEach((e,i)=>{
+    svgHtml+=`<path class="pyramid-edge" data-from="${e.from}" data-to="${e.to}" data-base-opacity="${e.opacity}" data-idx="${i}"
       d="${e.pathD}"
-      stroke="${e.col}" stroke-width="1.5"
+      stroke="url(#eg-${i})" stroke-width="1.5"
       filter="url(#gf-${e.gk})"
-      style="opacity:${e.opacity}"/>`;
+      marker-end="url(#arr-${i})"
+      style="opacity:${e.opacity};marker-end:none"/>`;
   });
   svgHtml+=`</g>`;
 
@@ -2133,11 +2580,12 @@ function _drawPyramid(canvasW){
     // Usable width: W minus tier label minus right padding
     const PAD_R=8;
     const usableW=W-lblW-PAD_R;
-    const GAP=Math.max(3,Math.min(6,usableW/(count*6)));
-    const nw=Math.max(40,Math.min((usableW-(GAP*(count-1)))/count, W*0.18));
-    // Effective font and node height scaled to available space
-    const effFont=Math.max(10,Math.min(fSize, Math.floor(nw/5.5)));
-    const effH=Math.max(22,Math.min(NODE_H,Math.round(ROW_H*0.75)));
+    const GAP=Math.max(1,Math.min(6,usableW/(count*10)));
+    // No artificial floor -- must match the nodePos calc above exactly or edges/nodes desync
+    const nw=Math.min((usableW-(GAP*(count-1)))/count, W*0.18);
+    // Effective font and node height scaled to available space -- dense rows get smaller text, not wider boxes
+    const effFont=Math.max(7,Math.min(fSize, Math.floor(nw/5.5)));
+    const effH=Math.max(18,Math.min(NODE_H,Math.round(ROW_H*0.75)));
 
     row.actors.forEach((aid,i)=>{
       const a=ACTORS.find(x=>x.id===aid);
@@ -2145,14 +2593,22 @@ function _drawPyramid(canvasW){
       const cx=lblW+i*(nw+GAP)+nw/2;
       const ny=Math.round(y+ROW_H*0.12);
 
-      // Label: trim to fit node width
-      const maxChars=Math.max(4,Math.floor(nw/(effFont*0.62)));
+      // Label: shrink font to fit FULL name first -- truncation is last resort only
       const rawLabel=a.short||a.name;
-      const label=rawLabel.length>maxChars?rawLabel.slice(0,maxChars-1)+'...':rawLabel;
+      const MIN_FONT=7;
+      let nodeFont=effFont;
+      const fitsAt=(f)=>rawLabel.length*(f*0.62)<=(nw-6);
+      if(!fitsAt(nodeFont)){
+        nodeFont=Math.max(MIN_FONT, Math.floor((nw-6)/(rawLabel.length*0.62)));
+      }
+      const maxChars=Math.max(4,Math.floor((nw-6)/(MIN_FONT*0.62)));
+      const label=(nodeFont<=MIN_FONT && rawLabel.length>maxChars)
+        ? rawLabel.slice(0,maxChars-1)+'...'
+        : rawLabel;
 
       svgHtml+=`<g class="pyramid-node" data-id="${aid}" onclick="openActor('${aid}')" onmouseenter="hlNode('${aid}')" onmouseleave="unhlNode()" transform="translate(${Math.round(cx)},${ny})">
         <rect x="${-Math.round(nw/2)}" y="0" width="${Math.round(nw)}" height="${effH}" rx="4" fill="${tm.color}1a" stroke="${tm.color}70" stroke-width="1"/>
-        <text x="0" y="${Math.round(effH*0.65)}" text-anchor="middle" fill="${tm.color}" font-family="'Courier New',monospace" font-size="${effFont}" font-weight="700">${label}</text>
+        <text x="0" y="${Math.round(effH*0.65)}" text-anchor="middle" fill="${tm.color}" font-family="'Courier New',monospace" font-size="${nodeFont}" font-weight="700">${label}</text>
       </g>`;
     });
   });
@@ -2579,7 +3035,14 @@ window.filterProfiles=filterProfiles;
 // ============================================================
 // PYRAMID HOVER HIGHLIGHT
 // ============================================================
+let _hoverTimer=null;
 function hlNode(aid){
+  // Debounce: a fast pass over many nodes should NOT retrigger dim-mode each time.
+  // Only engage the highlight if the pointer actually rests on a node briefly.
+  clearTimeout(_hoverTimer);
+  _hoverTimer=setTimeout(()=>_hlNodeImmediate(aid),140);
+}
+function _hlNodeImmediate(aid){
   const svg=document.getElementById('pyramid-svg');
   if(!svg||!svg.dataset.built)return;
   // Find this actor's connections
@@ -2594,13 +3057,20 @@ function hlNode(aid){
     n.classList.toggle('lit', isLit);
     n.style.opacity=isLit?'1':'0.15';
   });
-  // Highlight matching edges
+  // Highlight matching edges -- rainbow laser flow + directional arrowhead
   svg.querySelectorAll('.pyramid-edge').forEach(e=>{
     const from=e.dataset.from, to=e.dataset.to;
     const isLit=linked.has(from)&&linked.has(to);
     e.classList.toggle('lit', isLit);
-    if(isLit){ e.style.opacity='1'; e.style.strokeWidth='2.5px'; }
-    else { e.style.opacity='0.03'; e.style.strokeWidth=''; }
+    if(isLit){
+      e.style.opacity='1'; e.style.strokeWidth='';
+      // Show arrowhead only for the direction flowing OUT of the hovered node
+      // (edge is undirected in data, but visually we point away from aid when aid is an endpoint)
+      if(from===aid||to===aid){ e.style.markerEnd=''; } // reveal attribute-set marker
+      else { e.style.markerEnd='none'; } // dim intermediary edges: no arrow clutter
+    } else {
+      e.style.opacity='0.03'; e.style.strokeWidth=''; e.style.markerEnd='none';
+    }
   });
   // Collect all tiers involved in this node + its connections
   const litTiers=new Set();
@@ -2615,6 +3085,9 @@ function hlNode(aid){
   });
 }
 function unhlNode(){
+  // Cancel any pending (not-yet-fired) highlight -- prevents a delayed
+  // highlight from popping in after the pointer has already moved away.
+  clearTimeout(_hoverTimer);
   const svg=document.getElementById('pyramid-svg');
   if(!svg)return;
   svg.classList.remove('dim-mode');
@@ -2622,6 +3095,7 @@ function unhlNode(){
     e.classList.remove('lit');
     e.style.opacity=e.dataset.baseOpacity||'0.07';
     e.style.strokeWidth='';
+    e.style.markerEnd='none';
   });
   svg.querySelectorAll('.pyramid-node').forEach(n=>{
     n.classList.remove('lit');
@@ -3111,6 +3585,77 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   frame();
   document.addEventListener('visibilitychange',function(){animating=!document.hidden;if(!document.hidden)frame();});
+
+  // -- Subtle scroll parallax on the globe wrap -- moves slower than page scroll --
+  const homePage=document.getElementById('page-home');
+  if(homePage){
+    homePage.addEventListener('scroll',function(){
+      const sc=homePage.scrollTop;
+      wrap.style.transform='translateY('+Math.min(sc*0.15,40)+'px)';
+      wrap.style.opacity=Math.max(1-sc/500,0.35);
+    },{passive:true});
+  }
+})();
+
+// ============================================================
+// CREATIVE POLISH -- count-up stats + scroll-reveal cards
+// ============================================================
+(function(){
+  // -- Animated count-up for home stat numbers --
+  function animateCount(el){
+    const target=parseFloat(el.getAttribute('data-count'));
+    const prefix=el.getAttribute('data-prefix')||'';
+    const suffix=el.getAttribute('data-suffix')||'';
+    const dur=1100;
+    const start=performance.now();
+    function step(now){
+      const p=Math.min((now-start)/dur,1);
+      const eased=1-Math.pow(1-p,3); // ease-out cubic
+      const val=Math.round(target*eased);
+      el.textContent=prefix+val+suffix;
+      if(p<1) requestAnimationFrame(step);
+      else el.textContent=prefix+target+suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  // -- Scroll-reveal: fade+rise elements into view once --
+  const revealItems=[...document.querySelectorAll('.reveal-item')];
+  const countEls=[...document.querySelectorAll('[data-count]')];
+  let countedOnce=false;
+
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+          const el=entry.target;
+          const delay=revealItems.indexOf(el)*60;
+          setTimeout(()=>el.classList.add('revealed'),Math.max(0,delay%400));
+          io.unobserve(el);
+        }
+      });
+    },{threshold:0.15});
+    revealItems.forEach(el=>io.observe(el));
+
+    // Trigger count-up once the stats row enters view
+    const statsRow=document.querySelector('.home-stats');
+    if(statsRow){
+      const countIO=new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting && !countedOnce){
+            countedOnce=true;
+            countEls.forEach(el=>animateCount(el));
+            countIO.disconnect();
+          }
+        });
+      },{threshold:0.4});
+      countIO.observe(statsRow);
+    }
+  } else {
+    // No IntersectionObserver support -- show everything immediately, count up right away
+    revealItems.forEach(el=>el.classList.add('revealed'));
+    countEls.forEach(el=>animateCount(el));
+  }
 })();
 </script>
 </body>
