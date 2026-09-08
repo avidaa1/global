@@ -70,6 +70,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 /* NAV */
 #nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:1px 2px;padding:2px 4px;height:auto;flex-shrink:0;width:100%;box-sizing:border-box;overflow:visible}
+.nav-ext{border-left:1px solid rgba(220,38,38,.35);margin-left:4px;padding-left:12px!important}
 .nav-btn{background:none;border:none;color:var(--muted);font-family:var(--font);font-size:clamp(11px,1.1vw,13px);letter-spacing:.02em;padding:4px 8px;cursor:pointer;border-radius:4px;white-space:nowrap;flex:1 1 auto;text-align:center;transition:all .15s}
 .nav-btn:hover{color:var(--text);background:var(--bg3)}
 .nav-btn.active{color:var(--gold);background:rgba(245,158,11,.1);border-bottom:2px solid var(--gold)}
@@ -394,6 +395,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
   <button class="nav-btn" onclick="go('sources',this)" data-full="SOURCES" data-short="SRC">SOURCES</button>
   <button class="nav-btn" onclick="go('israel',this)" data-full="ISRAEL" data-short="IL">ISRAEL</button>
   <button class="nav-btn" onclick="go('blog',this)" data-full="BLOG" data-short="BLOG">BLOG</button>
+  <a class="nav-btn nav-ext" href="https://avidaa1.github.io/corruption/" data-full="CORRUPTION &#x2197;" data-short="CORRUPT &#x2197;" style="color:#dc2626;font-weight:700;text-decoration:none;display:inline-flex;align-items:center">CORRUPTION &#x2197;</a>
 </div>
 <div id="nav-fade" style="position:absolute;right:0;top:0;bottom:0;width:28px;background:linear-gradient(to right,transparent,var(--bg2));pointer-events:none;display:none;z-index:10"></div>
 </div>
@@ -513,14 +515,14 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
     <div class="home-title">WHO RULES THE WORLD?</div>
     <div class="home-sub">A documented map of global elite power &middot; Court records &middot; FOIA &middot; SEC filings &middot; Verified journalism</div>
     <div class="home-stats">
-      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="109" data-suffix="">0</div><div class="home-stat-l">ACTORS PROFILED</div></div>
+      <div class="home-stat reveal-item"><div class="home-stat-n" data-count="120" data-suffix="">0</div><div class="home-stat-l">ACTORS PROFILED</div></div>
       <div class="home-stat reveal-item"><div class="home-stat-n" data-count="16" data-suffix="">0</div><div class="home-stat-l">POWER TIERS</div></div>
       <div class="home-stat reveal-item"><div class="home-stat-n" data-count="68" data-prefix="$" data-suffix="T+">$0T+</div><div class="home-stat-l">ASSETS MAPPED</div></div>
       <div class="home-stat reveal-item"><div class="home-stat-n" data-count="100" data-suffix="%">0%</div><div class="home-stat-l">PUBLIC RECORD</div></div>
     </div>
   </div>
   <div class="disclaimer">
-    <strong>DISCLAIMER</strong> -- This page presents information sourced exclusively from public records, declassified documents, court filings, SEC/Companies House filings, congressional testimony, and verified journalism. No original claims are made. AVIDAA is an independent knowledge platform with no political affiliation, no funding from any government or private entity, and no agenda beyond education. Documented facts (<span class="badge doc">&#x2713; DOCUMENTED</span>) and unproven allegations (<span class="badge unp">&#x2717; UNPROVEN</span>) are always explicitly separated.
+    <strong>COMPANION PAGE</strong> -- <a href="https://avidaa1.github.io/corruption/" style="color:#dc2626">AVIDAA CORRUPTION</a> documents what the legal record says these actors did: convictions, warrants, settlements, and who was never charged. This page maps who holds power. Same people, deliberately separate pages.<br><br><strong>DISCLAIMER</strong> -- This page presents information sourced exclusively from public records, declassified documents, court filings, SEC/Companies House filings, congressional testimony, and verified journalism. No original claims are made. AVIDAA is an independent knowledge platform with no political affiliation, no funding from any government or private entity, and no agenda beyond education. Documented facts (<span class="badge doc">&#x2713; DOCUMENTED</span>) and unproven allegations (<span class="badge unp">&#x2717; UNPROVEN</span>) are always explicitly separated.
   </div>
   <div class="how-grid">
     <div class="how-card reveal-item"><div class="how-icon">&#x25B2;</div><div class="how-title">THE PYRAMID</div><div class="how-desc">Interactive hierarchy from apex institutions down to crypto shadow networks. Click any node to open the full profile.</div></div>
@@ -558,7 +560,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
     <div style="background:var(--bg2);border:1px solid rgba(239,68,68,.3);border-left:3px solid #ef4444;border-radius:8px;padding:.85rem">
       <div style="font-size:13px;font-weight:700;color:var(--text)">US FEDERAL RESERVE</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Chair: <strong style="color:var(--text)">Jerome Powell</strong> (term as Chair expires May 2026; remains a Fed Governor until 2028 regardless of Chair reappointment). Board of Governors: 7 seats, each Senate-confirmed, staggered 14-year terms. Powell also holds a permanent ex officio seat on the BIS Board by law as sitting Fed Chair.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:.3rem">Chair: <strong style="color:var(--text)">Kevin Warsh</strong> -- sworn in 22 May 2026 as the 17th Fed Chair, succeeding Jerome Powell (54-45 Senate confirmation, narrowest margin since 1977). Powell remains a Fed Governor (seat runs to Jan 2028) but is no longer Chair. Board of Governors: 7 seats, each Senate-confirmed, staggered 14-year terms. Warsh now holds the permanent ex officio seat on the BIS Board that automatically attaches to the sitting Fed Chair.</div>
       <div style="font-size:11px;color:var(--muted2);margin-top:.3rem">Source: federalreserve.gov / 12 U.S.C. &sect;241-242</div>
     </div>
 
@@ -809,6 +811,7 @@ const TIER_META={
   5:{label:'TIER 5',title:'WAR ECONOMY',color:'#6b7280'},
   6:{label:'TIER 6',title:'POLITICAL POWER',color:'#10b981'},
   7:{label:'TIER 7',title:'CRYPTO SHADOW',color:'#f97316'},
+  '3c':{label:'TIER 3C',title:'CONSUMER / RETAIL / BANKING',color:'#0ea5e9'},
 };
 
 const ACTORS=[
@@ -826,7 +829,7 @@ const ACTORS=[
      {date:'1930',event:'Founded under the Hague Agreement to administer German WWI reparations (Young Plan)'},
    ],
    money:[{from:'Central Banks',arrow:'fund',to:'BIS',label:'Member contributions',source:'BIS Annual Report'}],
-   detail:'THE NAMED HUMANS BEHIND "63 CENTRAL BANKS" (as of July 2026): Board Chair -- Fabio Panetta, Governor of the Bank of Italy. General Manager (chief executive) -- Pablo Hernandez de Cos, former Governor of the Bank of Spain and former Chair of the Basel Committee on Banking Supervision (writes the capital rules binding every major bank on Earth). Deputy General Manager -- Andrea Maechler, Swiss National Bank Governing Board. Economic Adviser -- Hyun Song Shin (retiring Aug 2026, succeeded by Helene Rey). The Board itself: up to 18 seats, 6 held automatically (ex officio) by the sitting central bank governors of Belgium, France, Germany, Italy, the UK, and the United States -- meaning the sitting Federal Reserve Chair holds a permanent, non-elected seat on the BIS Board by law, alongside 11 elected governors from other member banks. The Global Economy Meeting and Economic Consultative Committee -- the two closed-door forums where the world\'s most powerful central bankers actually coordinate policy every two months -- is now chaired by ECB President Christine Lagarde, having just succeeded Fed Chair Jerome Powell. Sets Basel I-IV capital rules binding on banks worldwide. The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records. What remains genuinely undocumented: the internal deliberation content of GEM/ECC meetings is never published -- only the resulting standards are. This is the actual, sourced limit of transparency, not a claim of concealment beyond it.'
+   detail:'THE NAMED HUMANS BEHIND "63 CENTRAL BANKS" (as of July 2026): Board Chair -- Fabio Panetta, Governor of the Bank of Italy. General Manager (chief executive) -- Pablo Hernandez de Cos, former Governor of the Bank of Spain and former Chair of the Basel Committee on Banking Supervision (writes the capital rules binding every major bank on Earth). Deputy General Manager -- Andrea Maechler, Swiss National Bank Governing Board. Economic Adviser -- Hyun Song Shin (retiring Aug 2026, succeeded by Helene Rey). The Board itself: up to 18 seats, 6 held automatically (ex officio) by the sitting central bank governors of Belgium, France, Germany, Italy, the UK, and the United States -- meaning the sitting Federal Reserve Chair (Kevin Warsh, as of 22 May 2026) holds a permanent, non-elected seat on the BIS Board by law, alongside 11 elected governors from other member banks. The Global Economy Meeting and Economic Consultative Committee -- the two closed-door forums where the world\'s most powerful central bankers actually coordinate policy every two months -- is now chaired by ECB President Christine Lagarde, having just succeeded Fed Chair Jerome Powell. Sets Basel I-IV capital rules binding on banks worldwide. The BIS sets global banking standards via the Basel Committee. Private shareholders were bought out in 2001 -- the "BIS is privately owned" claim is refuted by the 2001 buyback and the Hague Arbitral Tribunal records. What remains genuinely undocumented: the internal deliberation content of GEM/ECC meetings is never published -- only the resulting standards are. This is the actual, sourced limit of transparency, not a claim of concealment beyond it.'
   },
   {id:'bilderberg',short:'Bilderberg',tier:-1,name:'Bilderberg Group',role:'Annual private conference of Western elites',metric:'~130 attendees per year &middot; Founded 1954 &middot; Chatham House Rule',source:'bilderbergmeetings.org',date:'2025',status:'doc',
    connections:['cfr','trilateral','wef','rockefeller','kissinger','dialog_society'],tags:['politics','apex','secretive'],
@@ -931,9 +934,12 @@ const ACTORS=[
   },
 
   // TIER 2
-  {id:'fed',short:'Federal Reserve',tier:'1b',name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241',date:'2025',status:'doc',
+  {id:'fed',short:'Federal Reserve',tier:'1b',name:'Federal Reserve System',role:'US central bank &middot; Created 1913',metric:'$7T+ balance sheet &middot; 12 Regional Reserve Banks &middot; Senate-confirmed board',source:'Federal Reserve / 12 U.S.C. &sect;241 / Fed press release May 15 2026',date:'2026-05-22',status:'doc',
    connections:['bis','blackrock','vanguard','warburg','rockefeller'],tags:['banking','finance','usa'],
    events:[
+     {date:'2026-05-22',event:'Kevin Warsh sworn in as 17th Fed Chair, succeeding Jerome Powell -- Senate confirmed 54-45, narrowest margin since the modern confirmation process began in 1977'},
+     {date:'2026-05-15',event:'Powell 8-year chairmanship ends; Fed Board names him "chair pro tempore" for the transition period; Powell remains a Fed Governor (seat runs to Jan 2028) -- denying Trump an immediate board majority'},
+     {date:'2026-04-29',event:'Senate Banking Committee votes 13-11 along party lines to advance Warsh nomination; Powell states Trump legal actions against the Fed are "unprecedented in our 113-year history"'},
      {date:'1913-12-23',event:'Federal Reserve Act signed by President Wilson'},
      {date:'1914',event:'Federal Reserve begins operations with Paul Warburg on first board'},
      {date:'1982',event:'Lewis v. United States (9th Cir.) -- called Reserve Banks "privately owned" only for FTCA purposes'},
@@ -1024,18 +1030,28 @@ const ACTORS=[
    money:[{from:'Gates Foundation',arrow:'donated',to:'WHO',label:'$4.0B (2010-2023)',source:'PubMed PMC12581034'},{from:'Gates Foundation',arrow:'donated',to:'GAVI',label:'$7.7B+ (1999-2024)',source:'CIDRAP'}],
    detail:'EPSTEIN CORRECTIVE: Documented meetings from 2011 onward (post-conviction). Viral "17 island visits" claim is FALSE -- flight logs show one flight to Palm Beach. No documented criminal association.'
   },
-  {id:'musk',short:'Elon Musk',tier:3,name:'Elon Musk',role:'Tesla &middot; SpaceX &middot; X &middot; xAI &middot; DOGE',metric:'$38B+ in US government contracts/subsidies &middot; Net worth ~$300B+',source:'Washington Post analysis Feb 2025',date:'2025-02-18',status:'doc',
+  {id:'musk',short:'Elon Musk',tier:3,name:'Elon Musk',role:'Tesla &middot; SpaceX &middot; X &middot; xAI &middot; DOGE -- world first trillionaire',metric:'Net worth $676B-$1.23T depending on index (Jun 2026) -- SpaceX IPO $1.77T valuation',source:'SEC S-1 filing May 20 2026 / Bloomberg / Forbes / TechCrunch Jun 2026',date:'2026-06-12',status:'doc',
    connections:['wef','thiel','altman','trump','pentagon','five_eyes'],tags:['tech','ai','politics'],
    events:[
-     {date:'2002',event:'SpaceX founded'},
-     {date:'2003',event:'Tesla Motors co-founded'},
-     {date:'2022-10',event:'Acquires Twitter for $44B; renames to X'},
-     {date:'2023',event:'xAI founded'},
+     {date:'2026-06-18',event:'Bloomberg Billionaires Index pegs net worth near $1.23T; Forbes ~$1.2T -- both mark-to-market post-IPO'},
+     {date:'2026-06-12',event:'Musk crosses $1 trillion net worth on SpaceX Nasdaq listing day (ticker SPCX) -- first individual in history to do so'},
+     {date:'2026-06',event:'Exercises 2018 Tesla pay package on 304M shares worth ~$116B; non-qualified options taxed as ordinary income, ~$45B estimated federal tax bill'},
+     {date:'2026-05-20',event:'SpaceX files SEC S-1 registration -- targets $1.75-2.0T IPO valuation, up to $75B raise -- consolidates SpaceX, xAI, and X into one public company'},
+     {date:'2026-02-28',event:'Delaware Supreme Court reinstates Musk 2018 Tesla compensation package after Jan 2026 lower-court block'},
+     {date:'2026-02-02',event:'SpaceX acquires xAI in all-stock deal valuing combined entity at ~$1.25T'},
+     {date:'2025-11',event:'Tesla shareholders approve new pay package potentially worth ~$1T tied to milestones: $8.5T market cap, 1M robotaxis, 1M Optimus robots deployed'},
+     {date:'2025-03',event:'xAI acquires X (formerly Twitter) in all-stock transaction'},
      {date:'2024',event:'Donates $288M to Trump/Republican campaigns -- FEC'},
-     {date:'2025',event:'Leads DOGE (Department of Government Efficiency) advisory role'},
+     {date:'2023',event:'xAI founded'},
+     {date:'2022-10',event:'Acquires Twitter for $44B; renames to X'},
+     {date:'2003',event:'Tesla Motors co-founded'},
+     {date:'2002',event:'SpaceX founded'},
    ],
-   money:[{from:'US Government',arrow:'contracts/subsidies',to:'SpaceX/Tesla',label:'$38B+ (2003-2025)',source:'Washington Post / USAspending.gov'}],
-   detail:'SpaceX President Gwynne Shotwell: "We bid it. We were the lowest price -- best bidder." Musk holds no security clearance per public record as of 2025.'
+   money:[
+     {from:'US Government',arrow:'contracts/subsidies',to:'SpaceX/Tesla',label:'$38B+ (2003-2025)',source:'Washington Post / USAspending.gov'},
+     {from:'SpaceX IPO',arrow:'raised',to:'SpaceX/xAI/X combined entity',label:'~$75B (Jun 12 2026, largest IPO in history)',source:'SEC S-1 / Nasdaq'},
+   ],
+   detail:'SpaceX priced its IPO at $135/share (~$1.77T valuation, more than 2.5x Saudi Aramco 2019 listing) -- the largest public offering in history, consolidating the rocket/Starlink business, the xAI lab (acquired Feb 2026), and X (acquired by xAI Mar 2025) under one ticker. Musk holds a ~38-43% stake reported across sources. Starlink: 10.3M+ subscribers across 160 countries by Mar 2026, up from 5.0M a year earlier. Composition of wealth shifted hard toward SpaceX (~70% of fortune) versus Tesla. Wealth gap to the second-richest person (reported as $250-400B+ depending on index) is the largest ever recorded between the top two individuals. Caveat carried from every source: the bulk of the trillion-dollar figure is illiquid, newly-public, IPO-lockup-restricted stock (90-180 day lockups) -- a Tesla or SpaceX pullback could erase hundreds of billions on paper as fast as it appeared. SpaceX President Gwynne Shotwell on government contracts: "We bid it. We were the lowest price -- best bidder."'
   },
   {id:'bezos',short:'Jeff Bezos',tier:3,name:'Jeff Bezos',role:'Amazon &middot; Blue Origin &middot; Washington Post',metric:'Amazon AWS: CIA C2S contract 2013 ~$600M &middot; Net worth ~$200B+',source:'FedScoop / Washington Post',date:'2025',status:'doc',
    connections:['wef','cfr','blackrock'],tags:['tech','media','finance'],
@@ -1367,7 +1383,7 @@ const ACTORS=[
   {id:'adani',tier:3,short:'Adani Group',name:'Adani Group -- Gautam Adani',role:'Indian conglomerate -- DOJ indicted Nov 2024',metric:'DOJ EDNY indictment Nov 2024 -- $250M bribe scheme -- net worth ~$70B',source:'DOJ EDNY / SEC Nov 2024',date:'2024-11-20',status:'doc',connections:['modi'],tags:['india','business','indictment'],events:[{date:'2023-01-24',event:'Hindenburg Research: 106-page report alleging stock manipulation and accounting fraud'},{date:'2024-11-20',event:'DOJ EDNY: 5-count indictment -- Gautam Adani charged with $250M+ bribe scheme to Indian officials for solar contracts + securities fraud'},{date:'2024-11-20',event:'SEC files parallel civil case against Adani Green Energy'}],money:[{from:'Adani Green Energy',arrow:'alleged bribes',to:'Indian state officials',label:'$250M+ (DOJ indictment)',source:'DOJ EDNY Nov 2024'}],detail:'Adani denied all charges. DOJ alleges scheme yielded $2B+ projected profit while raising $3B+ from US/international investors on false statements.'},
   {id:'modi',tier:6,short:'Modi / India',name:'Narendra Modi',role:'Indian PM -- BJP -- nuclear state ~180 warheads',metric:'PM since 2014 -- 3rd term 2024 -- 1.4B population -- SIPRI: 180 warheads (2025)',source:'Election Commission of India / SIPRI 2025',date:'2024',status:'doc',connections:['adani','brics','wef'],tags:['india','politics','nuclear'],events:[{date:'2014',event:'Modi elected PM'},{date:'2019',event:'India ASAT test (Mission Shakti) -- destroys own satellite at 300km'},{date:'2024',event:'Modi wins 3rd term -- BJP coalition -- 640M voters'}],money:[],detail:'India nuclear arsenal: ~180 warheads (SIPRI 2025) -- overtook Pakistan. India is Quad member (US/Japan/Australia) and maintains strategic autonomy -- buying Russian oil post-2022 while maintaining US defense ties.'},
   // ISRAEL
-  {id:'mossad',tier:'0c',short:'Mossad',name:'Mossad / Unit 8200',role:'Israeli intelligence -- documented assassinations -- NSO Group',metric:'~90 warheads (SIPRI 2025) -- NSO $168M US jury verdict May 2025',source:'UK PKI / SIPRI 2025 / WhatsApp v NSO jury May 2025',date:'2025',status:'doc',connections:['aipac','netanyahu'],tags:['israel','intelligence','surveillance'],events:[{date:'1972',event:'Operation Wrath of God -- Mossad hunts Munich massacre perpetrators'},{date:'2010-01-19',event:'Mahmoud al-Mabhouh assassinated in Dubai -- Dubai police identify 26 suspects using forged Western passports -- name Mossad'},{date:'2021-11',event:'NSO Group added to US Commerce Entity List'},{date:'2025-05-06',event:'US federal jury: NSO pays $167.3M punitive + $444,719 compensatory to WhatsApp -- first US jury verdict against commercial spyware firm'}],money:[],detail:'Unit 8200 alumni founded Check Point, CyberArk, and Waze. NSO Pegasus documented targeting 50,000+ phones (Forbidden Stories/Amnesty 2021). Israel Dimona: ~90 undeclared warheads (SIPRI).'},
+  {id:'mossad',tier:'0c',short:'Mossad',name:'Mossad / Unit 8200',role:'Israeli intelligence -- documented assassinations -- NSO Group -- led Iran operations 2025-2026',metric:'~90 warheads (SIPRI 2025) -- NSO $168M US jury verdict May 2025 -- director transition Dec 2025-Jun 2026',source:'UK PKI / SIPRI 2025 / WhatsApp v NSO jury May 2025 / Israel PMO press releases',date:'2026',status:'doc',connections:['aipac','netanyahu','shin_bet'],tags:['israel','intelligence','surveillance'],events:[{date:'2026-06-02',event:'David Barnea completes 5-year term as Mossad Director (assumed office 1 Jun 2021) -- JPost: transformed agency into "war-fighting juggernaut"'},{date:'2026-02-28',event:'Joint US-Israel operation against Iran begins -- Israeli codename Roaring Lion, US codename Epic Fury -- Mossad/CIA coordination per multiple defense-press accounts'},{date:'2025-12-04',event:'PM Netanyahu formally decides to appoint his own Military Secretary, Maj-Gen Roman Gofman, as next Mossad Director -- Israel PMO press release'},{date:'2025-06',event:'Operation Rising Lion -- Mossad-led intelligence/sabotage campaign against Iranian nuclear program preceding direct strikes -- Barnea: "acquired strategic and tactical intelligence from the heart of the enemy secrets"'},{date:'2021-11',event:'NSO Group added to US Commerce Entity List'},{date:'2025-05-06',event:'US federal jury: NSO pays $167.3M punitive + $444,719 compensatory to WhatsApp -- first US jury verdict against commercial spyware firm'},{date:'2010-01-19',event:'Mahmoud al-Mabhouh assassinated in Dubai -- Dubai police identify 26 suspects using forged Western passports -- name Mossad'},{date:'1972',event:'Operation Wrath of God -- Mossad hunts Munich massacre perpetrators'}],money:[],detail:'Unit 8200 alumni founded Check Point, CyberArk, and Waze. NSO Pegasus documented targeting 50,000+ phones (Forbidden Stories/Amnesty 2021). Israel Dimona: ~90 undeclared warheads (SIPRI). Leadership: David Barnea (dir. 2021-2026) succeeded by Roman Gofman, a former Netanyahu military secretary directly appointed by the PM -- a documented pattern of the Prime Minister placing personal staff atop the intelligence services, mirrored at Shin Bet (see shin_bet entry).'},
   {id:'aipac',tier:'0c',short:'AIPAC',name:'AIPAC',role:'Largest pro-Israel lobby in US -- $95M+ 2024 elections',metric:'$95.1M+ in 2024 US elections -- defeated Reps. Bowman and Bush',source:'OpenSecrets/FEC 2024',date:'2024',status:'doc',connections:['mossad'],tags:['israel','lobbying','usa'],events:[{date:'2022',event:'AIPAC launches United Democracy Project super PAC'},{date:'2024',event:'UDP: $14.6M against Rep. Bowman (defeated) -- $8.6M against Rep. Bush (defeated)'},{date:'2024',event:'Total AIPAC ecosystem: $95.1M+ (OpenSecrets)'}],money:[{from:'AIPAC donors',arrow:'super PAC',to:'US Congressional races',label:'$95.1M+ (2024)',source:'OpenSecrets/FEC'}],detail:'AIPAC is the most powerful foreign-policy lobby in the US by documented electoral spending. Its super PAC targeted progressive critics with unprecedented spending in 2024.'},
   // IRAN
   {id:'irgc',tier:6,short:'IRGC / Khamenei',name:'IRGC / Khamenei / Setad',role:'Supreme Leader -- Setad $95B+ -- IRGC proxy network',metric:'Setad: ~$95B (Reuters 2013) -- IRGC FTO-designated Apr 2019 -- Hezbollah/Hamas/Houthis proxies',source:'Reuters Oct 2013 / State Dept FTO Apr 2019 / US Treasury SDGT',date:'2024',status:'doc',connections:['kimjongun','putin'],tags:['iran','military','sanctions'],events:[{date:'2013-10',event:'Reuters: Setad (EIKO) at ~$95B -- built on confiscated property'},{date:'2019-04-15',event:'US designates IRGC as FTO -- first time part of foreign govt named FTO'},{date:'2024-02-16',event:'Houthis (Ansarallah) designated SDGT'},{date:'2024',event:'Iran enriching uranium to 60% purity -- IAEA documented'}],money:[],detail:'IRGC controls estimated one-third to 50%+ of Irans GDP (contested -- deliberate opacity). Setad built on confiscated minority/political-opponent property. APT33/34/35 are documented Iranian cyber units (DOJ indictments).'},
@@ -1389,7 +1405,7 @@ const ACTORS=[
   ,{id:'ftx',tier:7,short:'FTX/SBF',name:'FTX / Sam Bankman-Fried',role:'Collapsed crypto exchange -- largest crypto fraud in history',metric:'25 years sentenced -- $11B forfeiture -- Judge Kaplan Mar 28 2024',source:'DOJ SDNY / NBC New York Mar 2024',date:'2024-03-28',status:'doc',connections:['tether','altman','binance'],tags:['crypto','fraud','conviction'],events:[{date:'2023-11',event:'SBF convicted on 7 counts'},{date:'2024-03-28',event:'SBF sentenced: 25 years + $11B forfeiture'}],money:[],detail:'$8B+ in customer funds misused. $40M+ in documented 2022-cycle political donations.'}
   ,{id:'binance',tier:7,short:'Binance/CZ',name:'Binance / CZ (Changpeng Zhao)',role:'World largest crypto exchange -- DOJ guilty plea 2023',metric:'$4.3B DOJ settlement Nov 2023 -- CZ: 4 months prison Apr 2024',source:'DOJ Nov 2023 / Reuters',date:'2024',status:'doc',connections:['tether'],tags:['crypto','money-laundering','conviction'],events:[{date:'2023-11',event:'Binance pleads guilty -- $4.3B settlement'},{date:'2024-04',event:'CZ sentenced to 4 months prison'}],money:[],detail:'Processed $898M+ in transactions with sanctioned entities. Largest crypto exchange by volume.'}
   ,{id:'lazarus',tier:7,short:'Lazarus Group',name:'Lazarus Group / DPRK',role:'North Korea state hacking unit -- crypto theft funds weapons program',metric:'$6.75B cumulative crypto theft -- $2.02B in 2025 alone -- Bybit $1.5B Feb 2025',source:'Chainalysis 2025 / FBI Feb 2025 / OFAC Apr 2022',date:'2025',status:'doc',connections:['kimjongun','tether'],tags:['northkorea','hacking','crypto'],events:[{date:'2022-03',event:'Ronin Network $625M hack -- OFAC attributes to Lazarus (Apr 2022)'},{date:'2025-02-21',event:'Bybit $1.5B hack -- largest single crypto heist ever -- FBI attribution'}],money:[{from:'Lazarus Group',arrow:'hacked',to:'Global crypto exchanges',label:'$6.75B cumulative',source:'Chainalysis 2025'}],detail:'Lazarus Group operates under DPRK Reconnaissance General Bureau. Funds North Korea nuclear/missile program through crypto theft. $2.02B stolen in 2025 -- 76% of all service compromises globally that year.'}
-  ,{id:'netanyahu',tier:'0c',short:'Netanyahu',name:'Benjamin Netanyahu',role:'Israeli PM -- ICC arrest warrant Nov 2024',metric:'ICC arrest warrant Nov 2024 -- war crimes/crimes against humanity',source:'ICC Pre-Trial Chamber I Nov 21 2024',date:'2024-11-21',status:'doc',connections:['mossad','aipac'],tags:['israel','politics','icc'],events:[{date:'2024-11-21',event:'ICC issues arrest warrant for Netanyahu and former Def Min Gallant'},{date:'2025',event:'US sanctions ICC officials over investigation (reported)'}],money:[],detail:'ICC Pre-Trial Chamber I: arrest warrant issued for Netanyahu on charges relating to use of starvation as war method. Israel contests ICC jurisdiction.'}
+  ,{id:'netanyahu',tier:'0c',short:'Netanyahu',name:'Benjamin Netanyahu',role:'Israeli PM -- ICC arrest warrant Nov 2024 -- Shin Bet dismissal crisis 2025',metric:'ICC arrest warrant Nov 2024 -- war crimes/crimes against humanity -- warrant-signing prosecutor Khan removed from ICC office Jul 2026 -- domestic trial testimony concluded Jun 2026, no verdict -- attempted removal of sitting Shin Bet chief Mar 2025',source:'ICC Pre-Trial Chamber I Nov 21 2024 / Israel PMO / Lawfare Apr 2025',date:'2026',status:'doc',connections:['mossad','aipac','shin_bet','israel_katz'],tags:['israel','politics','icc'],events:[{date:'2026-08-06',event:'JPost: "As Netanyahu tenure draws to a close, his record is one of internal division, international isolation, and the worst security catastrophe in the country history" (opinion/analysis piece, reported here as journalistic characterization not established fact)'},{date:'2026-07-24',event:'Karim Khan, the ICC prosecutor who signed the Netanyahu/Gallant warrant, is removed from ICC office by member-state vote (82-13-15) over unrelated sexual misconduct findings -- an independent judicial panel had cleared him in Mar 2026 before the ASP Bureau overruled that finding. His lawyers call the process politically compromised'},{date:'2026-06',event:'Netanyahu corruption-trial testimony concludes after 98 hearings over 1.5 years; he calls it "10 years of hell." No verdict reached'},{date:'2025-12-04',event:'Netanyahu appoints his own Military Secretary, Maj-Gen Roman Gofman, as next Mossad Director'},{date:'2025-04',event:'Ronen Bar (Shin Bet chief) submits resignation after Netanyahu-cabinet dismissal attempt; effective Jun 15 2025'},{date:'2025-03-20',event:'Israeli cabinet votes unanimously to dismiss sitting Shin Bet Director Ronen Bar -- first such removal attempt in Israeli history -- Netanyahu cites "lost trust"; High Court of Israel suspends the firing pending review'},{date:'2024-11-21',event:'ICC issues arrest warrant for Netanyahu and then-Defense Minister Yoav Gallant on war-crimes/crimes-against-humanity charges relating to use of starvation as war method'},{date:'2024-11',event:'Netanyahu fires Defense Minister Yoav Gallant -- replaced by Israel Katz -- reported as tied to war-conduct disputes rather than the ICC case'},{date:'2025',event:'US sanctions ICC officials over investigation (reported)'}],money:[],detail:'ICC Pre-Trial Chamber I: arrest warrant issued for Netanyahu on charges relating to use of starvation as war method. Israel contests ICC jurisdiction. Separately and domestically: the Ronen Bar dismissal fight (Mar-Jun 2025) marked the first attempted removal of a sitting Shin Bet director by a sitting PM in Israeli history, explicitly tied by Bar and press coverage to the agency ongoing investigation into Netanyahu staff ("Qatargate") and to Oct 7 accountability disputes. Both the Mossad and Shin Bet transitions of 2025-2026 installed successors with direct personal/professional ties to Netanyahu (Gofman was his military secretary).'}
   // ============================================================
   // AI TECH GIANTS -- DOCUMENTED POWER POSITIONS 2025-2026
   // ============================================================
@@ -1898,6 +1914,161 @@ const ACTORS=[
     money:[],
     detail:'The only documented members reported here are those published in official Catholic sources (Romana bulletin, Vatican directories) or verified by mainstream press -- e.g. Joaquin Navarro-Valls, who ran the Vatican Press Office for 22 years while a numerary Opus Dei member. Opus Dei maintains separate unpublished lists of "cooperators" (non-member supporters, not Catholic-required) which are NOT included here as they are not public record.'
   }
+  ,{id:'shin_bet',tier:'0c',short:'Shin Bet',name:'Shin Bet / Israel Security Agency',
+    role:'Israeli domestic intelligence -- 2025 dismissal crisis -- first-ever removal attempt of a sitting director',
+    metric:'Ronen Bar dismissed by cabinet vote Mar 20 2025 -- High Court suspended it -- resignation effective Jun 15 2025',
+    source:'Lawfare Apr 2025 / Tablet Magazine / Times of Israel / Israel PMO',date:'2026',status:'doc',
+    connections:['netanyahu','mossad'],tags:['israel','intelligence','domestic-security'],
+    events:[
+      {date:'2026',event:'David Zini serving as Shin Bet Director -- oversight disputes continue into 2026 (LGBT-events policy, deputy appointments) per Israel National News reporting'},
+      {date:'2025-06-15',event:'Ronen Bar resignation takes effect -- interim director ("S.", deputy since Jan 2025) takes over amid ongoing Iran war'},
+      {date:'2025-04',event:'Bar submits formal resignation after his dismissal is contested in court'},
+      {date:'2025-03-31',event:'Netanyahu names retired Vice Admiral Eli Sharvit as intended next director (later superseded by David Zini appointment)'},
+      {date:'2025-03-20',event:'Israeli cabinet votes UNANIMOUSLY to dismiss sitting director Ronen Bar -- first such vote in the agency history -- Netanyahu cites "lost trust"'},
+      {date:'2025-03-20',event:'High Court of Israel suspends the dismissal pending judicial review -- immediate constitutional-crisis coverage in Israeli and international press'},
+      {date:'2024-10-16',event:'Bar emails Shin Bet staff taking institutional responsibility for intelligence failures preceding the Oct 7 2023 Hamas attack'},
+      {date:'2021-10-13',event:'Ronen Bar assumes office as Shin Bet Director, appointed by PM Naftali Bennett'},
+    ],
+    money:[],
+    detail:'The Shin Bet dismissal fight is one of the most direct documented instances globally of an elected executive attempting to remove a sitting intelligence chief who was actively investigating that executive staff. Bar stated publicly that his firing was connected to a Shin Bet probe into Netanyahu aides (dubbed "Qatargate" in Israeli press) and to disputes over Oct 7 accountability. The Israeli High Court intervention -- an independent judiciary blocking an elected PM removal of a security-service head -- is itself a documented separation-of-powers test case, referenced explicitly by Tablet Magazine as Netanyahu fight against Israel "deep state." Zini, the eventual director, has drawn separate controversy for internal policy changes (removing LGBT-related agency activities) reported by Israel National News in 2026.'
+  }
+  ,{id:'israel_katz',tier:'0c',short:'Israel Katz',name:'Israel Katz',
+    role:'Israeli Defense Minister -- replaced Gallant Nov 2024 -- extensive multi-portfolio career',
+    metric:'Defense Minister since Nov 2024 -- prior: Foreign, Energy, Transportation, Agriculture, Intelligence, Finance Minister',
+    source:'Jerusalem Post tag archive / Israel PMO',date:'2026',status:'doc',
+    connections:['netanyahu','shin_bet'],tags:['israel','politics','military'],
+    events:[
+      {date:'2026-07-14',event:'Katz gestures during Knesset plenum vote on bill to freeze arrests of Haredi draft evaders -- coalition tension over ultra-Orthodox military exemption'},
+      {date:'2026-02-20',event:'Public clash reported with IDF Central Command over West Bank checkpoint policy and personnel -- Katz denies calling for a general dismissal on live TV'},
+      {date:'2024-11',event:'Appointed Defense Minister following Netanyahu dismissal of Yoav Gallant -- reported as tied to disputes over war conduct'},
+    ],
+    money:[],
+    detail:'Israel Katz has held an unusually broad span of Israeli cabinet portfolios across his career: Transportation, Agriculture, Intelligence, Finance, Energy, Foreign Affairs, and now Defense -- a documented pattern of being repeatedly retained across changing coalition configurations. As Defense Minister he has designated multiple Hamas-linked media platforms as terror organizations citing Shin Bet intelligence, and has been publicly involved in disputes over West Bank military command decisions during 2026.'
+  }
+  ,{id:'wzo',tier:'0c',short:'World Zionist Org',name:'World Zionist Organization (WZO)',
+    role:'Zionist political movement (not a religion) -- state-funded Settlement Division -- documented illegal-outpost funding',
+    metric:'Founded 1897 -- 50% voting control of Jewish Agency -- Settlement Division budget from Israeli state treasury',
+    source:'Sasson Report 2005 (Israeli govt-commissioned) / Haaretz / Powerbase / Times of Israel Nov 2025',date:'2026',status:'doc',
+    connections:['netanyahu','israel_katz'],tags:['israel','zionism','politics','settlements'],
+    events:[
+      {date:'2026-01',event:'Ifat Ovadia-Luski appointed head of WZO Department for Combating Antisemitism after ending term as Jewish National Fund chair'},
+      {date:'2025-11-25',event:'Final power-sharing agreement ratified: Rabbi Doron Perez (World Mizrachi movement chairman) becomes WZO President succeeding Tova Dorfman; Yaakov Hagoel continues as Chairman; departments expanded from 14 to 20'},
+      {date:'2025-11',event:'Coalition deal explicitly excludes PM Netanyahu son Yair Netanyahu and allies of far-right minister Itamar Ben Gvir from senior positions after weeks of public negotiation'},
+      {date:'2025-10-28',event:'39th World Zionist Congress opens in Jerusalem -- delegates elect WZO leadership for new 5-year term'},
+      {date:'2020',event:'Yaakov Hagoel elected WZO Chairman, succeeding Avraham Duvdevani'},
+      {date:'2012',event:'Haaretz: WZO Settlement Division funds NIS 400,000 of infrastructure work at the Negohot West Bank outpost despite work being carried out without permits -- illegal under Israeli law itself, not only international law'},
+      {date:'2005',event:'Israeli government-commissioned Sasson Report finds WZO Settlement Division regularly funded illegal construction across multiple West Bank locations; Attorney General Menachem Mazuz subsequently orders a bar on public funds for illegal construction'},
+      {date:'1897-08-29',event:'First Zionist Congress convened by Theodor Herzl in Basel, Switzerland -- WZO founded as the political organization of the Zionist movement, predating the State of Israel by 51 years'},
+    ],
+    money:[{from:'Israeli state treasury',arrow:'funds',to:'WZO Settlement Division',label:'Grown annually -- NIS 60M (2012 budget) to NIS 272M (2012 actual)',source:'Powerbase / Haaretz reporting'}],
+    detail:'The WZO is a political organization, not a religious body -- membership and leadership are determined by an international Zionist Congress with federated delegates from 31+ countries, not by any synagogue or religious authority. It should not be confused with Judaism as a religion: the WZO explicitly represents a political ideology (a Jewish nation-state) that a portion of religious and secular Jews support and a portion do not, and that includes non-Jewish adherents (Christian Zionism is a distinct, separately documented US political bloc). The WZO holds 50% voting control of the Jewish Agency for Israel governing bodies (JFNA/UIA holds 30%, Keren Hayesod 20%). Its Settlement Division is funded directly by the Israeli state and its funding of construction later found illegal even under Israeli law (per Israel own government-commissioned 2005 Sasson Report) is among the most concrete documented links between formal Zionist political institutions and West Bank settlement expansion. The Nov 2025 leadership deal explicitly blocked Netanyahu own son and a rival far-right faction from senior positions -- reported by Times of Israel as evidence of internal factional limits even within the movement own institutions.'
+  }
+  // ============================================================
+  // TIER 3C -- CONSUMER / RETAIL / BANKING (everyday brands, same apex owners)
+  // ============================================================
+  ,{id:'mcdonalds',tier:'3c',short:'McDonald\'s',name:'McDonald\'s Corporation',
+    role:'45,356 restaurants in 100+ countries -- ~95% franchise-operated',
+    metric:'$220B+ market cap -- Vanguard ~10% ($21B), BlackRock, State Street top-3 holders',
+    source:'McDonald\'s 2026 proxy statement / SEC 13G filings',date:'2025-10',status:'doc',
+    connections:['blackrock','vanguard','statestreet'],tags:['consumer','food','retail'],
+    events:[
+      {date:'2025-10',event:'Vanguard holds 71M+ shares ($21B, ~10%) -- largest single institutional holder per 2026 proxy statement'},
+      {date:'2024',event:'Chris Kempczinski serves as CEO and Chairman'},
+      {date:'1965',event:'McDonald\'s IPO at $22.50/share, NYSE'},
+      {date:'1955',event:'Ray Kroc opens first franchised location, Des Plaines IL'},
+    ],
+    money:[],
+    detail:'Corporation collects rent, royalties, and franchise fees; ~95% of restaurants run by independent local operators, not the corporation itself. Top 5%+ beneficial owners: Vanguard, BlackRock, State Street -- the same three asset managers that top the shareholder tables of nearly every S&P 500 company, per SEC 13G/proxy filings. No single person, family, or private entity controls the company.'
+  }
+  ,{id:'pepsico',tier:'3c',short:'PepsiCo',name:'PepsiCo Inc.',
+    role:'Beverages + snacks -- Pepsi, Frito-Lay, Gatorade, Quaker',
+    metric:'~$92B 2024 revenue -- Vanguard ~10% ($19.2B), BlackRock ~8.5%, State Street 3rd',
+    source:'SEC 13G filings Q3 2025 / company disclosures',date:'2025-09',status:'doc',
+    connections:['blackrock','vanguard','statestreet'],tags:['consumer','food','retail'],
+    events:[
+      {date:'2025-09',event:'Vanguard 10% ($19.22B), BlackRock ~116M shares (~8.5%, $ value undisclosed here), State Street 3rd-largest holder -- Q3 2025 13G filings'},
+      {date:'2024-2025',event:'Acquires Poppi ($1.65B) and Siete Foods ($1.2B)'},
+      {date:'1965',event:'Pepsi-Cola and Frito-Lay merge to form PepsiCo'},
+      {date:'1931',event:'Founder Caleb Bradham loses the original Pepsi-Cola business in bankruptcy'},
+    ],
+    money:[],
+    detail:'Institutional investors hold ~75% of total shares. Insider ownership under 1% -- no founding family retains a meaningful stake since the 1965 merger. Vanguard and BlackRock hold their stakes primarily through S&P 500 index funds that must hold every index component -- not as an active, deliberate bet on PepsiCo specifically.'
+  }
+  ,{id:'cocacola',tier:'3c',short:'Coca-Cola',name:'The Coca-Cola Company',
+    role:'Worlds largest beverage company -- 200+ brands',
+    metric:'Warren Buffett/Berkshire Hathaway = largest shareholder -- Vanguard 7.55%, BlackRock 4.13%',
+    source:'AAP FactCheck Feb 2025 / SEC filings',date:'2025-02',status:'doc',
+    connections:['buffett','vanguard','blackrock'],tags:['consumer','food','retail'],
+    events:[
+      {date:'2025-02',event:'Confirmed ownership: Buffett/Berkshire Hathaway largest shareholder; Vanguard 7.55% (2nd); BlackRock 4.13% (3rd) -- AAP FactCheck analysis'},
+      {date:'1988',event:'Buffett/Berkshire Hathaway begins accumulating Coca-Cola stock -- becomes one of his most famous long-term holdings'},
+      {date:'1886',event:'Coca-Cola invented by pharmacist John Pemberton, Atlanta'},
+    ],
+    money:[],
+    detail:'Unusual among mega-cap consumer stocks: an individual investor (Buffett, via Berkshire Hathaway) holds the single largest stake rather than an index fund -- one of the most famous and longest-held positions in Berkshire\'s portfolio. Vanguard and BlackRock remain the 2nd and 3rd largest holders, consistent with the pattern across nearly all S&P 500 companies.'
+  }
+  ,{id:'cvs_health',tier:'3c',short:'CVS Health',name:'CVS Health Corporation',
+    role:'Largest US pharmacy chain -- CVS Pharmacy, Aetna insurance, CVS Caremark',
+    metric:'86.5% institutionally owned -- BlackRock ~9.4%, Vanguard ~9.3%, Capital Research ~8-9%',
+    source:'SEC DEF 14A proxy filings 2021-2026 / WallStreetZen',date:'2025-12',status:'doc',
+    connections:['blackrock','vanguard','statestreet'],tags:['consumer','pharma','healthcare','retail'],
+    events:[
+      {date:'2025-12',event:'Vanguard ~118.9M shares (~9.3%), BlackRock ~119.6M shares (~9.4%) -- roughly tied for largest holder'},
+      {date:'2026-04-29',event:'Vanguard Capital Management SEC Schedule 13G confirms 7.51% direct stake as of Mar 31 2026 (separate from broader Vanguard Group aggregate)'},
+      {date:'2024',event:'BlackRock 6.80% (87M shares) per FY2024 proxy -- Vanguard 9.14% (117.7M shares)'},
+      {date:'2017',event:'BlackRock 6.2%, Vanguard 7.0% -- earliest comparable proxy disclosure'},
+    ],
+    money:[],
+    detail:'CVS Health owns CVS Pharmacy, Aetna (health insurance), and CVS Caremark (pharmacy benefit manager) -- vertical integration across the entire US prescription-drug pipeline from insurance to pharmacy benefit management to retail dispensing. BlackRock and Vanguard stakes have both climbed steadily from ~6-7% (2017) to ~9-10% (2025-26) as index-fund assets under management have grown industry-wide.'
+  }
+  ,{id:'kroger',tier:'3c',short:'Kroger',name:'The Kroger Co.',
+    role:'Largest traditional US supermarket chain by revenue',
+    metric:'BlackRock 10.18% (largest), Vanguard 9.44%',
+    source:'SEC 13G aggregated ownership data',date:'2025',status:'doc',
+    connections:['blackrock','vanguard'],tags:['consumer','retail','supermarket'],
+    events:[
+      {date:'2025',event:'BlackRock confirmed as largest institutional shareholder at 10.18%, Vanguard 2nd at 9.44%'},
+      {date:'1883',event:'Barney Kroger opens first grocery store, Cincinnati Ohio'},
+    ],
+    money:[],
+    detail:'Same Big Three ownership pattern as McDonald\'s, PepsiCo, and CVS -- BlackRock and Vanguard index funds are structurally required to hold Kroger shares as an S&P 500 component, regardless of active investment conviction.'
+  }
+  ,{id:'jpmorgan_chase',tier:'3c',short:'JPMorgan Chase',name:'JPMorgan Chase & Co.',
+    role:'Largest US bank by assets',
+    metric:'Vanguard 8.81%, State Street 6.60%, BlackRock 4.74%',
+    source:'SEC 13G aggregated ownership data',date:'2025',status:'doc',
+    connections:['vanguard','statestreet','blackrock','morgan'],tags:['finance','banking'],
+    events:[
+      {date:'2025',event:'Vanguard confirmed largest institutional holder at 8.81%, State Street 6.60%, BlackRock 4.74%'},
+      {date:'2000',event:'J.P. Morgan & Co. merges with Chase Manhattan to form JPMorgan Chase'},
+    ],
+    money:[],
+    detail:'Modern JPMorgan Chase traces its name to the historic Morgan banking dynasty (see the "morgan" entry, Tier 0) but is a distinct, separately-owned, index-fund-dominated public corporation today -- the founding family holds no meaningful controlling stake.'
+  }
+  ,{id:'bank_of_america',tier:'3c',short:'Bank of America',name:'Bank of America Corporation',
+    role:'2nd-largest US bank by assets',
+    metric:'Warren Buffett/Berkshire Hathaway largest shareholder at 12.00% -- Vanguard 7.40%, BlackRock 6.15%',
+    source:'SEC 13G aggregated ownership data',date:'2025',status:'doc',
+    connections:['buffett','vanguard','blackrock'],tags:['finance','banking'],
+    events:[
+      {date:'2025',event:'Berkshire Hathaway confirmed as largest shareholder at 12.00% -- Vanguard 7.40% (2nd), BlackRock 6.15% (3rd)'},
+      {date:'2011',event:'Buffett/Berkshire invests $5B in Bank of America preferred stock following the financial crisis, later converts to common stock'},
+    ],
+    money:[],
+    detail:'Like Coca-Cola, Bank of America is one of the rare mega-caps where an individual investor (Buffett) outranks BlackRock and Vanguard as the single largest shareholder -- a documented pattern that recurs specifically among Buffett\'s highest-conviction long-term Berkshire Hathaway holdings.'
+  }
+  ,{id:'walmart_corp',tier:'3c',short:'Walmart Corp',name:'Walmart Inc. (Corporation)',
+    role:'Worlds largest retailer by revenue -- distinct entry from the Walton family',
+    metric:'BlackRock ~4.71% -- Walton family retains ~46% founding stake (see walton entry)',
+    source:'SEC 13G filings / Forbes 2024',date:'2024',status:'doc',
+    connections:['blackrock','vanguard','walton'],tags:['consumer','retail','supermarket'],
+    events:[
+      {date:'2024',event:'BlackRock confirmed institutional holder at ~4.71% -- smaller proportional stake than at McDonald\'s/Pepsi/CVS/Kroger because the Walton family retains ~46% founding-family ownership, leaving less float for index funds to accumulate'},
+      {date:'1962',event:'First Walmart store opens, Rogers Arkansas'},
+    ],
+    money:[],
+    detail:'Walmart is the exception that proves the rule: because the Walton family (see separate "walton" entry, Tier 3) still holds ~46% of shares directly, BlackRock/Vanguard index-fund stakes are proportionally smaller here than at McDonald\'s, PepsiCo, CVS, or Kroger -- where no founding family retains meaningful ownership and index funds fill nearly the entire top of the shareholder table instead.'
+  }
 ];
 
 // ============================================================
@@ -2068,6 +2239,8 @@ const CRYPTOS=[
 // SOURCES DATA
 // ============================================================
 const SOURCES=[
+  {actor:'World Zionist Organization',doc:'Sasson Report 2005 -- Israeli govt-commissioned finding on illegal outpost funding',url:'https://en.wikipedia.org/wiki/World_Zionist_Organization',date:'2005'},
+  {actor:'Federal Reserve',doc:'Fed Board names Powell chair pro tempore -- transition to Warsh',url:'https://www.federalreserve.gov/newsevents/pressreleases/other20260515a.htm',date:'2026-05-15'},
   {actor:'Dialog Society',doc:'Leak Exposes Members of Dialog Society -- Wired',url:'https://www.wired.com/story/leak-exposes-members-of-peter-thiels-secretive-dialog-society/',date:'2026-06-16'},
   {actor:'Peter Thiel / Dialog',doc:'Cato Unbound -- Freedom and democracy incompatible',url:'https://www.cato-unbound.org/2009/04/13/peter-thiel/education-libertarian',date:'2009'},
   {actor:'BIS',doc:'BIS Member Central Banks list',url:'https://www.bis.org/about/member_cb.htm',date:'2025'},
@@ -2183,6 +2356,8 @@ const POWER_INDEX={
   'openai':88,'anthropic_co':82,'nvidia_ai':91,'microsoft_ai':85,'google_ai':86,'xai_musk':75,
   'pentagon':88,'five_eyes':85,'nato':76,'palantir':72,'aramco':74,'imf_wb':79,'skull_bones':55,'bank_of_england':70,
   'dialog_society':74,
+  'shin_bet':73,'israel_katz':68,'wzo':66,
+  'mcdonalds':58,'pepsico':56,'cocacola':60,'cvs_health':57,'kroger':52,'jpmorgan_chase':84,'bank_of_america':79,'walmart_corp':61,
   'rtx':80,'northrop':78,'general_dynamics':76,'boeing_defense':74,
   'bohemian_grove':71,'rosatom':77,'roscosmos':70,
   'avic':81,'norinco':73,'cssc':72,
@@ -2406,7 +2581,7 @@ function _drawPyramid(canvasW){
     {t:0,actors:['putin','fsb_gru','oligarchs','gazprom','wagner','rosatom','roscosmos']},
     {t:0,actors:['five_eyes','nro']},
     {t:0,actors:['adia','qia','kia','cic','abcd_grain']},
-    {t:'0c',actors:['mossad','aipac','netanyahu']},
+    {t:'0c',actors:['mossad','aipac','netanyahu','shin_bet','israel_katz','wzo']},
     {t:'0b',actors:['asml','tsmc','swift','starlink']},
     {t:'0d',actors:['openai','anthropic_co','nvidia_ai','microsoft_ai','google_ai','xai_musk']},
     {t:'1b',actors:['vatican','fed','blackrock','vanguard','statestreet','blackstone','apollo_global','carlyle','opus_dei']},
@@ -2415,6 +2590,8 @@ function _drawPyramid(canvasW){
     {t:3,actors:['gates','musk','bezos','zuckerberg','altman','thiel']},
     {t:3,actors:['page_brin','buffett','bloomberg','walton','macken','ellison_l']},
     {t:3,actors:['adani','bezos_earth','huawei','chan_zuckerberg']},
+    {t:'3c',actors:['mcdonalds','pepsico','cocacola','cvs_health']},
+    {t:'3c',actors:['kroger','jpmorgan_chase','bank_of_america','walmart_corp']},
     {t:'3b',actors:['sackler','johnson','wellcome','turner']},
     {t:4,actors:['epstein','maxwell','wexner','andrew']},
     {t:'4b',actors:['windsor','saud']},
