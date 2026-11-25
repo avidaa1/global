@@ -1,0 +1,4 @@
+Ignored-in-meta lines removed:
+<meta http-equiv="X-Frame-Options" content="DENY">
+
+CSP token: frame-ancestors 'none'
